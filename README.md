@@ -26,6 +26,7 @@ I think it's possible to have that initial functionality without any additional 
 ## Roadmap and Aspirations
 
 - [ ] Basic collection folow
+- [ ] Create Google Chrome Dev Account and publish the extension
 - [ ] Data persistence
 - [ ] Data migration from Toby
 - [ ] Multi-device data syncronization
