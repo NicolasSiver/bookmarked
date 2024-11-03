@@ -1,6 +1,7 @@
-import {Container, CssBaseline} from "@mui/material";
+import { Container, CssBaseline } from "@mui/material";
 import React from "react";
 
+import { CollectionList } from "../widget/collection-list";
 import { Header } from "../widget/header";
 
 export const RootLayout = () => {
@@ -9,6 +10,7 @@ export const RootLayout = () => {
             <div className="root-layout">
                 <CssBaseline enableColorScheme />
                 <Header />
+                <CollectionList />
             </div>
         </Container>
     );
