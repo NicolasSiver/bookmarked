@@ -32,3 +32,5 @@ I think it's possible to have that initial functionality without any additional 
 - [ ] Multi-device data syncronization
 - [ ] Themes (Dark / Light)
 - [ ] Highlight already opened bookmarks
+- [ ] Bookmarks: change order
+- [ ] Bookmarks: color-coding
