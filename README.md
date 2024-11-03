@@ -31,3 +31,4 @@ I think it's possible to have that initial functionality without any additional 
 - [ ] Data migration from Toby
 - [ ] Multi-device data syncronization
 - [ ] Themes (Dark / Light)
+- [ ] Highlight already opened bookmarks
