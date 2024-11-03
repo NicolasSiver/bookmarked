@@ -7,7 +7,7 @@ let collectionsSlice = createSlice({
     initialState,
     reducers: {
         add(state, action) {
-
+            state.collections.push(action.payload);
         }
     }
 });
