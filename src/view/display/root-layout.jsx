@@ -6,7 +6,7 @@ import { Header } from "../widget/header";
 
 export const RootLayout = () => {
     return (
-        <Container disableGutters={true}>
+        <Container disableGutters={true} maxWidth={false}>
             <div className="root-layout">
                 <CssBaseline enableColorScheme />
                 <Header />
