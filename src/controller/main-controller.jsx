@@ -11,7 +11,7 @@ export class MainController {
     }
 
     init() {
-        console.log('Expansion is initialising...');
+        console.log('Extension is initialising...');
 
         this.render();
     }
