@@ -1,4 +1,4 @@
-import { Alert, Button, Grid, Typography } from "@mui/material";
+import { Alert, Button, Grid, Tooltip, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -9,7 +9,7 @@ export const CollectionItem = props => {
 
     return (
         <div className="collection-item">
-            <Typography variant="h5" component="div" sx={{m:1}}>{props.collection.name}</Typography>
+            <Typography variant="h5" component="div" sx={{ m: 1 }}>{props.collection.name}</Typography>
             {renderItems(items)}
         </div>
     );
@@ -18,7 +18,9 @@ export const CollectionItem = props => {
 const renderItem = item => {
     return (
         <Grid key={item.id} size={1}>
-            <Button variant="outlined">{item.title}</Button>
+            <Tooltip title={item.description} placement="top">
+                <Button variant="outlined">{item.title}</Button>
+            </Tooltip>
         </Grid>
     );
 };

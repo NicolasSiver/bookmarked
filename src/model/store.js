@@ -16,7 +16,7 @@ export function createInitState() {
             // TODO Remove after very initial rounds of development
             testId1: [
                 { id: "itemId1", title: "Test Title 1", description: "desc temp", url: "https://some.com" },
-                { id: "itemId2", title: "Test Title 2", description: "desc temp", url: "https://some2.com" },
+                { id: "itemId2", title: "Test Title 2", description: "", url: "https://some2.com" },
                 { id: "itemId3", title: "Test Title 3", description: "desc temp", url: "https://some3.com" },
                 { id: "itemId4", title: "Test Title 4", description: "desc temp", url: "https://some4.com" },
                 { id: "itemId5", title: "Test Title 5", description: "desc temp", url: "https://some5.com" },
