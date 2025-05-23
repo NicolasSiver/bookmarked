@@ -4,14 +4,38 @@ import IconSettings from "@mui/icons-material/Settings"
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { getMenuAnchorElement } from "../../model/selectors";
+import * as Modes from "../../model/modes";
+import { getMenuAnchorElement, getMode } from "../../model/selectors";
+import { Mode } from "@mui/icons-material";
 
-export const Header = ({ menuDidSelect }) => {
+export const Header = ({ changeMode, menuDidSelect }) => {
     let anchorElement = useSelector(getMenuAnchorElement);
 
     const clickCallback = event => {
         menuDidSelect(event.currentTarget);
     };
+
+    const modeCallback = () => {
+        changeMode();
+    };
+
+    const getModeLabel = () => {
+        let label = null;
+        let mode = useSelector(getMode);
+
+        switch (mode) {
+            case Modes.VIEW:
+                label = `Switch to "Edit" mode`;
+                break;
+            case Modes.EDIT:
+                label = `Switch to "View" mode`;
+                break;
+            default:
+                label = "Unknown mode";
+        }
+
+        return label;
+    }
 
     return (
         <div className="header">
@@ -35,7 +59,7 @@ export const Header = ({ menuDidSelect }) => {
                             open={anchorElement !== null}
                             onClose={(event, reason) => { console.log(reason); }}>
                             <MenuItem onClick={() => { }}>Add collection</MenuItem>
-                            <MenuItem onClick={() => { }}>View mode</MenuItem>
+                            <MenuItem onClick={modeCallback}>{getModeLabel()}</MenuItem>
                         </Menu>
                     </div>
 

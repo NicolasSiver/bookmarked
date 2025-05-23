@@ -25,7 +25,7 @@ I think it's possible to have that initial functionality without any additional 
 
 ## Roadmap and Aspirations
 
-- [ ] Basic collection folow
+- [ ] Basic collection flow
 - [ ] Create Google Chrome Dev Account and publish the extension
 - [ ] Data persistence
 - [ ] Data migration from Toby
@@ -34,3 +34,7 @@ I think it's possible to have that initial functionality without any additional 
 - [ ] Highlight already opened bookmarks
 - [ ] Bookmarks: change order
 - [ ] Bookmarks: color-coding
+
+## Small things
+
+- [ ] Add icons to the menu

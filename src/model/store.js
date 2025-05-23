@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import CollectionsSlice from "./collections-slice";
 import ItemsSlice from "./items-slice";
 import MenuSlice from "./menu-slice";
+import ModeSlice from './mode-slice';
 import * as Modes from "./modes";
 
 export function createInitState() {
@@ -40,7 +41,8 @@ export function createNewStore(initState) {
         reducer: {
             collections: CollectionsSlice,
             items: ItemsSlice,
-            menu: MenuSlice
+            menu: MenuSlice,
+            mode: ModeSlice
         }
     });
 }
