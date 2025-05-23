@@ -4,12 +4,13 @@ import React from "react";
 import { CollectionList } from "../widget/collection-list";
 import { Header } from "../widget/header";
 
-export const RootLayout = () => {
+export const RootLayout = props => {
+
     return (
         <Container disableGutters={true} maxWidth={false}>
             <div className="root-layout">
                 <CssBaseline enableColorScheme />
-                <Header />
+                <Header {...props}/>
                 <CollectionList />
             </div>
         </Container>

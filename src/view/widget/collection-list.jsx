@@ -10,7 +10,7 @@ export const CollectionList = props => {
 
     return (
         <div className="collection-list">
-            <Stack spacing={2} sx={{px: 2, py: 1}}>
+            <Stack spacing={3} sx={{px: 2, py: 1}}>
                 {getCollectionItems(collections)}
             </Stack>
         </div>
