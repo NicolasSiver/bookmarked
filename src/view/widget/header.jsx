@@ -1,6 +1,6 @@
 import { AppBar, Button, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
-import IconMenu from "@mui/icons-material/Menu"
-import IconSettings from "@mui/icons-material/Settings"
+import IconMenu from "@mui/icons-material/Menu";
+import IconSettings from "@mui/icons-material/Settings";
 import React from "react";
 import { useSelector } from "react-redux";
 

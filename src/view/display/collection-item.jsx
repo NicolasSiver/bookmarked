@@ -1,4 +1,6 @@
-import { Alert, Button, Grid, TextField, Tooltip, Typography } from "@mui/material";
+import { Alert, Button, Grid, IconButton, TextField, Tooltip, Typography } from "@mui/material";
+import IconArrowDownward from "@mui/icons-material/ArrowDownward";
+import IconArrowUpward from "@mui/icons-material/ArrowUpward";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -53,10 +55,32 @@ const renderTitle = (collection, mode) => {
 
     if (mode === "edit") {
         title = (
-            <TextField 
-                label="Collection name"
-                defaultValue={collection.name}
-                sx={{ my: 1 }}/>
+            <div>
+                <TextField
+                    label="Collection name"
+                    defaultValue={collection.name}
+                    sx={{ my: 1 }} />
+
+                <IconButton
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    aria-label="up"
+                    sx={{ mx: 0.5 }}
+                    onClick={() => { }}>
+                    <IconArrowUpward />
+                </IconButton>
+
+                <IconButton
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    aria-label="up"
+                    sx={{ mx: 0.5 }}
+                    onClick={() => { }}>
+                    <IconArrowDownward />
+                </IconButton>
+            </div>
         );
     } else if (mode === "view") {
         title = (
