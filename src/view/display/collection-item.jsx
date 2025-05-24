@@ -1,15 +1,16 @@
-import { Alert, Button, Grid, Tooltip, Typography } from "@mui/material";
+import { Alert, Button, Grid, TextField, Tooltip, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 
 import { getCollectionItemsById } from "../../model/selector/get-collection-items-by-id";
+import * as Modes from "../../model/modes";
 
-export const CollectionItem = props => {
-    const items = useSelector(getCollectionItemsById(props.collection.id)) || [];
+export const CollectionItem = ({ collection, mode }) => {
+    const items = useSelector(getCollectionItemsById(collection.id)) || [];
 
     return (
         <div className="collection-item">
-            <Typography variant="h5" component="div" sx={{ m: 1 }}>{props.collection.name}</Typography>
+            {renderTitle(collection, mode)}
             {renderItems(items)}
         </div>
     );
@@ -45,4 +46,25 @@ const renderItems = items => {
     }
 
     return container;
-}
+};
+
+const renderTitle = (collection, mode) => {
+    let title = null;
+
+    if (mode === "edit") {
+        title = (
+            <TextField 
+                label="Collection name"
+                defaultValue={collection.name}
+                sx={{ my: 1 }}/>
+        );
+    } else if (mode === "view") {
+        title = (
+            <Typography variant="h5" component="div" sx={{ m: 1 }}>
+                {collection.name}
+            </Typography>
+        );
+    }
+
+    return title;
+};
