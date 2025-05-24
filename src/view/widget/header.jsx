@@ -11,8 +11,13 @@ import { Mode } from "@mui/icons-material";
 export const Header = ({ changeMode, menuDidSelect }) => {
     let anchorElement = useSelector(getMenuAnchorElement);
 
-    const clickCallback = event => {
+    const menuCallback = event => {
         menuDidSelect(event.currentTarget);
+    };
+
+    const menuCloseCallback = (event, reason) => {
+        // TODO Utilize "reason" to determine if the menu should be closed
+        menuDidSelect(null);
     };
 
     const modeCallback = () => {
@@ -48,7 +53,7 @@ export const Header = ({ changeMode, menuDidSelect }) => {
                             color="inherit"
                             aria-label="menu"
                             sx={{ mr: 2 }}
-                            onClick={clickCallback}>
+                            onClick={menuCallback}>
                             <IconMenu />
                         </IconButton>
 
@@ -57,7 +62,7 @@ export const Header = ({ changeMode, menuDidSelect }) => {
                             anchorEl={anchorElement}
                             keepMounted
                             open={anchorElement !== null}
-                            onClose={(event, reason) => { console.log(reason); }}>
+                            onClose={menuCloseCallback}>
                             <MenuItem onClick={() => { }}>Add collection</MenuItem>
                             <MenuItem onClick={modeCallback}>{getModeLabel()}</MenuItem>
                         </Menu>

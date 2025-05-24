@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-import { toggleMenu } from '../model/menu-slice';
+import { closeMenu, toggleMenu } from '../model/menu-slice';
 import { changeMode } from '../model/mode-slice';
 import * as Modes from '../model/modes';
 import { RootLayout } from "../view/display/root-layout";
@@ -24,12 +24,18 @@ export class MainController {
         let mode = getMode(this.store.getState());
         
         this.store.dispatch(changeMode(mode === Modes.VIEW ? Modes.EDIT : Modes.VIEW));
+        // Ensure that the menu is closed when the mode changes
+        this.store.dispatch(closeMenu());
     }
 
     menuDidSelect(element) {
         console.log('Menu item selected: ' + element);
 
-        this.store.dispatch(toggleMenu(element));
+        if (element !== null) {
+            this.store.dispatch(toggleMenu(element));
+        }else {
+            this.store.dispatch(closeMenu());
+        }
     }
 
     render() {
