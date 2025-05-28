@@ -11,7 +11,7 @@ export const RootLayout = props => {
             <div className="root-layout">
                 <CssBaseline enableColorScheme />
                 <Header {...props}/>
-                <CollectionList />
+                <CollectionList {...props}/>
             </div>
         </Container>
     );

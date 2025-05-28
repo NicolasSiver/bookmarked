@@ -12,13 +12,13 @@ export const CollectionList = props => {
     return (
         <div className="collection-list">
             <Stack spacing={3} sx={{ px: 2, py: 1 }}>
-                {getCollectionItems(collections, mode)}
+                {getCollectionItems(collections, mode, props)}
             </Stack>
         </div>
     );
 };
 
-const getCollectionItems = (items, mode) => {
+const getCollectionItems = (items, mode, props) => {
     let collectionCount = items.length;
 
     return items.map((collection, index) => {
@@ -29,7 +29,8 @@ const getCollectionItems = (items, mode) => {
                         collection={collection}
                         index={index}
                         mode={mode}
-                        total={collectionCount} />
+                        total={collectionCount}
+                        {...props} />
                 </Paper>
             </div>
         );

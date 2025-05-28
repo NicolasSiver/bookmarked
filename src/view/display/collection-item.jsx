@@ -7,12 +7,12 @@ import { useSelector } from "react-redux";
 import { getCollectionItemsById } from "../../model/selector/get-collection-items-by-id";
 import * as Modes from "../../model/modes";
 
-export const CollectionItem = ({ collection, mode, index, total }) => {
+export const CollectionItem = ({ collection, mode, index, total, shiftCollection }) => {
     const items = useSelector(getCollectionItemsById(collection.id)) || [];
 
     return (
         <div className="collection-item">
-            {renderTitle(collection, mode, index, total)}
+            {renderTitle(collection, mode, index, total, shiftCollection)}
             {renderItems(items)}
         </div>
     );
@@ -50,7 +50,7 @@ const renderItems = items => {
     return container;
 };
 
-const renderTitle = (collection, mode, index, total) => {
+const renderTitle = (collection, mode, index, total, shiftCollection) => {
     let title = null;
 
     if (mode === "edit") {
@@ -68,7 +68,7 @@ const renderTitle = (collection, mode, index, total) => {
                     aria-label="up"
                     disabled={index === 0}
                     sx={{ mx: 0.5 }}
-                    onClick={() => { }}>
+                    onClick={() => shiftCollection(index, index - 1)}>
                     <IconArrowUpward />
                 </IconButton>
 
@@ -79,7 +79,7 @@ const renderTitle = (collection, mode, index, total) => {
                     aria-label="up"
                     disabled={index === total - 1}
                     sx={{ mx: 0.5 }}
-                    onClick={() => { }}>
+                    onClick={() => shiftCollection(index, index + 1)}>
                     <IconArrowDownward />
                 </IconButton>
             </div>
