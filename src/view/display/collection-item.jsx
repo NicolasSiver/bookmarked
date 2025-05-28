@@ -7,12 +7,12 @@ import { useSelector } from "react-redux";
 import { getCollectionItemsById } from "../../model/selector/get-collection-items-by-id";
 import * as Modes from "../../model/modes";
 
-export const CollectionItem = ({ collection, mode }) => {
+export const CollectionItem = ({ collection, mode, index, total }) => {
     const items = useSelector(getCollectionItemsById(collection.id)) || [];
 
     return (
         <div className="collection-item">
-            {renderTitle(collection, mode)}
+            {renderTitle(collection, mode, index, total)}
             {renderItems(items)}
         </div>
     );
@@ -50,7 +50,7 @@ const renderItems = items => {
     return container;
 };
 
-const renderTitle = (collection, mode) => {
+const renderTitle = (collection, mode, index, total) => {
     let title = null;
 
     if (mode === "edit") {
@@ -66,6 +66,7 @@ const renderTitle = (collection, mode) => {
                     edge="start"
                     color="inherit"
                     aria-label="up"
+                    disabled={index === 0}
                     sx={{ mx: 0.5 }}
                     onClick={() => { }}>
                     <IconArrowUpward />
@@ -76,6 +77,7 @@ const renderTitle = (collection, mode) => {
                     edge="start"
                     color="inherit"
                     aria-label="up"
+                    disabled={index === total - 1}
                     sx={{ mx: 0.5 }}
                     onClick={() => { }}>
                     <IconArrowDownward />

@@ -19,11 +19,17 @@ export const CollectionList = props => {
 };
 
 const getCollectionItems = (items, mode) => {
-    return items.map(collection => {
+    let collectionCount = items.length;
+
+    return items.map((collection, index) => {
         return (
             <div className="collection-list__item" key={collection.id}>
                 <Paper elevation={2}>
-                    <CollectionItem collection={collection} mode={mode}/>
+                    <CollectionItem
+                        collection={collection}
+                        index={index}
+                        mode={mode}
+                        total={collectionCount} />
                 </Paper>
             </div>
         );
