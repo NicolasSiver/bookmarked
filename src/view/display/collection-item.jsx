@@ -7,12 +7,12 @@ import { useSelector } from "react-redux";
 import { getCollectionItemsById } from "../../model/selector/get-collection-items-by-id";
 import * as Modes from "../../model/modes";
 
-export const CollectionItem = ({ collection, mode, index, total, shiftCollection }) => {
+export const CollectionItem = ({ changeCollectionName, collection, mode, index, total, shiftCollection }) => {
     const items = useSelector(getCollectionItemsById(collection.id)) || [];
 
     return (
         <div className="collection-item">
-            {renderTitle(collection, mode, index, total, shiftCollection)}
+            {renderTitle(collection, mode, index, total, shiftCollection, changeCollectionName)}
             {renderItems(items)}
         </div>
     );
@@ -50,7 +50,7 @@ const renderItems = items => {
     return container;
 };
 
-const renderTitle = (collection, mode, index, total, shiftCollection) => {
+const renderTitle = (collection, mode, index, total, shiftCollection, changeName) => {
     let title = null;
 
     if (mode === "edit") {
@@ -59,7 +59,8 @@ const renderTitle = (collection, mode, index, total, shiftCollection) => {
                 <TextField
                     label="Collection name"
                     defaultValue={collection.name}
-                    sx={{ my: 1 }} />
+                    sx={{ my: 1 }} 
+                    onChange={event => changeName(collection.id, event.target.value)}/>
 
                 <IconButton
                     size="large"

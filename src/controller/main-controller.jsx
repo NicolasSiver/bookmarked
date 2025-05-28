@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-import { shiftColleciton } from '../model/collections-slice';
+import { changeCollectionName, shiftColleciton } from '../model/collections-slice';
 import { closeMenu, toggleMenu } from '../model/menu-slice';
 import { changeMode } from '../model/mode-slice';
 import * as Modes from '../model/modes';
@@ -19,6 +19,12 @@ export class MainController {
         console.log('Extension is initialising...');
 
         this.render();
+    }
+
+    changeCollectionName(collectionId, name) {
+        console.log(`Changing collection name for ${collectionId} to ${name}`);
+
+        this.store.dispatch(changeCollectionName({ collectionId, name }));
     }
 
     changeMode() {
@@ -44,6 +50,7 @@ export class MainController {
         root.render(
             <Provider store={this.store}>
                 <RootLayout
+                    changeCollectionName={(id, name) => this.changeCollectionName(id, name)}
                     changeMode={() => this.changeMode()}
                     menuDidSelect={element => this.menuDidSelect(element)}
                     shiftCollection={(from, to) => this.shiftCollection(from, to)} />
