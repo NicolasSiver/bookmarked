@@ -1,5 +1,7 @@
+import { init } from "@paralleldrive/cuid2";
 import { createSlice } from "@reduxjs/toolkit";
 
+let cuid = init({ length: 8 });
 let initialState = [];
 
 let collectionsSlice = createSlice({
@@ -7,7 +9,12 @@ let collectionsSlice = createSlice({
     initialState,
     reducers: {
         addCollection(state, action) {
-            state.push(action.payload);
+            let collection = {
+                id: cuid(),
+                name: action.payload.name
+            };
+
+            state.push(collection);
         },
 
         changeCollectionName(state, action) {
