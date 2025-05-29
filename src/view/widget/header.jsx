@@ -4,12 +4,16 @@ import IconSettings from "@mui/icons-material/Settings";
 import React from "react";
 import { useSelector } from "react-redux";
 
+import * as DialogTypes from "../../model/dialog-types";
 import * as Modes from "../../model/modes";
 import { getMenuAnchorElement, getMode } from "../../model/selectors";
-import { Mode } from "@mui/icons-material";
 
-export const Header = ({ changeMode, menuDidSelect }) => {
+export const Header = ({ changeMode, menuDidSelect, openDialog }) => {
     let anchorElement = useSelector(getMenuAnchorElement);
+
+    const collectionDialogCallback = () => {
+        openDialog(DialogTypes.COLLECTION_NEW, null);
+    };
 
     const menuCallback = event => {
         menuDidSelect(event.currentTarget);
@@ -63,7 +67,7 @@ export const Header = ({ changeMode, menuDidSelect }) => {
                             keepMounted
                             open={anchorElement !== null}
                             onClose={menuCloseCallback}>
-                            <MenuItem onClick={() => { }}>Add collection</MenuItem>
+                            <MenuItem onClick={collectionDialogCallback}>Add collection</MenuItem>
                             <MenuItem onClick={modeCallback}>{getModeLabel()}</MenuItem>
                         </Menu>
                     </div>
