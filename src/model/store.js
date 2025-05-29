@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import CollectionsSlice from "./collections-slice";
+import DialogSlice from "./dialog-slice";
 import ItemsSlice from "./items-slice";
 import MenuSlice from "./menu-slice";
 import ModeSlice from './mode-slice';
@@ -14,6 +15,10 @@ export function createInitState() {
             { id: "testId2", name: "Extended" },
             { id: "testId3", name: "Last" }
         ],
+        dialog: {
+            target: null,
+            type: null
+        },
         items: {
             // TODO Remove after very initial rounds of development
             testId1: [
@@ -40,6 +45,7 @@ export function createNewStore(initState) {
         preloadedState: initState,
         reducer: {
             collections: CollectionsSlice,
+            dialog: DialogSlice,
             items: ItemsSlice,
             menu: MenuSlice,
             mode: ModeSlice
