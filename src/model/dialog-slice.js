@@ -9,6 +9,10 @@ let dialogSlice = createSlice({
     name: 'dialog',
     initialState,
     reducers: {
+        changeDialogTarget(state, action) {
+            state.target = action.payload;
+        },
+
         openDialog(state, action) {
             state.target = action.payload.target;
             state.type = action.payload.type;
@@ -16,5 +20,5 @@ let dialogSlice = createSlice({
     }
 });
 
-export const { openDialog } = dialogSlice.actions;
+export const { changeDialogTarget, openDialog } = dialogSlice.actions;
 export default dialogSlice.reducer;

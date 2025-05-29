@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import { changeCollectionName, shiftColleciton } from '../model/collections-slice';
-import { openDialog } from '../model/dialog-slice';
+import { changeDialogTarget, openDialog } from '../model/dialog-slice';
 import { closeMenu, toggleMenu } from '../model/menu-slice';
 import { changeMode } from '../model/mode-slice';
 import * as Modes from '../model/modes';
@@ -26,6 +26,12 @@ export class MainController {
         console.log(`Changing collection name for ${collectionId} to ${name}`);
 
         this.store.dispatch(changeCollectionName({ collectionId, name }));
+    }
+
+    changeDialogTarget(value) {
+        console.log(`Changing dialog target to ${value}`);
+
+        this.store.dispatch(changeDialogTarget(value));
     }
 
     changeMode() {
@@ -59,6 +65,7 @@ export class MainController {
             <Provider store={this.store}>
                 <RootLayout
                     changeCollectionName={(id, name) => this.changeCollectionName(id, name)}
+                    changeDialogTarget={value => this.changeDialogTarget(value)}
                     changeMode={() => this.changeMode()}
                     menuDidSelect={element => this.menuDidSelect(element)}
                     openDialog={(type, target) => this.openDialog(type, target)}
