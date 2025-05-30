@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -13,15 +13,24 @@ export const DialogContainer = props => {
         props.changeDialogTarget(event.target.value);
     };
 
+    const dialogCloseCallback = () => {
+        props.closeDialog();
+    };
+
     return (
         <div className="dialog-container">
-            {createDialogByType(dialogType, props, collectionName, collectionNameCallback)}
+            {createDialogByType({
+                dialogType,
+                dialogCloseCallback,
+                collectionName,
+                collectionNameCallback,
+            })}
         </div>
     );
 };
 
-const createDialogByType = (type, props, collectionName, collectionNameCallback) => {
-    switch (type) {
+const createDialogByType = ({dialogType, collectionName, collectionNameCallback, dialogCloseCallback}) => {
+    switch (dialogType) {
         case DialogTypes.COLLECTION_NEW:
             return (
                 <React.Fragment>
@@ -29,24 +38,24 @@ const createDialogByType = (type, props, collectionName, collectionNameCallback)
                         open={true}
                         onClose={() => undefined}
                         maxWidth="xs">
-                            <DialogTitle>Create Collection</DialogTitle>
-                            <DialogContent>
-                                <DialogContentText>
-                                    Enter a name for the new collection. By default, the collection will be added to the end of the list.
-                                </DialogContentText>
-                                <TextField
-                                    autoFocus
-                                    required
-                                    margin="dense"
-                                    label="Collection name"
-                                    fullWidth
-                                    value={collectionName}
-                                    onChange={collectionNameCallback}/>
-                            </DialogContent>
-                            <DialogActions>
-                                <Button onClick={() => undefined}>Cancel</Button>
-                                <Button onClick={() => undefined}>Create</Button>
-                            </DialogActions>
+                        <DialogTitle>Create Collection</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Enter a name for the new collection. By default, the collection will be added to the end of the list.
+                            </DialogContentText>
+                            <TextField
+                                autoFocus
+                                required
+                                margin="dense"
+                                label="Collection name"
+                                fullWidth
+                                value={collectionName}
+                                onChange={collectionNameCallback} />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={dialogCloseCallback}>Cancel</Button>
+                            <Button onClick={() => undefined}>Create</Button>
+                        </DialogActions>
                     </Dialog>
                 </React.Fragment>
             );
