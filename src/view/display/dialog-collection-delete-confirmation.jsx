@@ -7,10 +7,12 @@ import { getCollectionById } from "../../model/selector/get-collection-by-id";
 export const DialogCollectionDeleteConfirmation = (props) => {
     const collection = useSelector(getCollectionById(props.dialogContext));
 
-    console.log(collection)
-
     const dialogCloseCallback = () => {
         props.closeDialog();
+    };
+
+    const collectionDeleteCallback = () => {
+        props.deleteCollection(collection.id);
     };
 
     return (
@@ -27,7 +29,7 @@ export const DialogCollectionDeleteConfirmation = (props) => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={dialogCloseCallback}>Cancel</Button>
-                    <Button onClick={() => undefined}>Delete</Button>
+                    <Button onClick={collectionDeleteCallback}>Delete</Button>
                 </DialogActions>
             </Dialog>
         </React.Fragment>

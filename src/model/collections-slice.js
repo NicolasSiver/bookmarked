@@ -26,6 +26,15 @@ let collectionsSlice = createSlice({
             }
         },
 
+        deleteCollection(state, action) {
+            const { collectionId } = action.payload;
+            const index = state.findIndex(collection => collection.id === collectionId);
+
+            if (index !== -1) {
+                state.splice(index, 1);
+            }
+        },
+
         shiftColleciton(state, action) {
             const { fromIndex, toIndex } = action.payload;
             const collection = state.splice(fromIndex, 1)[0];
@@ -35,5 +44,5 @@ let collectionsSlice = createSlice({
     }
 });
 
-export const { addCollection, changeCollectionName, shiftColleciton } = collectionsSlice.actions;
+export const { addCollection, changeCollectionName, deleteCollection, shiftColleciton } = collectionsSlice.actions;
 export default collectionsSlice.reducer;

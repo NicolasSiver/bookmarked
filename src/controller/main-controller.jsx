@@ -2,9 +2,10 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-import { addCollection, changeCollectionName, shiftColleciton } from '../model/collections-slice';
+import { addCollection, changeCollectionName, deleteCollection, shiftColleciton } from '../model/collections-slice';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
 import * as DialogTypes from '../model/dialog-types';
+import { deleteItemsByCollectionId } from '../model/items-slice';
 import { closeMenu, toggleMenu } from '../model/menu-slice';
 import { changeMode } from '../model/mode-slice';
 import * as Modes from '../model/modes';
@@ -64,6 +65,15 @@ export class MainController {
         this.openDialog(DialogTypes.COLLECTION_DELETE_CONFIRMATION, collectionId);
     }
 
+    deleteCollection(collectionId) {
+        console.log(`Deleting collection with ID ${collectionId}`);
+        let payload = { collectionId };
+
+        this.store.dispatch(deleteCollection(payload));
+        this.store.dispatch(deleteItemsByCollectionId(payload));
+        this.closeDialog();
+    }
+
     menuDidSelect(element) {
         console.log('Menu item selected: ' + element);
 
@@ -92,6 +102,7 @@ export class MainController {
                     closeDialog={() => this.closeDialog()}
                     collectionWillDelete={id => this.collectionWillDelete(id)}
                     createCollection={() => this.createCollection()}
+                    deleteCollection={id => this.deleteCollection(id)}
                     menuDidSelect={element => this.menuDidSelect(element)}
                     openDialog={(type, target) => this.openDialog(type, target)}
                     shiftCollection={(from, to) => this.shiftCollection(from, to)} />
