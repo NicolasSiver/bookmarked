@@ -74,6 +74,12 @@ export class MainController {
         this.closeDialog();
     }
 
+    editCollectionItem(collectionId, itemId) {
+        console.log(`Editing item with ID "${itemId}" in collection "${collectionId}"`);
+
+        this.openDialog(DialogTypes.COLLECTION_ITEM_EDIT, { collectionId, itemId });
+    }
+
     menuDidSelect(element) {
         console.log('Menu item selected: ' + element);
 
@@ -85,7 +91,7 @@ export class MainController {
     }
 
     openDialog(type, target) {
-        console.log(`Opening dialog of type ${type} with target ${target}`);
+        console.log(`Opening dialog of type ${type} with target:`, target);
 
         this.store.dispatch(openDialog({ type, target }));
         this.store.dispatch(closeMenu());
@@ -103,6 +109,7 @@ export class MainController {
                     collectionWillDelete={id => this.collectionWillDelete(id)}
                     createCollection={() => this.createCollection()}
                     deleteCollection={id => this.deleteCollection(id)}
+                    editCollectionItem={(collectionId, itemId) => this.editCollectionItem(collectionId, itemId)}
                     menuDidSelect={element => this.menuDidSelect(element)}
                     openDialog={(type, target) => this.openDialog(type, target)}
                     shiftCollection={(from, to) => this.shiftCollection(from, to)} />

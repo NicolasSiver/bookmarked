@@ -8,34 +8,44 @@ import { useSelector } from "react-redux";
 import { getCollectionItemsById } from "../../model/selector/get-collection-items-by-id";
 import * as Modes from "../../model/modes";
 
-export const CollectionItem = ({ changeCollectionName, collection, collectionWillDelete, mode, index, total, shiftCollection }) => {
+export const CollectionItem = ({ changeCollectionName, collection, collectionWillDelete, editCollectionItem, mode, index, total, shiftCollection }) => {
     const items = useSelector(getCollectionItemsById(collection.id)) || [];
+
+    const itemEditCallback = itemId => {
+        editCollectionItem(collection.id, itemId);
+    };
 
     return (
         <div className="collection-item">
             {renderTitle(collection, mode, index, total, shiftCollection, changeCollectionName, collectionWillDelete)}
-            {renderItems(items)}
+            {renderItems(items, mode, itemEditCallback)}
         </div>
     );
 };
 
-const renderItem = item => {
+const renderItem = (item, mode, itemEditCallback) => {
+    let clickCallback = mode === Modes.EDIT ? () => itemEditCallback(item.id) : undefined;
+
     return (
         <Grid key={item.id} size={1}>
             <Tooltip title={item.description} placement="top">
-                <Button variant="outlined">{item.title}</Button>
+                <Button
+                    onClick={clickCallback}
+                    variant="outlined">
+                    {item.title}
+                </Button>
             </Tooltip>
         </Grid>
     );
 };
 
-const renderItems = items => {
+const renderItems = (items, mode, itemEditCallback) => {
     let container = null;
 
     if (items.length > 0) {
         container = (
             <Grid container spacing={2}>
-                {items.map(item => renderItem(item))}
+                {items.map(item => renderItem(item, mode, itemEditCallback))}
             </Grid>
         );
     } else {
@@ -60,8 +70,8 @@ const renderTitle = (collection, mode, index, total, shiftCollection, changeName
                 <TextField
                     label="Collection name"
                     defaultValue={collection.name}
-                    sx={{ my: 1 }} 
-                    onChange={event => changeName(collection.id, event.target.value)}/>
+                    sx={{ my: 1 }}
+                    onChange={event => changeName(collection.id, event.target.value)} />
 
                 <IconButton
                     size="large"
