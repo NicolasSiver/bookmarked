@@ -2,64 +2,44 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import React from "react";
 import { useSelector } from "react-redux";
 
+import { DialogCollectionNew } from "../display/dialog-collection-new";
 import * as DialogTypes from "../../model/dialog-types";
 import { getDialogTarget, getDialogType } from "../../model/selectors";
 
 export const DialogContainer = props => {
     const dialogType = useSelector(getDialogType);
-    const collectionName = useSelector(getDialogTarget) || '';
-
-    const collectionNameCallback = event => {
-        props.changeDialogTarget(event.target.value);
-    };
-
-    const collectionCreateCallback = () => {
-        props.createCollection();
-    };
-
-    const dialogCloseCallback = () => {
-        props.closeDialog();
-    };
-
+    const dialogTarget = useSelector(getDialogTarget) || '';
+    
     return (
         <div className="dialog-container">
-            {createDialogByType({
-                dialogType,
-                dialogCloseCallback,
-                collectionCreateCallback,
-                collectionName,
-                collectionNameCallback,
-            })}
+            {createDialogByType(dialogType, dialogTarget, props)}
         </div>
     );
 };
 
-const createDialogByType = ({dialogType, collectionCreateCallback, collectionName, collectionNameCallback, dialogCloseCallback}) => {
+const createDialogByType = (dialogType, dialogTarget, props) => {
     switch (dialogType) {
         case DialogTypes.COLLECTION_NEW:
+            return <DialogCollectionNew
+                dialogContext={dialogTarget}
+                {...props}/>;
+
+        case DialogTypes.COLLECTION_DELETE_CONFIRMATION:
             return (
                 <React.Fragment>
                     <Dialog
                         open={true}
                         onClose={() => undefined}
                         maxWidth="xs">
-                        <DialogTitle>Create Collection</DialogTitle>
+                        <DialogTitle>Delete collection</DialogTitle>
                         <DialogContent>
                             <DialogContentText>
-                                Enter a name for the new collection. By default, the collection will be added to the end of the list.
+                                Are you sure you want to delete the collection "{collectionName}"? This action cannot be undone.
                             </DialogContentText>
-                            <TextField
-                                autoFocus
-                                required
-                                margin="dense"
-                                label="Collection name"
-                                fullWidth
-                                value={collectionName}
-                                onChange={collectionNameCallback} />
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={dialogCloseCallback}>Cancel</Button>
-                            <Button onClick={collectionCreateCallback}>Create</Button>
+                            <Button onClick={props.deleteCollection}>Delete</Button>
                         </DialogActions>
                     </Dialog>
                 </React.Fragment>
