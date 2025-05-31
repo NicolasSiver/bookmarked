@@ -2,13 +2,13 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-import { changeCollectionName, shiftColleciton } from '../model/collections-slice';
+import { addCollection, changeCollectionName, shiftColleciton } from '../model/collections-slice';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
 import { closeMenu, toggleMenu } from '../model/menu-slice';
 import { changeMode } from '../model/mode-slice';
 import * as Modes from '../model/modes';
 import { RootLayout } from "../view/display/root-layout";
-import { getMode } from '../model/selectors';
+import { getDialogTarget, getMode } from '../model/selectors';
 import { createInitState, createNewStore } from '../model/store';
 
 export class MainController {
@@ -48,6 +48,15 @@ export class MainController {
         this.store.dispatch(closeDialog());
     }
 
+    createCollection() {
+        let collectionName = getDialogTarget(this.store.getState()) || 'Untitled collection';
+
+        console.log(`Creating new collection with name: ${collectionName}`);
+
+        this.store.dispatch(addCollection({ name: collectionName }));
+        this.closeDialog();
+    }
+
     menuDidSelect(element) {
         console.log('Menu item selected: ' + element);
 
@@ -74,6 +83,7 @@ export class MainController {
                     changeDialogTarget={value => this.changeDialogTarget(value)}
                     changeMode={() => this.changeMode()}
                     closeDialog={() => this.closeDialog()}
+                    createCollection={() => this.createCollection()}
                     menuDidSelect={element => this.menuDidSelect(element)}
                     openDialog={(type, target) => this.openDialog(type, target)}
                     shiftCollection={(from, to) => this.shiftCollection(from, to)} />

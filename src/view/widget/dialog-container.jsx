@@ -13,6 +13,10 @@ export const DialogContainer = props => {
         props.changeDialogTarget(event.target.value);
     };
 
+    const collectionCreateCallback = () => {
+        props.createCollection();
+    };
+
     const dialogCloseCallback = () => {
         props.closeDialog();
     };
@@ -22,6 +26,7 @@ export const DialogContainer = props => {
             {createDialogByType({
                 dialogType,
                 dialogCloseCallback,
+                collectionCreateCallback,
                 collectionName,
                 collectionNameCallback,
             })}
@@ -29,7 +34,7 @@ export const DialogContainer = props => {
     );
 };
 
-const createDialogByType = ({dialogType, collectionName, collectionNameCallback, dialogCloseCallback}) => {
+const createDialogByType = ({dialogType, collectionCreateCallback, collectionName, collectionNameCallback, dialogCloseCallback}) => {
     switch (dialogType) {
         case DialogTypes.COLLECTION_NEW:
             return (
@@ -54,7 +59,7 @@ const createDialogByType = ({dialogType, collectionName, collectionNameCallback,
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={dialogCloseCallback}>Cancel</Button>
-                            <Button onClick={() => undefined}>Create</Button>
+                            <Button onClick={collectionCreateCallback}>Create</Button>
                         </DialogActions>
                     </Dialog>
                 </React.Fragment>
