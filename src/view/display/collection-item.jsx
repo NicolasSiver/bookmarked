@@ -54,7 +54,7 @@ const renderItems = items => {
 const renderTitle = (collection, mode, index, total, shiftCollection, changeName, collectionWillDelete) => {
     let title = null;
 
-    if (mode === "edit") {
+    if (mode === Modes.EDIT) {
         title = (
             <div>
                 <TextField
@@ -96,7 +96,7 @@ const renderTitle = (collection, mode, index, total, shiftCollection, changeName
                 </IconButton>
             </div>
         );
-    } else if (mode === "view") {
+    } else if (mode === Modes.VIEW) {
         title = (
             <Typography variant="h5" component="div" sx={{ m: 1 }}>
                 {collection.name}
