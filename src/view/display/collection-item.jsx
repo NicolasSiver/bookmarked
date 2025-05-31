@@ -1,6 +1,7 @@
 import { Alert, Button, Grid, IconButton, TextField, Tooltip, Typography } from "@mui/material";
 import IconArrowDownward from "@mui/icons-material/ArrowDownward";
 import IconArrowUpward from "@mui/icons-material/ArrowUpward";
+import IconDelete from "@mui/icons-material/DeleteOutline";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -82,6 +83,16 @@ const renderTitle = (collection, mode, index, total, shiftCollection, changeName
                     sx={{ mx: 0.5 }}
                     onClick={() => shiftCollection(index, index + 1)}>
                     <IconArrowDownward />
+                </IconButton>
+
+                <IconButton
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    aria-label="delete"
+                    sx={{ mx: 0.5 }}
+                    onClick={() => undefined}>
+                    <IconDelete />
                 </IconButton>
             </div>
         );
