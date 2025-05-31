@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 
 import { addCollection, changeCollectionName, shiftColleciton } from '../model/collections-slice';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
+import * as DialogTypes from '../model/dialog-types';
 import { closeMenu, toggleMenu } from '../model/menu-slice';
 import { changeMode } from '../model/mode-slice';
 import * as Modes from '../model/modes';
@@ -57,6 +58,12 @@ export class MainController {
         this.closeDialog();
     }
 
+    collectionWillDelete(collectionId) {
+        console.log(`Collection with ID ${collectionId} will be deleted`);
+
+        this.openDialog(DialogTypes.COLLECTION_DELETE_CONFIRMATION, collectionId);
+    }
+
     menuDidSelect(element) {
         console.log('Menu item selected: ' + element);
 
@@ -83,6 +90,7 @@ export class MainController {
                     changeDialogTarget={value => this.changeDialogTarget(value)}
                     changeMode={() => this.changeMode()}
                     closeDialog={() => this.closeDialog()}
+                    collectionWillDelete={id => this.collectionWillDelete(id)}
                     createCollection={() => this.createCollection()}
                     menuDidSelect={element => this.menuDidSelect(element)}
                     openDialog={(type, target) => this.openDialog(type, target)}

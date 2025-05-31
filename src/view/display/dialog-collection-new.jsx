@@ -1,6 +1,5 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 import React from "react";
-import { useSelector } from "react-redux";
 
 export const DialogCollectionNew = (props) => {
     const dialogTargetCallback = event => {

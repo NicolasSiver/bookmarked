@@ -8,12 +8,12 @@ import { useSelector } from "react-redux";
 import { getCollectionItemsById } from "../../model/selector/get-collection-items-by-id";
 import * as Modes from "../../model/modes";
 
-export const CollectionItem = ({ changeCollectionName, collection, mode, index, total, shiftCollection }) => {
+export const CollectionItem = ({ changeCollectionName, collection, collectionWillDelete, mode, index, total, shiftCollection }) => {
     const items = useSelector(getCollectionItemsById(collection.id)) || [];
 
     return (
         <div className="collection-item">
-            {renderTitle(collection, mode, index, total, shiftCollection, changeCollectionName)}
+            {renderTitle(collection, mode, index, total, shiftCollection, changeCollectionName, collectionWillDelete)}
             {renderItems(items)}
         </div>
     );
@@ -51,7 +51,7 @@ const renderItems = items => {
     return container;
 };
 
-const renderTitle = (collection, mode, index, total, shiftCollection, changeName) => {
+const renderTitle = (collection, mode, index, total, shiftCollection, changeName, collectionWillDelete) => {
     let title = null;
 
     if (mode === "edit") {
@@ -78,7 +78,7 @@ const renderTitle = (collection, mode, index, total, shiftCollection, changeName
                     size="large"
                     edge="start"
                     color="inherit"
-                    aria-label="up"
+                    aria-label="down"
                     disabled={index === total - 1}
                     sx={{ mx: 0.5 }}
                     onClick={() => shiftCollection(index, index + 1)}>
@@ -91,7 +91,7 @@ const renderTitle = (collection, mode, index, total, shiftCollection, changeName
                     color="inherit"
                     aria-label="delete"
                     sx={{ mx: 0.5 }}
-                    onClick={() => undefined}>
+                    onClick={() => collectionWillDelete(collection.id)}>
                     <IconDelete />
                 </IconButton>
             </div>

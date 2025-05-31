@@ -1,7 +1,7 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 
+import { DialogCollectionDeleteConfirmation } from "../display/dialog-collection-delete-confirmation";
 import { DialogCollectionNew } from "../display/dialog-collection-new";
 import * as DialogTypes from "../../model/dialog-types";
 import { getDialogTarget, getDialogType } from "../../model/selectors";
@@ -25,25 +25,9 @@ const createDialogByType = (dialogType, dialogTarget, props) => {
                 {...props}/>;
 
         case DialogTypes.COLLECTION_DELETE_CONFIRMATION:
-            return (
-                <React.Fragment>
-                    <Dialog
-                        open={true}
-                        onClose={() => undefined}
-                        maxWidth="xs">
-                        <DialogTitle>Delete collection</DialogTitle>
-                        <DialogContent>
-                            <DialogContentText>
-                                Are you sure you want to delete the collection "{collectionName}"? This action cannot be undone.
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={dialogCloseCallback}>Cancel</Button>
-                            <Button onClick={props.deleteCollection}>Delete</Button>
-                        </DialogActions>
-                    </Dialog>
-                </React.Fragment>
-            );
+            return <DialogCollectionDeleteConfirmation
+                dialogContext={dialogTarget}
+                {...props} />;
         default:
             return null;
     }
