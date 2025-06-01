@@ -38,3 +38,4 @@ I think it's possible to have that initial functionality without any additional 
 ## Small things
 
 - [ ] Add icons to the menu
+- [ ] URL validation
