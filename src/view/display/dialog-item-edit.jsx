@@ -57,7 +57,7 @@ export const DialogItemEdit = props => {
                     labelId="order-select-label"
                     value={itemIndex}
                     label="Order"
-                    onChange={() => undefined}>
+                    onChange={e => editItemProperty(ItemProperties.ORDER, e.target.value)}>
                     {orderList.map((item, index) => (
                         <MenuItem key={item.id} value={index}>
                             {item.title}

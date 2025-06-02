@@ -28,12 +28,25 @@ let itemsSlice = createSlice({
             }
         },
 
+        changeItemOrder(state, action) {
+            let collection = state[action.payload.collectionId];
+            let newIndex = action.payload.newIndex;
+
+            if (collection !== undefined) {
+                let index = collection.findIndex(item => item.id === action.payload.itemId);
+                // Remove the item from the current position
+                let [item] = collection.splice(index, 1);
+                // Insert the item at the new position
+                collection.splice(newIndex, 0, item);
+            }
+        },
+
         changeItemParent(state, action) {
             let index, item;
             let collection = state[action.payload.collectionId];
             let nextCollection = state[action.payload.parentCollectionId];
 
-            if(nextCollection === undefined) {
+            if (nextCollection === undefined) {
                 // If the next collection does not exist, create it
                 nextCollection = [];
                 state[action.payload.parentCollectionId] = nextCollection;
@@ -82,5 +95,5 @@ let itemsSlice = createSlice({
     }
 });
 
-export const { add, changeItemDescription, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId } = itemsSlice.actions;
+export const { add, changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId } = itemsSlice.actions;
 export default itemsSlice.reducer;

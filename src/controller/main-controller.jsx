@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { addCollection, changeCollectionName, deleteCollection, shiftColleciton } from '../model/collections-slice';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
 import * as DialogTypes from '../model/dialog-types';
-import { changeItemDescription, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId } from '../model/items-slice';
+import { changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId } from '../model/items-slice';
 import * as ItemProperties from '../model/item-properties';
 import { closeMenu, toggleMenu } from '../model/menu-slice';
 import { changeMode } from '../model/mode-slice';
@@ -90,6 +90,9 @@ export class MainController {
                 break;
             case ItemProperties.TITLE:
                 this.store.dispatch(changeItemTitle({ collectionId, itemId, title: value }));
+                break;
+            case ItemProperties.ORDER:
+                this.store.dispatch(changeItemOrder({ collectionId, itemId, newIndex: value }));
                 break;
             case ItemProperties.DESCRIPTION:
                 this.store.dispatch(changeItemDescription({ collectionId, itemId, description: value }));
