@@ -88,7 +88,7 @@ export const DialogItemEdit = props => {
                         label="Description"
                         fullWidth
                         value={item.description}
-                        onChange={() => undefined} />
+                        onChange={e => editItemProperty(ItemProperties.DESCRIPTION, e.target.value)} />
                     <TextField
                         autoFocus
                         margin="dense"

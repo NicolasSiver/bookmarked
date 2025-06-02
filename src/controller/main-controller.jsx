@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { addCollection, changeCollectionName, deleteCollection, shiftColleciton } from '../model/collections-slice';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
 import * as DialogTypes from '../model/dialog-types';
-import { changeItemTitle, deleteItemsByCollectionId } from '../model/items-slice';
+import { changeItemDescription, changeItemTitle, deleteItemsByCollectionId } from '../model/items-slice';
 import * as ItemProperties from '../model/item-properties';
 import { closeMenu, toggleMenu } from '../model/menu-slice';
 import { changeMode } from '../model/mode-slice';
@@ -81,7 +81,7 @@ export class MainController {
         this.openDialog(DialogTypes.COLLECTION_ITEM_EDIT, { collectionId, itemId });
     }
 
-    editItemProperty(collectionId, itemId, property, value) { 
+    editItemProperty(collectionId, itemId, property, value) {
         console.log(`Editing property "${property}" of item with ID "${itemId}" in collection "${collectionId}" to value "${value}"`);
 
         switch (property) {
@@ -89,7 +89,7 @@ export class MainController {
                 this.store.dispatch(changeItemTitle({ collectionId, itemId, title: value }));
                 break;
             case ItemProperties.DESCRIPTION:
-                // Handle description change if needed
+                this.store.dispatch(changeItemDescription({ collectionId, itemId, description: value }));
                 break;
             case ItemProperties.IMAGE:
                 // Handle image change if needed
