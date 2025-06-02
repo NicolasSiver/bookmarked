@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { addCollection, changeCollectionName, deleteCollection, shiftColleciton } from '../model/collections-slice';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
 import * as DialogTypes from '../model/dialog-types';
-import { changeItemDescription, changeItemTitle, deleteItemsByCollectionId } from '../model/items-slice';
+import { changeItemDescription, changeItemTitle, changeItemUrl, deleteItemsByCollectionId } from '../model/items-slice';
 import * as ItemProperties from '../model/item-properties';
 import { closeMenu, toggleMenu } from '../model/menu-slice';
 import { changeMode } from '../model/mode-slice';
@@ -85,14 +85,14 @@ export class MainController {
         console.log(`Editing property "${property}" of item with ID "${itemId}" in collection "${collectionId}" to value "${value}"`);
 
         switch (property) {
+            case ItemProperties.URL:
+                this.store.dispatch(changeItemUrl({ collectionId, itemId, url: value }));
+                break;
             case ItemProperties.TITLE:
                 this.store.dispatch(changeItemTitle({ collectionId, itemId, title: value }));
                 break;
             case ItemProperties.DESCRIPTION:
                 this.store.dispatch(changeItemDescription({ collectionId, itemId, description: value }));
-                break;
-            case ItemProperties.IMAGE:
-                // Handle image change if needed
                 break;
             default:
                 console.warn(`Unknown property "${property}" for item with ID "${itemId}" in collection "${collectionId}"`);

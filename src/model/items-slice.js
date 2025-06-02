@@ -40,6 +40,18 @@ let itemsSlice = createSlice({
             }
         },
 
+        changeItemUrl(state, action) {
+            let collection = state[action.payload.collectionId];
+
+            if (collection !== undefined) {
+                let item = collection.find(item => item.id === action.payload.itemId);
+                if (item !== undefined) {
+                    // Update the URL of the item
+                    item.url = action.payload.url;
+                }
+            }
+        },
+
         deleteItemsByCollectionId(state, action) {
             let collectionId = action.payload.collectionId;
 
@@ -50,5 +62,5 @@ let itemsSlice = createSlice({
     }
 });
 
-export const { add, changeItemDescription, changeItemTitle, deleteItemsByCollectionId } = itemsSlice.actions;
+export const { add, changeItemDescription, changeItemTitle, changeItemUrl, deleteItemsByCollectionId } = itemsSlice.actions;
 export default itemsSlice.reducer;

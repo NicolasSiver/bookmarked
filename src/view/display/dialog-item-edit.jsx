@@ -96,7 +96,7 @@ export const DialogItemEdit = props => {
                         fullWidth
                         type="url"
                         value={item.url}
-                        onChange={() => undefined} />
+                        onChange={e => editItemProperty(ItemProperties.URL, e.target.value)} />
                     {createCollectionSelect()}
                     <DialogContentText>
                         Change order of the item in the collection. Select the item after which the current item should be placed.
