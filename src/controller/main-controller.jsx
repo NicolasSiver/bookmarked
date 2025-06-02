@@ -5,7 +5,8 @@ import { Provider } from 'react-redux';
 import { addCollection, changeCollectionName, deleteCollection, shiftColleciton } from '../model/collections-slice';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
 import * as DialogTypes from '../model/dialog-types';
-import { deleteItemsByCollectionId } from '../model/items-slice';
+import { changeItemTitle, deleteItemsByCollectionId } from '../model/items-slice';
+import * as ItemProperties from '../model/item-properties';
 import { closeMenu, toggleMenu } from '../model/menu-slice';
 import { changeMode } from '../model/mode-slice';
 import * as Modes from '../model/modes';
@@ -80,6 +81,24 @@ export class MainController {
         this.openDialog(DialogTypes.COLLECTION_ITEM_EDIT, { collectionId, itemId });
     }
 
+    editItemProperty(collectionId, itemId, property, value) { 
+        console.log(`Editing property "${property}" of item with ID "${itemId}" in collection "${collectionId}" to value "${value}"`);
+
+        switch (property) {
+            case ItemProperties.TITLE:
+                this.store.dispatch(changeItemTitle({ collectionId, itemId, title: value }));
+                break;
+            case ItemProperties.DESCRIPTION:
+                // Handle description change if needed
+                break;
+            case ItemProperties.IMAGE:
+                // Handle image change if needed
+                break;
+            default:
+                console.warn(`Unknown property "${property}" for item with ID "${itemId}" in collection "${collectionId}"`);
+        }
+    }
+
     menuDidSelect(element) {
         console.log('Menu item selected: ' + element);
 
@@ -110,6 +129,7 @@ export class MainController {
                     createCollection={() => this.createCollection()}
                     deleteCollection={id => this.deleteCollection(id)}
                     editCollectionItem={(collectionId, itemId) => this.editCollectionItem(collectionId, itemId)}
+                    editItemProperty={(collectionId, itemId, property, value) => this.editItemProperty(collectionId, itemId, property, value)}
                     menuDidSelect={element => this.menuDidSelect(element)}
                     openDialog={(type, target) => this.openDialog(type, target)}
                     shiftCollection={(from, to) => this.shiftCollection(from, to)} />
