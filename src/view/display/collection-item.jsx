@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 import { getCollectionItemsById } from "../../model/selector/get-collection-items-by-id";
 import * as Modes from "../../model/modes";
+import { truncateForEllipsis } from "../../util/truncate-for-ellipsis";
 
 export const CollectionItem = ({ changeCollectionName, collection, collectionWillDelete, editCollectionItem, mode, index, total, shiftCollection }) => {
     const items = useSelector(getCollectionItemsById(collection.id)) || [];
@@ -26,13 +27,16 @@ export const CollectionItem = ({ changeCollectionName, collection, collectionWil
 const renderItem = (item, mode, itemEditCallback) => {
     let clickCallback = mode === Modes.EDIT ? () => itemEditCallback(item.id) : undefined;
 
+    // TODO: Replace buttons with something more flexible, like a link or a card
+
     return (
-        <Grid key={item.id} size={1}>
+        <Grid key={item.id} size={3}>
             <Tooltip title={item.description} placement="top">
                 <Button
+                    fullWidth
                     onClick={clickCallback}
                     variant="outlined">
-                    {item.title}
+                    {truncateForEllipsis(item.title, 30)}
                 </Button>
             </Tooltip>
         </Grid>
