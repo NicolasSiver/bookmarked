@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { addCollection, changeCollectionName, deleteCollection, shiftColleciton } from '../model/collections-slice';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
 import * as DialogTypes from '../model/dialog-types';
-import { changeItemDescription, changeItemTitle, changeItemUrl, deleteItemsByCollectionId } from '../model/items-slice';
+import { changeItemDescription, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId } from '../model/items-slice';
 import * as ItemProperties from '../model/item-properties';
 import { closeMenu, toggleMenu } from '../model/menu-slice';
 import { changeMode } from '../model/mode-slice';
@@ -93,6 +93,11 @@ export class MainController {
                 break;
             case ItemProperties.DESCRIPTION:
                 this.store.dispatch(changeItemDescription({ collectionId, itemId, description: value }));
+                break;
+            case ItemProperties.PARENT:
+                // TODO Update dialog target to keep the dialog open for further editing
+                this.closeDialog();
+                this.store.dispatch(changeItemParent({ collectionId, itemId, parentCollectionId: value }));
                 break;
             default:
                 console.warn(`Unknown property "${property}" for item with ID "${itemId}" in collection "${collectionId}"`);

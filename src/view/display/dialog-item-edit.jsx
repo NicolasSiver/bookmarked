@@ -33,7 +33,7 @@ export const DialogItemEdit = props => {
                     labelId="collection-select-label"
                     value={collectionId}
                     label="Parent collection"
-                    onChange={() => undefined}>
+                    onChange={e => editItemProperty(ItemProperties.PARENT, e.target.value)}>
                     {collections.map(collection => (
                         <MenuItem key={collection.id} value={collection.id}>
                             {collection.name}
