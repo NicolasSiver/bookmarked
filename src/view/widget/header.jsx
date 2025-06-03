@@ -5,6 +5,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import * as DialogTypes from "../../model/dialog-types";
+import { getVersion } from "../../util/get-version";
 import * as Modes from "../../model/modes";
 import { getMenuAnchorElement, getMode } from "../../model/selectors";
 
@@ -73,7 +74,7 @@ export const Header = ({ changeMode, menuDidSelect, openDialog }) => {
                     </div>
 
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Bookmarked ver. 0.0.0
+                        Bookmarked ver. {getVersion()}
                     </Typography>
 
                     <Tooltip title="Settings">
