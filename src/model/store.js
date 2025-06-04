@@ -13,10 +13,12 @@ export function createInitState() {
         collections: [
             // Signature - id: string, name: string
         ],
+
         dialog: {
             target: null,
             type: null
         },
+
         items: {
             // Signature - collectionId: string, items: Array<{ id: string, title: string, description: string, url: string }>
             // Example:
@@ -24,9 +26,11 @@ export function createInitState() {
             //     { id: "itemId1", title: "Test Title 1", description: "desc temp", url: "https://some.com" }
             // ]
         },
+
         menu: {
             anchorElement: null
         },
+
         mode: Modes.VIEW
     };
 }

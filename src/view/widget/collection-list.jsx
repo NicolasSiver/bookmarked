@@ -15,7 +15,7 @@ export const CollectionList = props => {
         return (
             <div className="collection-list__hint">
                 <Paper elevation={2} sx={{ px: 4, py: 2 }}>
-                    Create your first collection. Click the <IconMenu /> button to create a new collection.
+                    Create your first collection. Click the <IconMenu sx={{verticalAlign: 'bottom'}}/> button to create a new collection.
                 </Paper>
             </div>
         );
