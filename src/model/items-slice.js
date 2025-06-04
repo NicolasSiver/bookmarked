@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 let initialState = {};
 
-let itemsSlice = createSlice({
+export const itemsSlice = createSlice({
     name: 'items',
     initialState,
     reducers: {
@@ -96,4 +96,3 @@ let itemsSlice = createSlice({
 });
 
 export const { add, changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId } = itemsSlice.actions;
-export default itemsSlice.reducer;

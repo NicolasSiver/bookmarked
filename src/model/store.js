@@ -1,11 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import CollectionsSlice from "./collections-slice";
-import DialogSlice from "./dialog-slice";
-import ItemsSlice from "./items-slice";
-import MenuSlice from "./menu-slice";
-import ModeSlice from './mode-slice';
+import { collectionsSlice } from "./collections-slice";
+import { dialogSlice } from "./dialog-slice";
+import { itemsSlice } from "./items-slice";
+import { menuSlice } from "./menu-slice";
+import { modeSlice } from './mode-slice';
 import * as Modes from "./modes";
+import { PersistMiddleware } from "../controller/persist-middleware";
 
 export function createInitState() {
     return {
@@ -41,14 +42,17 @@ export function createInitState() {
 }
 
 export function createNewStore(initState) {
+    let persistMiddleware = new PersistMiddleware().createMiddleware();
+
     return configureStore({
         preloadedState: initState,
         reducer: {
-            collections: CollectionsSlice,
-            dialog: DialogSlice,
-            items: ItemsSlice,
-            menu: MenuSlice,
-            mode: ModeSlice
-        }
+            collections: collectionsSlice.reducer,
+            dialog: dialogSlice.reducer,
+            items: itemsSlice.reducer,
+            menu: menuSlice.reducer,
+            mode: modeSlice.reducer
+        },
+        middleware: getDefaultMiddleware => getDefaultMiddleware().concat(persistMiddleware)
     });
 }

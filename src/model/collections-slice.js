@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 let cuid = init({ length: 8 });
 let initialState = [];
 
-let collectionsSlice = createSlice({
+export const collectionsSlice = createSlice({
     name: 'collections',
     initialState,
     reducers: {
@@ -45,4 +45,3 @@ let collectionsSlice = createSlice({
 });
 
 export const { addCollection, changeCollectionName, deleteCollection, shiftColleciton } = collectionsSlice.actions;
-export default collectionsSlice.reducer;

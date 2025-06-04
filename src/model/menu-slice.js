@@ -4,7 +4,7 @@ let initialState = {
     anchorElement: null,
 };
 
-let menuSlice = createSlice({
+export const menuSlice = createSlice({
     name: 'menu',
     initialState,
     reducers: {
@@ -25,4 +25,3 @@ let menuSlice = createSlice({
 });
 
 export const { closeMenu, openMenu, toggleMenu } = menuSlice.actions;
-export default menuSlice.reducer;

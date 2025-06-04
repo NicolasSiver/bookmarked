@@ -4,7 +4,7 @@ import * as Modes from './modes';
 
 let initialState = Modes.VIEW;
 
-let modeSlice = createSlice({
+export const modeSlice = createSlice({
     name: 'mode',
     initialState,
     reducers: {
@@ -15,4 +15,3 @@ let modeSlice = createSlice({
 });
 
 export const { changeMode } = modeSlice.actions;
-export default modeSlice.reducer;
