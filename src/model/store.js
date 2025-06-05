@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import { collectionsSlice } from "./collections-slice";
+import { ExtensionStorage } from "../service/extension-storage";
 import { dialogSlice } from "./dialog-slice";
 import { itemsSlice } from "./items-slice";
 import { menuSlice } from "./menu-slice";
@@ -48,5 +49,20 @@ export function createNewStore(initState) {
             mode: modeSlice.reducer
         },
         middleware: getDefaultMiddleware => getDefaultMiddleware().concat(persistMiddleware)
+    });
+}
+
+export function restoreLocalState() {
+    let storage = new ExtensionStorage();
+    let collections, items;
+
+    return Promise.all([
+        storage.getValue(collectionsSlice.name),
+        storage.getValue(itemsSlice.name)
+    ]).then(([collectionsData, itemsData]) => {
+        collections = collectionsData;
+        items = itemsData;
+
+        return {collections, items};
     });
 }
