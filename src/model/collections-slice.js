@@ -35,6 +35,15 @@ export const collectionsSlice = createSlice({
             }
         },
 
+        hydrateCollections(state, action) {
+            const collections = action.payload;
+
+            if (Array.isArray(collections) === true) {
+                // Clear the current state and replace it with the new collections
+                state.splice(0, state.length, ...collections);
+            }
+        },
+
         shiftColleciton(state, action) {
             const { fromIndex, toIndex } = action.payload;
             const collection = state.splice(fromIndex, 1)[0];
@@ -44,4 +53,4 @@ export const collectionsSlice = createSlice({
     }
 });
 
-export const { addCollection, changeCollectionName, deleteCollection, shiftColleciton } = collectionsSlice.actions;
+export const { addCollection, changeCollectionName, deleteCollection, hydrateCollections, shiftColleciton } = collectionsSlice.actions;

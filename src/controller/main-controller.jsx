@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-import { addCollection, changeCollectionName, deleteCollection, shiftColleciton } from '../model/collections-slice';
+import { addCollection, changeCollectionName, deleteCollection, hydrateCollections, shiftColleciton } from '../model/collections-slice';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
 import * as DialogTypes from '../model/dialog-types';
 import { changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId } from '../model/items-slice';
@@ -12,7 +12,7 @@ import { changeMode } from '../model/mode-slice';
 import * as Modes from '../model/modes';
 import { RootLayout } from "../view/display/root-layout";
 import { getDialogTarget, getMode } from '../model/selectors';
-import { createInitState, createNewStore } from '../model/store';
+import { createInitState, createNewStore, restoreLocalState } from '../model/store';
 
 export class MainController {
     constructor() {
@@ -23,6 +23,14 @@ export class MainController {
         console.log('Extension is initialising...');
 
         this.render();
+        restoreLocalState().then(({collections, items}) => {
+            console.log('Restoring persisted state...');
+
+            if (Array.isArray(collections) === true && collections.length > 0) {
+                console.log('Hydrating collections:', collections);
+                this.store.dispatch(hydrateCollections(collections));
+            }
+        });
     }
 
     changeCollectionName(collectionId, name) {
