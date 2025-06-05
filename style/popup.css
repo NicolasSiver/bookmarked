@@ -1,4 +1,11 @@
 html {
     width: 288px;
     height: 320px;
+    box-sizing: border-box;
+}
+
+.popup-layout {
+    overflow: auto;
+    width: 288px;
+    height: 320px;
 }

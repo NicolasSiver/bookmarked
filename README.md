@@ -41,3 +41,4 @@ I think it's possible to have that initial functionality without any additional 
 - [ ] URL validation
 - [ ] Add storage tracker into the settings
 - [ ] Add settings as a wide slider
+- [ ] Support "Enter" button for confirmation of inputs
