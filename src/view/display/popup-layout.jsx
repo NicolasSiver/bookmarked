@@ -1,7 +1,7 @@
 import { Container, CssBaseline } from "@mui/material";
 import React from "react";
 
-import { CollectionList } from "../widget/collection-list";
+import { PopupList } from "../widget/popup-list";
 
 export const PopupLayout = props => {
 
@@ -9,7 +9,7 @@ export const PopupLayout = props => {
         <Container disableGutters={true} maxWidth={false}>
             <div className="popup-layout">
                 <CssBaseline enableColorScheme />
-                <CollectionList {...props} />
+                <PopupList {...props} />
             </div>
         </Container>
     );

@@ -2,12 +2,9 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-import { addCollection, changeCollectionName, deleteCollection, hydrateCollections, shiftColleciton } from '../model/collections-slice';
-import { changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId, hydrateItems } from '../model/items-slice';
 import { PopupLayout } from '../view/display/popup-layout';
-import { getDialogTarget, getMode } from '../model/selectors';
 import { StorageService } from '../service/storage-service';
-import { createInitState, createNewStore, restoreLocalState } from '../model/store';
+import { createInitState, createNewStore } from '../model/store';
 
 export class PopupController {
     constructor() {
