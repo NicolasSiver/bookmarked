@@ -16,7 +16,7 @@ export class ExtensionStorage {
 
         if (this.isChromeEnvironment === true) {
             return new Promise((resolve) => {
-                window.chrome.storage.local.get([key], (result) => resolve(result[key]));
+                window.chrome.storage.local.get([key], result => resolve(result[key]));
             });
         } else {
             data = localStorage.getItem(key);
