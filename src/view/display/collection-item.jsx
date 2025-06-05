@@ -5,6 +5,7 @@ import IconDelete from "@mui/icons-material/DeleteOutline";
 import React from "react";
 import { useSelector } from "react-redux";
 
+import * as Constants from "../../model/constants";
 import { getCollectionItemsById } from "../../model/selector/get-collection-items-by-id";
 import * as Modes from "../../model/modes";
 import { truncateForEllipsis } from "../../util/truncate-for-ellipsis";
@@ -36,7 +37,7 @@ const renderItem = (item, mode, itemEditCallback) => {
                     fullWidth
                     onClick={clickCallback}
                     variant="outlined">
-                    {truncateForEllipsis(item.title, 30)}
+                    {truncateForEllipsis(item.title, Constants.MAX_ITEM_TITLE_LENGTH)}
                 </Button>
             </Tooltip>
         </Grid>
