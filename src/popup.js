@@ -4,7 +4,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import '../style/popup.css';
 
-import {MainController} from "./controller/main-controller";
+import {PopupController} from "./controller/popup-controller";
 
-let controller = new MainController();
+let controller = new PopupController();
 controller.init();
