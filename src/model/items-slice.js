@@ -91,8 +91,14 @@ export const itemsSlice = createSlice({
             if (state[collectionId] !== undefined) {
                 delete state[collectionId];
             }
+        },
+
+        hydrateItems(state, action) {
+            // This action is used to hydrate the items state from persisted data
+            // It replaces the current state with the provided payload
+            return action.payload;
         }
     }
 });
 
-export const { add, changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId } = itemsSlice.actions;
+export const { add, changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId, hydrateItems } = itemsSlice.actions;

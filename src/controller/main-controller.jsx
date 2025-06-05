@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { addCollection, changeCollectionName, deleteCollection, hydrateCollections, shiftColleciton } from '../model/collections-slice';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
 import * as DialogTypes from '../model/dialog-types';
-import { changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId } from '../model/items-slice';
+import { changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId, hydrateItems } from '../model/items-slice';
 import * as ItemProperties from '../model/item-properties';
 import { closeMenu, toggleMenu } from '../model/menu-slice';
 import { changeMode } from '../model/mode-slice';
@@ -23,12 +23,17 @@ export class MainController {
         console.log('Extension is initialising...');
 
         this.render();
-        restoreLocalState().then(({collections, items}) => {
+        restoreLocalState().then(({ collections, items }) => {
             console.log('Restoring persisted state...');
 
             if (Array.isArray(collections) === true && collections.length > 0) {
                 console.log('Hydrating collections:', collections);
                 this.store.dispatch(hydrateCollections(collections));
+            }
+
+            if (items !== undefined) {
+                console.log('Hydrating items:', items);
+                this.store.dispatch(hydrateItems(items));
             }
         });
     }
