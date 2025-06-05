@@ -39,3 +39,5 @@ I think it's possible to have that initial functionality without any additional 
 
 - [ ] Add icons to the menu
 - [ ] URL validation
+- [ ] Add storage tracker into the settings
+- [ ] Add settings as a wide slider
