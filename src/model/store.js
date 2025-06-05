@@ -8,6 +8,7 @@ import { menuSlice } from "./menu-slice";
 import { modeSlice } from './mode-slice';
 import * as Modes from "./modes";
 import { PersistMiddleware } from "../controller/persist-middleware";
+import { tabSlice } from "./tab-slice";
 
 export function createInitState() {
     return {
@@ -32,7 +33,9 @@ export function createInitState() {
             anchorElement: null
         },
 
-        mode: Modes.VIEW
+        mode: Modes.VIEW,
+
+        tab: null
     };
 }
 
@@ -46,7 +49,8 @@ export function createNewStore(initState) {
             dialog: dialogSlice.reducer,
             items: itemsSlice.reducer,
             menu: menuSlice.reducer,
-            mode: modeSlice.reducer
+            mode: modeSlice.reducer,
+            tab: tabSlice.reducer
         },
         middleware: getDefaultMiddleware => getDefaultMiddleware().concat(persistMiddleware)
     });
@@ -63,6 +67,6 @@ export function restoreLocalState() {
         collections = collectionsData;
         items = itemsData;
 
-        return {collections, items};
+        return { collections, items };
     });
 }
