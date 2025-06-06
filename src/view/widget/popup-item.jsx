@@ -1,12 +1,16 @@
 import { Box, IconButton, Typography } from "@mui/material";
 import IconAdd from "@mui/icons-material/Add";
+import IconCheck from "@mui/icons-material/Check";
 import React from "react";
 import { useSelector } from "react-redux";
 
 import { getCollectionItemsById } from "../../model/selector/get-collection-items-by-id";
+import { getTabUrl } from "../../model/selectors";
 
 export const PopupItem = ({ addItem, collection, index, total }) => {
     const items = useSelector(getCollectionItemsById(collection.id)) || [];
+    const tabUrl = useSelector(getTabUrl);
+    const included = items.some(item => item.url === tabUrl);
 
     const renderLabel = () => {
         return (
@@ -26,10 +30,10 @@ export const PopupItem = ({ addItem, collection, index, total }) => {
                     edge="start"
                     color="inherit"
                     aria-label="add"
-                    disabled={false}
+                    disabled={included}
                     sx={{ mx: 0.5 }}
                     onClick={() => addItem(collection.id)}>
-                    <IconAdd fontSize="small" />
+                    {included === true ? <IconCheck fontSize="small" /> : <IconAdd fontSize="small" />}
                 </IconButton>
             </Box>
         </div>
