@@ -8,7 +8,7 @@ import { addItem } from '../model/items-slice';
 import { PopupLayout } from '../view/display/popup-layout';
 import { StorageService } from '../service/storage-service';
 import { createInitState, createNewStore } from '../model/store';
-import { getTabTitle, getTabUrl } from '../model/selectors';
+import { getTabFavIconUrl, getTabTitle, getTabUrl } from '../model/selectors';
 import { changeTab } from '../model/tab-slice';
 
 export class PopupController {
@@ -31,12 +31,14 @@ export class PopupController {
         let state = this.store.getState();
         let tabTitle = getTabTitle(state);
         let tabUrl = getTabUrl(state);
+        let tabFavIconUrl = getTabFavIconUrl(state);
         let { title, description } = getShortTitle(tabTitle, Constants.MAX_ITEM_TITLE_LENGTH);
 
         console.log('Active tab will be added to collection:', collectionId);
 
         item = {
             description,
+            favIconUrl: tabFavIconUrl,
             title,
             url: tabUrl
         };
