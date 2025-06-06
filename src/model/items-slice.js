@@ -1,18 +1,22 @@
+import { init } from "@paralleldrive/cuid2";
 import { createSlice } from "@reduxjs/toolkit";
 
+let cuid = init({ length: 8 });
 let initialState = {};
 
 export const itemsSlice = createSlice({
     name: 'items',
     initialState,
     reducers: {
-        // Collection identifier + item itself
-        // TODO Rename to 'addItemToCollection'?
-        add(state, action) {
+        addItem(state, action) {
             let collection = state[action.payload.collectionId];
+            let item = {
+                id: cuid(),
+                ...action.payload.item
+            };
 
             if (collection !== undefined) {
-                collection.push(action.payload.item);
+                collection.push(item);
             }
         },
 
@@ -101,4 +105,4 @@ export const itemsSlice = createSlice({
     }
 });
 
-export const { add, changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId, hydrateItems } = itemsSlice.actions;
+export const { addItem, changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId, hydrateItems } = itemsSlice.actions;

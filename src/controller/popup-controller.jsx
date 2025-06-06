@@ -2,9 +2,13 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
+import * as Constants from '../model/constants';
+import { getShortTitle } from '../util/get-short-title';
+import { addItem } from '../model/items-slice';
 import { PopupLayout } from '../view/display/popup-layout';
 import { StorageService } from '../service/storage-service';
 import { createInitState, createNewStore } from '../model/store';
+import { getTabTitle, getTabUrl } from '../model/selectors';
 import { changeTab } from '../model/tab-slice';
 
 export class PopupController {
@@ -20,6 +24,24 @@ export class PopupController {
         this.render();
         this.storageService.restore();
         this.getCurrentTab();
+    }
+
+    itemWillAdd(collectionId) {
+        let item;
+        let state = this.store.getState();
+        let tabTitle = getTabTitle(state);
+        let tabUrl = getTabUrl(state);
+        let { title, description } = getShortTitle(tabTitle, Constants.MAX_ITEM_TITLE_LENGTH);
+
+        console.log('Active tab will be added to collection:', collectionId);
+
+        item = {
+            description,
+            title,
+            url: tabUrl
+        };
+
+        this.store.dispatch(addItem({ collectionId, item }));
     }
 
     getCurrentTab() {
@@ -54,7 +76,8 @@ export class PopupController {
         let root = createRoot(document.getElementsByClassName('root')[0]);
         root.render(
             <Provider store={this.store}>
-                <PopupLayout />
+                <PopupLayout
+                    addItem={collectionId => this.itemWillAdd(collectionId)} />
             </Provider>
         );
     }

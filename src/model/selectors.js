@@ -10,4 +10,6 @@ export const getMenuAnchorElement = state => state.menu.anchorElement;
 
 export const getMode = state => state.mode;
 
+export const getTabTitle = state => state.tab?.title || null;
+
 export const getTabUrl = state => state.tab?.url || null;
