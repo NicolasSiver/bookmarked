@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 import { getCollectionItemsById } from "../../model/selector/get-collection-items-by-id";
 
-export const PopupItem = ({ collection, index, total }) => {
+export const PopupItem = ({ addItem, collection, index, total }) => {
     const items = useSelector(getCollectionItemsById(collection.id)) || [];
 
     const renderLabel = () => {
@@ -28,7 +28,7 @@ export const PopupItem = ({ collection, index, total }) => {
                     aria-label="add"
                     disabled={false}
                     sx={{ mx: 0.5 }}
-                    onClick={() => undefined}>
+                    onClick={() => addItem(collection.id)}>
                     <IconAdd fontSize="small" />
                 </IconButton>
             </Box>

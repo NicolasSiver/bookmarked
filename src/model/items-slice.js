@@ -15,9 +15,13 @@ export const itemsSlice = createSlice({
                 ...action.payload.item
             };
 
-            if (collection !== undefined) {
-                collection.push(item);
+            if (collection === undefined) {
+                // If the collection does not exist, create it
+                collection = [];
+                state[action.payload.collectionId] = collection;
             }
+
+            collection.push(item);
         },
 
         changeItemDescription(state, action) {
