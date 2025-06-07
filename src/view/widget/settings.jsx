@@ -8,12 +8,16 @@ import { getSettingsOpen } from "../../model/selectors";
 export const Settings = (props) => {
     const settingsOpen = useSelector(getSettingsOpen);
 
+    const toggleSettings = () => {
+        props.toggleSettings();
+    };
+
     return (
         < div className="settings">
             <Drawer
                 anchor="right"
                 open={settingsOpen}
-                onClose={props.onClose}>
+                onClose={toggleSettings}>
                 <div className="settings__content">
                     <h2>Settings</h2>
                     <p>Version: {getVersion()}</p>

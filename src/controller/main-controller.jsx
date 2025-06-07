@@ -12,7 +12,7 @@ import { changeMode } from '../model/mode-slice';
 import * as Modes from '../model/modes';
 import { RootLayout } from "../view/display/root-layout";
 import { getDialogTarget, getMode } from '../model/selectors';
-import { openSettings } from '../model/settings-slice';
+import { openSettings, toggleSettings } from '../model/settings-slice';
 import { StorageService } from '../service/storage-service';
 import { createInitState, createNewStore } from '../model/store';
 
@@ -159,7 +159,8 @@ export class MainController {
                     menuDidSelect={element => this.menuDidSelect(element)}
                     openDialog={(type, target) => this.openDialog(type, target)}
                     openSettings={() => this.openSettings()}
-                    shiftCollection={(from, to) => this.shiftCollection(from, to)} />
+                    shiftCollection={(from, to) => this.shiftCollection(from, to)}
+                    toggleSettings={() => this.toggleSettings()} />
             </Provider>
         );
     }
@@ -168,5 +169,11 @@ export class MainController {
         console.log(`Shifting collection from ${fromIndex} to ${toIndex}`);
 
         this.store.dispatch(shiftColleciton({ fromIndex, toIndex }));
+    }
+
+    toggleSettings() {
+        console.log('Toggling settings drawer');
+
+        this.store.dispatch(toggleSettings());
     }
 }
