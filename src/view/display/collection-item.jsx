@@ -17,107 +17,107 @@ export const CollectionItem = ({ changeCollectionName, collection, collectionWil
         editCollectionItem(collection.id, itemId);
     };
 
-    return (
-        <div className="collection-item">
-            {renderTitle(collection, mode, index, total, shiftCollection, changeCollectionName, collectionWillDelete)}
-            {renderItems(items, mode, itemEditCallback)}
-        </div>
-    );
-};
+    const renderItem = (item) => {
+        let clickCallback = mode === Modes.EDIT ? () => itemEditCallback(item.id) : undefined;
 
-const renderItem = (item, mode, itemEditCallback) => {
-    let clickCallback = mode === Modes.EDIT ? () => itemEditCallback(item.id) : undefined;
+        // TODO: Replace buttons with something more flexible, like a link or a card
 
-    // TODO: Replace buttons with something more flexible, like a link or a card
-
-    return (
-        <Grid key={item.id} size={3}>
-            <Tooltip title={item.description} placement="top">
-                <Button
-                    fullWidth
-                    onClick={clickCallback}
-                    variant="outlined">
-                    {truncateForEllipsis(item.title, Constants.MAX_ITEM_TITLE_LENGTH)}
-                </Button>
-            </Tooltip>
-        </Grid>
-    );
-};
-
-const renderItems = (items, mode, itemEditCallback) => {
-    let container = null;
-
-    if (items.length > 0) {
-        container = (
-            <Grid container spacing={2}>
-                {items.map(item => renderItem(item, mode, itemEditCallback))}
+        return (
+            <Grid key={item.id} size={3}>
+                <Tooltip title={item.description} placement="top">
+                    <Button
+                        fullWidth
+                        onClick={clickCallback}
+                        variant="outlined">
+                        {truncateForEllipsis(item.title, Constants.MAX_ITEM_TITLE_LENGTH)}
+                    </Button>
+                </Tooltip>
             </Grid>
         );
-    } else {
-        container = (
-            <div className="collection-item__alert">
-                <Alert severity="info" variant="outlined">
-                    When you add your first bookmark, it will show up here.
-                </Alert>
-            </div>
-        );
-    }
+    };
 
-    return container;
-};
+    const renderItems = () => {
+        let container = null;
 
-const renderTitle = (collection, mode, index, total, shiftCollection, changeName, collectionWillDelete) => {
-    let title = null;
+        if (items.length > 0) {
+            container = (
+                <Grid container spacing={2}>
+                    {items.map(item => renderItem(item))}
+                </Grid>
+            );
+        } else {
+            container = (
+                <div className="collection-item__alert">
+                    <Alert severity="info" variant="outlined">
+                        When you add your first bookmark, it will show up here.
+                    </Alert>
+                </div>
+            );
+        }
 
-    if (mode === Modes.EDIT) {
-        title = (
-            <div>
-                <TextField
-                    label="Collection name"
-                    defaultValue={collection.name}
-                    sx={{ my: 1 }}
-                    onChange={event => changeName(collection.id, event.target.value)} />
+        return container;
+    };
 
-                <IconButton
-                    size="large"
-                    edge="start"
-                    color="inherit"
-                    aria-label="up"
-                    disabled={index === 0}
-                    sx={{ mx: 0.5 }}
-                    onClick={() => shiftCollection(index, index - 1)}>
-                    <IconArrowUpward />
-                </IconButton>
+    const renderTitle = () => {
+        let title = null;
 
-                <IconButton
-                    size="large"
-                    edge="start"
-                    color="inherit"
-                    aria-label="down"
-                    disabled={index === total - 1}
-                    sx={{ mx: 0.5 }}
-                    onClick={() => shiftCollection(index, index + 1)}>
-                    <IconArrowDownward />
-                </IconButton>
+        if (mode === Modes.EDIT) {
+            title = (
+                <div>
+                    <TextField
+                        label="Collection name"
+                        defaultValue={collection.name}
+                        sx={{ my: 1 }}
+                        onChange={event => changeCollectionName(collection.id, event.target.value)} />
 
-                <IconButton
-                    size="large"
-                    edge="start"
-                    color="inherit"
-                    aria-label="delete"
-                    sx={{ mx: 0.5 }}
-                    onClick={() => collectionWillDelete(collection.id)}>
-                    <IconDelete />
-                </IconButton>
-            </div>
-        );
-    } else if (mode === Modes.VIEW) {
-        title = (
-            <Typography variant="h5" component="div" sx={{ m: 1 }}>
-                {collection.name}
-            </Typography>
-        );
-    }
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="up"
+                        disabled={index === 0}
+                        sx={{ mx: 0.5 }}
+                        onClick={() => shiftCollection(index, index - 1)}>
+                        <IconArrowUpward />
+                    </IconButton>
 
-    return title;
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="down"
+                        disabled={index === total - 1}
+                        sx={{ mx: 0.5 }}
+                        onClick={() => shiftCollection(index, index + 1)}>
+                        <IconArrowDownward />
+                    </IconButton>
+
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="delete"
+                        sx={{ mx: 0.5 }}
+                        onClick={() => collectionWillDelete(collection.id)}>
+                        <IconDelete />
+                    </IconButton>
+                </div>
+            );
+        } else if (mode === Modes.VIEW) {
+            title = (
+                <Typography variant="h5" component="div" sx={{ m: 1 }}>
+                    {collection.name}
+                </Typography>
+            );
+        }
+
+        return title;
+    };
+
+    return (
+        <div className="collection-item">
+            {renderTitle()}
+            {renderItems()}
+        </div>
+    );
 };
