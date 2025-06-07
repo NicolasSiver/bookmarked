@@ -28,6 +28,7 @@ export const CollectionItem = ({ changeCollectionName, collection, collectionWil
                     <Button
                         fullWidth
                         onClick={clickCallback}
+                        startIcon={<img src={item.favIconUrl} style={{ width: 16, height: 16 }} />}
                         variant="outlined">
                         {truncateForEllipsis(item.title, Constants.MAX_ITEM_TITLE_LENGTH)}
                     </Button>
@@ -63,7 +64,7 @@ export const CollectionItem = ({ changeCollectionName, collection, collectionWil
 
         if (mode === Modes.EDIT) {
             title = (
-                <div>
+                <div className="collection-item__title">
                     <TextField
                         label="Collection name"
                         defaultValue={collection.name}
