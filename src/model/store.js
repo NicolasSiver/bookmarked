@@ -8,6 +8,7 @@ import { menuSlice } from "./menu-slice";
 import { modeSlice } from './mode-slice';
 import * as Modes from "./modes";
 import { PersistMiddleware } from "../controller/persist-middleware";
+import { settingsSlice } from "./settings-slice";
 import { tabSlice } from "./tab-slice";
 
 export function createInitState() {
@@ -35,6 +36,10 @@ export function createInitState() {
 
         mode: Modes.VIEW,
 
+        settings: {
+            open: false
+        },
+
         tab: null
     };
 }
@@ -50,6 +55,7 @@ export function createNewStore(initState) {
             items: itemsSlice.reducer,
             menu: menuSlice.reducer,
             mode: modeSlice.reducer,
+            settings: settingsSlice.reducer,
             tab: tabSlice.reducer
         },
         middleware: getDefaultMiddleware => getDefaultMiddleware().concat(persistMiddleware)

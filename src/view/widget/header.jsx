@@ -47,6 +47,8 @@ export const Header = ({ changeMode, menuDidSelect, openDialog }) => {
         return label;
     }
 
+    // TODO: Move version to the settings drawer?
+
     return (
         <div className="header">
             <AppBar position="sticky">
