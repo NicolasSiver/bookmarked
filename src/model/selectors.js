@@ -10,6 +10,8 @@ export const getMenuAnchorElement = state => state.menu.anchorElement;
 
 export const getMode = state => state.mode;
 
+export const getSettingsOpen = state => state.settings.open;
+
 export const getTabFavIconUrl = state => state.tab?.favIconUrl || null;
 
 export const getTabTitle = state => state.tab?.title || null;

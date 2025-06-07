@@ -9,7 +9,7 @@ import { getVersion } from "../../util/get-version";
 import * as Modes from "../../model/modes";
 import { getMenuAnchorElement, getMode } from "../../model/selectors";
 
-export const Header = ({ changeMode, menuDidSelect, openDialog }) => {
+export const Header = ({ changeMode, menuDidSelect, openDialog, openSettings }) => {
     let anchorElement = useSelector(getMenuAnchorElement);
 
     const collectionDialogCallback = () => {
@@ -27,6 +27,10 @@ export const Header = ({ changeMode, menuDidSelect, openDialog }) => {
 
     const modeCallback = () => {
         changeMode();
+    };
+
+    const settingsCallback = () => {
+        openSettings();
     };
 
     const getModeLabel = () => {
@@ -85,7 +89,8 @@ export const Header = ({ changeMode, menuDidSelect, openDialog }) => {
                             edge="end"
                             color="inherit"
                             aria-label="settings"
-                            sx={{ ml: 2 }}>
+                            sx={{ ml: 2 }}
+                            onClick={settingsCallback}>
                             <IconSettings />
                         </IconButton>
                     </Tooltip>
