@@ -111,6 +111,12 @@ export class MainController {
         }
     }
 
+    itemDidClick(item) {
+        console.log(`Item clicked: ${item}`);
+
+        window.open(item.url, '_self');
+    }
+
     menuDidSelect(element) {
         console.log('Menu item selected: ' + element);
 
@@ -142,6 +148,7 @@ export class MainController {
                     deleteCollection={id => this.deleteCollection(id)}
                     editCollectionItem={(collectionId, itemId) => this.editCollectionItem(collectionId, itemId)}
                     editItemProperty={(collectionId, itemId, property, value) => this.editItemProperty(collectionId, itemId, property, value)}
+                    itemDidClick={item => this.itemDidClick(item)}
                     menuDidSelect={element => this.menuDidSelect(element)}
                     openDialog={(type, target) => this.openDialog(type, target)}
                     shiftCollection={(from, to) => this.shiftCollection(from, to)} />

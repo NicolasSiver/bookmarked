@@ -10,15 +10,15 @@ import { getCollectionItemsById } from "../../model/selector/get-collection-item
 import * as Modes from "../../model/modes";
 import { truncateForEllipsis } from "../../util/truncate-for-ellipsis";
 
-export const CollectionItem = ({ changeCollectionName, collection, collectionWillDelete, editCollectionItem, mode, index, total, shiftCollection }) => {
+export const CollectionItem = ({ changeCollectionName, collection, collectionWillDelete, editCollectionItem, mode, index, itemDidClick, total, shiftCollection }) => {
     const items = useSelector(getCollectionItemsById(collection.id)) || [];
 
     const itemEditCallback = itemId => {
         editCollectionItem(collection.id, itemId);
     };
 
-    const renderItem = (item) => {
-        let clickCallback = mode === Modes.EDIT ? () => itemEditCallback(item.id) : undefined;
+    const renderItem = item => {
+        let clickCallback = mode === Modes.EDIT ? () => itemEditCallback(item.id) : () => itemDidClick(item);
 
         // TODO: Replace buttons with something more flexible, like a link or a card
 
