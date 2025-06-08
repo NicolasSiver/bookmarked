@@ -106,7 +106,7 @@ export const CollectionItem = ({ changeCollectionName, collection, collectionWil
             );
         } else if (mode === Modes.VIEW) {
             title = (
-                <Typography variant="h5" component="div" sx={{ m: 1 }}>
+                <Typography variant="h5" component="div" sx={{ m: 1, fontWeight: 300 }}>
                     {collection.name}
                 </Typography>
             );
