@@ -4,7 +4,7 @@ import { itemsSlice } from '../model/items-slice';
 
 export class PersistMiddleware {
     constructor() {
-        this.storage = new ExtensionStorage();
+        this.storage = new ExtensionStorage('sync');
     }
 
     createMiddleware() {
