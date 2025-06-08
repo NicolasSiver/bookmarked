@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { addCollection, changeCollectionName, deleteCollection, shiftColleciton } from '../model/collections-slice';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
 import * as DialogTypes from '../model/dialog-types';
+import { getStorageUsageRatio } from '../util/get-storage-usage-ratio';
 import { changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId } from '../model/items-slice';
 import * as ItemProperties from '../model/item-properties';
 import { closeMenu, toggleMenu } from '../model/menu-slice';
@@ -12,7 +13,7 @@ import { changeMode } from '../model/mode-slice';
 import * as Modes from '../model/modes';
 import { RootLayout } from "../view/display/root-layout";
 import { getDialogTarget, getMode } from '../model/selectors';
-import { openSettings, toggleSettings } from '../model/settings-slice';
+import { changeStorageQuota, openSettings, toggleSettings } from '../model/settings-slice';
 import { StorageService } from '../service/storage-service';
 import { createInitState, createNewStore } from '../model/store';
 
@@ -28,6 +29,12 @@ export class MainController {
 
         this.render();
         this.storageService.restore();
+        getStorageUsageRatio().then(ratio => {
+            console.log(`Storage usage ratio: ${ratio}`);
+            this.store.dispatch(changeStorageQuota({ ratio }));
+        }).catch(error => {
+            console.error('Error getting storage usage ratio:', error);
+        });
     }
 
     changeCollectionName(collectionId, name) {

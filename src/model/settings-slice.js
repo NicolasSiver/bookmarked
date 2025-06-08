@@ -23,4 +23,4 @@ export const settingsSlice = createSlice({
     }
 });
 
-export const { openSettings, toggleSettings } = settingsSlice.actions;
+export const { changeStorageQuota, openSettings, toggleSettings } = settingsSlice.actions;
