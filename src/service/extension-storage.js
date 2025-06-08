@@ -3,12 +3,18 @@
  * browser storage, supporting both Chrome's storage API and localStorage.
  * It abstracts the differences between the two environments, allowing
  * for seamless data retrieval and storage.
+ * 
+ * Usage:
+ * const storage = new ExtensionStorage('local'); // or 'sync' for Chrome sync storage
+ * @param {string} storageType - The type of storage to use ('local' or 'sync').
+ * @returns {ExtensionStorage} An instance of the ExtensionStorage class.
  */
 export class ExtensionStorage {
-    constructor() {
+    constructor(storageType = 'local') {
+        this.storageType = storageType;
         this.isChromeEnvironment = window.chrome !== undefined &&
             window.chrome.storage !== undefined &&
-            window.chrome.storage.local !== undefined;
+            window.chrome.storage[this.storageType] !== undefined;
     }
 
     getValue(key) {
@@ -16,7 +22,7 @@ export class ExtensionStorage {
 
         if (this.isChromeEnvironment === true) {
             return new Promise((resolve) => {
-                window.chrome.storage.local.get([key], result => resolve(result[key]));
+                window.chrome.storage[this.storageType].get([key], result => resolve(result[key]));
             });
         } else {
             data = localStorage.getItem(key);
@@ -27,7 +33,7 @@ export class ExtensionStorage {
     setValue(key, value) {
         if (this.isChromeEnvironment === true) {
             return new Promise((resolve) => {
-                window.chrome.storage.local.set({ [key]: value }, resolve);
+                window.chrome.storage[this.storageType].set({ [key]: value }, resolve);
             });
         } else {
             localStorage.setItem(key, JSON.stringify(value));
