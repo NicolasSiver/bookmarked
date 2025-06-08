@@ -37,7 +37,8 @@ export function createInitState() {
         mode: Modes.VIEW,
 
         settings: {
-            open: false
+            open: false,
+            storageQuota: 0
         },
 
         tab: null

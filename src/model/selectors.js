@@ -12,6 +12,8 @@ export const getMode = state => state.mode;
 
 export const getSettingsOpen = state => state.settings.open;
 
+export const getSettingsStorageQuota = state => state.settings.storageQuota;
+
 export const getTabFavIconUrl = state => state.tab?.favIconUrl || null;
 
 export const getTabTitle = state => state.tab?.title || null;
