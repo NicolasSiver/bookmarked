@@ -1,12 +1,13 @@
-import { Drawer } from "@mui/material";
+import { Drawer, LinearProgress } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 
 import { getVersion } from "../../util/get-version";
-import { getSettingsOpen } from "../../model/selectors";
+import { getSettingsOpen, getSettingsStorageQuota } from "../../model/selectors";
 
 export const Settings = (props) => {
     const settingsOpen = useSelector(getSettingsOpen);
+    const storageQuota = useSelector(getSettingsStorageQuota);
 
     const toggleSettings = () => {
         props.toggleSettings();
@@ -19,9 +20,9 @@ export const Settings = (props) => {
                 open={settingsOpen}
                 onClose={toggleSettings}>
                 <div className="settings__content">
-                    <h2>Settings</h2>
                     <p>Version: {getVersion()}</p>
-                    <p>TODO: Work in progress...</p>
+                    <p>Storage usage: {storageQuota}%</p>
+                    <LinearProgress variant="determinate" value={storageQuota} />
                 </div>
             </Drawer>
         </div>

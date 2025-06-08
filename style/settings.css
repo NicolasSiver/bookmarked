@@ -3,5 +3,6 @@
 }
 
 .settings__content {
+    min-width: 16rem;
     padding: 1rem;
 }
