@@ -20,8 +20,8 @@ export const Settings = (props) => {
                 open={settingsOpen}
                 onClose={toggleSettings}>
                 <div className="settings__content">
-                    <p>Version: {getVersion()}</p>
-                    <p>Storage usage: {storageQuota}%</p>
+                    <p>Version: <span className="settings__content-value">{getVersion()}</span></p>
+                    <p>Storage usage: <span className="settings__content-value">{storageQuota}%</span></p>
                     <LinearProgress variant="determinate" value={storageQuota} />
                 </div>
             </Drawer>
