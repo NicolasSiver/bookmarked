@@ -37,8 +37,8 @@ export class PopupController {
         console.log('Active tab will be added to collection:', collectionId);
 
         item = {
-            description,
-            favIconUrl: tabFavIconUrl,
+            desc: description,
+            favUrl: tabFavIconUrl,
             title,
             url: tabUrl
         };

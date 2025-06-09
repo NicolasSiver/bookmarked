@@ -24,11 +24,11 @@ export const CollectionItem = ({ changeCollectionName, collection, collectionWil
 
         return (
             <Grid key={item.id} size={3}>
-                <Tooltip title={item.description} placement="top">
+                <Tooltip title={item.desc} placement="top">
                     <Button
                         fullWidth
                         onClick={clickCallback}
-                        startIcon={<img src={item.favIconUrl} style={{ width: 16, height: 16 }} />}
+                        startIcon={<img src={item.favUrl} style={{ width: 16, height: 16 }} />}
                         variant="outlined">
                         {truncateForEllipsis(item.title, Constants.MAX_ITEM_TITLE_LENGTH)}
                     </Button>

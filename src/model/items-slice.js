@@ -31,7 +31,7 @@ export const itemsSlice = createSlice({
                 let item = collection.find(item => item.id === action.payload.itemId);
                 if (item !== undefined) {
                     // Update the description of the item
-                    item.description = action.payload.description;
+                    item.desc = action.payload.description;
                 }
             }
         },

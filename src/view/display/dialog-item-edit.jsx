@@ -2,14 +2,12 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { getCollectionById } from "../../model/selector/get-collection-by-id";
 import { getCollectionItemsById } from "../../model/selector/get-collection-items-by-id";
 import * as ItemProperties from "../../model/item-properties";
 import { getCollections } from "../../model/selectors";
 
 export const DialogItemEdit = props => {
     const { collectionId, itemId } = props.dialogContext
-    const collection = useSelector(getCollectionById(collectionId));
     const collections = useSelector(getCollections);
     const items = useSelector(getCollectionItemsById(collectionId));
     const itemIndex = items.findIndex(item => item.id === itemId);
@@ -87,7 +85,7 @@ export const DialogItemEdit = props => {
                         margin="dense"
                         label="Description"
                         fullWidth
-                        value={item.description}
+                        value={item.desc}
                         onChange={e => editItemProperty(ItemProperties.DESCRIPTION, e.target.value)} />
                     <TextField
                         autoFocus

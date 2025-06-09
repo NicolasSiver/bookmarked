@@ -26,7 +26,7 @@ export function createInitState() {
             // Signature - collectionId: string, items: Array<{ id: string, title: string, description: string, url: string }>
             // Example:
             // testId1: [
-            //     { id: "itemId1", title: "Test Title 1", description: "desc temp", url: "https://some.com", favIconUrl: "https://some.com/favicon.ico" },
+            //     { id: "itemId1", title: "Test Title 1", desc: "desc temp", url: "https://some.com", favUrl: "https://some.com/favicon.ico" },
             // ]
         },
 
