@@ -1,4 +1,4 @@
-# Bookmarked
+# <img src='./public/icon48.png' height='48' alt='Bookmarked Icon' style="display: flex;align-items: center;"/> Bookmarked
 
 > Important: Work in progress... Exploration and learning of extension development for the Google Chrome browser.
 
