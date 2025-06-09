@@ -93,6 +93,20 @@ export const itemsSlice = createSlice({
             }
         },
 
+        deleteItem(state, action) {
+            let index;
+            let collection = state[action.payload.collectionId];
+
+            if (collection !== undefined) {
+                // Find the index of the item to be deleted
+                index = collection.findIndex(item => item.id === action.payload.itemId);
+                if (index !== -1) {
+                    // Remove the item from the collection
+                    collection.splice(index, 1);
+                }
+            }
+        },
+
         deleteItemsByCollectionId(state, action) {
             let collectionId = action.payload.collectionId;
 
@@ -109,4 +123,4 @@ export const itemsSlice = createSlice({
     }
 });
 
-export const { addItem, changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId, hydrateItems } = itemsSlice.actions;
+export const { addItem, changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItem, deleteItemsByCollectionId, hydrateItems } = itemsSlice.actions;

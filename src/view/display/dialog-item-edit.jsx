@@ -13,6 +13,10 @@ export const DialogItemEdit = props => {
     const itemIndex = items.findIndex(item => item.id === itemId);
     const item = items[itemIndex];
 
+    const deleteItemCallback = () => {
+        props.deleteItem(collectionId, itemId);
+    };
+
     const dialogCloseCallback = () => {
         props.closeDialog();
     };
@@ -103,7 +107,7 @@ export const DialogItemEdit = props => {
                     {createOrderSelect()}
                 </DialogContent>
                 <DialogActions>
-                    <Button color="error" onClick={() => undefined}>Delete</Button>
+                    <Button color="error" onClick={deleteItemCallback}>Delete</Button>
                     <Button onClick={dialogCloseCallback}>Close</Button>
                 </DialogActions>
             </Dialog>

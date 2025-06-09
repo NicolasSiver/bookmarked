@@ -6,7 +6,7 @@ import { addCollection, changeCollectionName, deleteCollection, shiftColleciton 
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
 import * as DialogTypes from '../model/dialog-types';
 import { getStorageUsageRatio } from '../util/get-storage-usage-ratio';
-import { changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItemsByCollectionId } from '../model/items-slice';
+import { changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItem, deleteItemsByCollectionId } from '../model/items-slice';
 import * as ItemProperties from '../model/item-properties';
 import { closeMenu, toggleMenu } from '../model/menu-slice';
 import { changeMode } from '../model/mode-slice';
@@ -87,6 +87,13 @@ export class MainController {
         this.closeDialog();
     }
 
+    deleteItem(collectionId, itemId) {
+        console.log(`Deleting item with ID "${itemId}" from collection "${collectionId}"`);
+
+        this.closeDialog();
+        this.store.dispatch(deleteItem({ collectionId, itemId }));
+    }
+
     editCollectionItem(collectionId, itemId) {
         console.log(`Editing item with ID "${itemId}" in collection "${collectionId}"`);
 
@@ -160,6 +167,7 @@ export class MainController {
                     collectionWillDelete={id => this.collectionWillDelete(id)}
                     createCollection={() => this.createCollection()}
                     deleteCollection={id => this.deleteCollection(id)}
+                    deleteItem={(collectionId, itemId) => this.deleteItem(collectionId, itemId)}
                     editCollectionItem={(collectionId, itemId) => this.editCollectionItem(collectionId, itemId)}
                     editItemProperty={(collectionId, itemId, property, value) => this.editItemProperty(collectionId, itemId, property, value)}
                     itemDidClick={item => this.itemDidClick(item)}
