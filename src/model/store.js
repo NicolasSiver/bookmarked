@@ -64,7 +64,7 @@ export function createNewStore(initState) {
 }
 
 export function restoreLocalState() {
-    let storage = new ExtensionStorage();
+    let storage = new ExtensionStorage('sync');
     let collections, items;
 
     return Promise.all([
