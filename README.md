@@ -25,21 +25,21 @@ I think it's possible to have that initial functionality without any additional 
 
 ## Roadmap and Aspirations
 
-- [ ] Basic collection flow
-- [ ] Create Google Chrome Dev Account and publish the extension
-- [ ] Data persistence
+- [x] Basic collection flow
+- [x] Create Google Chrome Dev Account and publish the extension
+- [x] Data persistence
+- [x] Multi-device data syncronization
+- [x] Bookmarks: change order
 - [ ] Data migration from Toby
-- [ ] Multi-device data syncronization
 - [ ] Themes (Dark / Light)
 - [ ] Highlight already opened bookmarks
-- [ ] Bookmarks: change order
 - [ ] Bookmarks: color-coding
 
 ## Small things
 
-- [ ] Add icons to the menu
+- [x] Add storage tracker into the settings
+- [x] Add settings as a wide slider
+- [ ] Add icons to the main menu
 - [ ] URL validation
-- [ ] Add storage tracker into the settings
-- [ ] Add settings as a wide slider
 - [ ] Support "Enter" button for confirmation of inputs
 - [ ] Popup - fast delete?
