@@ -44,3 +44,4 @@ I think it's possible to have that initial functionality without any additional 
 - [ ] URL validation
 - [ ] Support "Enter" button for confirmation of inputs
 - [ ] Popup - fast delete?
+- [ ] Notifications for key async operations and errors
