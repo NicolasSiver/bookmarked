@@ -30,6 +30,7 @@ I think it's possible to have that initial functionality without any additional 
 - [x] Data persistence
 - [x] Multi-device data syncronization
 - [x] Bookmarks: change order
+- [ ] Data persistence: utilize 8 KB limit for a single key
 - [ ] Data migration from Toby
 - [ ] Themes (Dark / Light)
 - [ ] Highlight already opened bookmarks
