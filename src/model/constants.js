@@ -12,3 +12,11 @@ export const MAX_ITEM_TITLE_LENGTH = 30;
  * @constant
  */
 export const NEW_TAB_URL = 'chrome://newtab/';
+
+/**
+ * Number of storage buckets used for items.
+ * This is used to distribute items across multiple storage buckets to avoid hitting storage limits.
+ * @type {number}
+ * @constant
+ */
+export const STORAGE_BUCKETS = 12;
