@@ -1,7 +1,7 @@
 /**
- * The quota limitation is approximately 100 KB, 8 KB per item.
+ * The quota limitation is approximately 100 KB (102400), 8 KB (8192) per item.
  */
-export function getStorageUsageRatio(limit = 100000) {
+export function getStorageUsageRatio(limit = 102400) {
     return new Promise((resolve, reject) => {
         try {
             chrome.storage.sync.getBytesInUse(null, bytes => {
