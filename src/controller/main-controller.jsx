@@ -19,8 +19,8 @@ import { createInitState, createNewStore } from '../model/store';
 
 export class MainController {
     constructor() {
-        this.store = createNewStore(createInitState());
         this.storageService = new StorageService();
+        this.store = createNewStore(createInitState(), this.storageService);
         this.storageService.initWithStore(this.store);
     }
 

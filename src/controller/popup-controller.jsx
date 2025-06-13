@@ -13,8 +13,8 @@ import { changeTab } from '../model/tab-slice';
 
 export class PopupController {
     constructor() {
-        this.store = createNewStore(createInitState());
         this.storageService = new StorageService();
+        this.store = createNewStore(createInitState(), this.storageService);
         this.storageService.initWithStore(this.store);
     }
 

@@ -1,10 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import { collectionsSlice } from "./collections-slice";
-import { composeDataFromBuckets } from "../util/compose-data-from-buckets";
-import * as Constants from './constants';
-import { createBucketKeys } from "../util/create-bucket-keys";
-import { ExtensionStorage } from "../service/extension-storage";
 import { dialogSlice } from "./dialog-slice";
 import { itemsSlice } from "./items-slice";
 import { menuSlice } from "./menu-slice";
@@ -48,8 +44,8 @@ export function createInitState() {
     };
 }
 
-export function createNewStore(initState) {
-    let persistMiddleware = new PersistMiddleware().createMiddleware();
+export function createNewStore(initState, storageService) {
+    let persistMiddleware = new PersistMiddleware(storageService).createMiddleware();
 
     return configureStore({
         preloadedState: initState,
@@ -63,20 +59,5 @@ export function createNewStore(initState) {
             tab: tabSlice.reducer
         },
         middleware: getDefaultMiddleware => getDefaultMiddleware().concat(persistMiddleware)
-    });
-}
-
-export function restoreLocalState() {
-    let collections, items;
-    let storage = new ExtensionStorage('sync');
-
-    return Promise.all([
-        storage.getValue([collectionsSlice.name]),
-        storage.getValue(createBucketKeys(itemsSlice.name, Constants.STORAGE_BUCKETS_MAX))
-    ]).then(([collectionsData, itemsData]) => {
-        collections = collectionsData[collectionsSlice.name];
-        items = composeDataFromBuckets(itemsData);
-
-        return { collections, items };
     });
 }
