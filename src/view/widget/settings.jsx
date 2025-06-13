@@ -3,11 +3,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { getVersion } from "../../util/get-version";
-import { getSettingsOpen, getSettingsStorageQuota } from "../../model/selectors";
+import { getSettingsPanelOpen, getSettingsPanelStorageQuota } from "../../model/selectors";
 
 export const Settings = (props) => {
-    const settingsOpen = useSelector(getSettingsOpen);
-    const storageQuota = useSelector(getSettingsStorageQuota);
+    const settingsOpen = useSelector(getSettingsPanelOpen);
+    const storageQuota = useSelector(getSettingsPanelStorageQuota);
 
     const toggleSettings = () => {
         props.toggleSettings();

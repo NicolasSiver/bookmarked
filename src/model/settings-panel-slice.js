@@ -5,8 +5,8 @@ let initialState = {
     storageQuota: 0
 };
 
-export const settingsSlice = createSlice({
-    name: 'settings',
+export const settingsPanelSlice = createSlice({
+    name: 'settingsPanel',
     initialState,
     reducers: {
         changeStorageQuota(state, action) {
@@ -23,4 +23,4 @@ export const settingsSlice = createSlice({
     }
 });
 
-export const { changeStorageQuota, openSettings, toggleSettings } = settingsSlice.actions;
+export const { changeStorageQuota, openSettings, toggleSettings } = settingsPanelSlice.actions;

@@ -13,7 +13,7 @@ import { changeMode } from '../model/mode-slice';
 import * as Modes from '../model/modes';
 import { RootLayout } from "../view/display/root-layout";
 import { getDialogTarget, getMode } from '../model/selectors';
-import { changeStorageQuota, openSettings, toggleSettings } from '../model/settings-slice';
+import { changeStorageQuota, openSettings, toggleSettings } from '../model/settings-panel-slice';
 import { StorageService } from '../service/storage-service';
 import { createInitState, createNewStore } from '../model/store';
 
