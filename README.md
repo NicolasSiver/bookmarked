@@ -1,5 +1,7 @@
 # <img src='./public/icon32.png' height='32' alt='Bookmarked Icon' style="display: flex;align-items: center;"/> Bookmarked
 
+![CI](https://github.com/NicolasSiver/bookmarked/actions/workflows/nodejs-test.yml/badge.svg?branch=main)
+
 > Important: Work in progress... Exploration and learning of extension development for the Google Chrome browser.
 
 > Notes: There are many extensions dedicated to bookmark and tab management. This is my simplified version.
