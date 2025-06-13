@@ -20,3 +20,11 @@ export const NEW_TAB_URL = 'chrome://newtab/';
  * @constant
  */
 export const STORAGE_BUCKETS = 12;
+
+/**
+ * Max number of storage buckets used for items.
+ * Used to prevent potential migration challenges in future.
+ * @type {number}
+ * @constant
+ */
+export const STORAGE_BUCKETS_MAX = 20;

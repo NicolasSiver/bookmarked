@@ -1,6 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import { collectionsSlice } from "./collections-slice";
+import { composeDataFromBuckets } from "../util/compose-data-from-buckets";
+import * as Constants from './constants';
+import { createBucketKeys } from "../util/create-bucket-keys";
 import { ExtensionStorage } from "../service/extension-storage";
 import { dialogSlice } from "./dialog-slice";
 import { itemsSlice } from "./items-slice";
@@ -64,15 +67,15 @@ export function createNewStore(initState) {
 }
 
 export function restoreLocalState() {
-    let storage = new ExtensionStorage('sync');
     let collections, items;
+    let storage = new ExtensionStorage('sync');
 
     return Promise.all([
-        storage.getValue(collectionsSlice.name),
-        storage.getValue(itemsSlice.name)
+        storage.getValue([collectionsSlice.name]),
+        storage.getValue(createBucketKeys(itemsSlice.name, Constants.STORAGE_BUCKETS_MAX))
     ]).then(([collectionsData, itemsData]) => {
         collections = collectionsData;
-        items = itemsData;
+        items = composeDataFromBuckets(itemsData);
 
         return { collections, items };
     });
