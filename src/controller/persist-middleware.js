@@ -25,7 +25,7 @@ export class PersistMiddleware {
                 if (isCollectionAction === true) {
                     console.log(`Collection action detected: ${action.type}`);
 
-                    this.storage.setValue(collectionsSlice.name, store.getState()[collectionsSlice.name]);
+                    this.storage.setValue({ [collectionsSlice.name]: store.getState()[collectionsSlice.name] });
                 }
 
                 if (isItemAction === true) {
