@@ -17,26 +17,28 @@ export class ExtensionStorage {
             window.chrome.storage[this.storageType] !== undefined;
     }
 
-    getValue(key) {
+    getValue(keys) {
         let data;
 
         if (this.isChromeEnvironment === true) {
             return new Promise((resolve) => {
-                window.chrome.storage[this.storageType].get([key], result => resolve(result[key]));
+                window.chrome.storage[this.storageType].get(keys, resolve);
             });
         } else {
-            data = localStorage.getItem(key);
-            return Promise.resolve(data !== null ? JSON.parse(data) : undefined);
+            // FIXME: For local development change for Keys as Array
+            // data = localStorage.getItem(key);
+            // return Promise.resolve(data !== null ? JSON.parse(data) : undefined);
         }
     }
 
-    setValue(key, value) {
+    setValue(values) {
         if (this.isChromeEnvironment === true) {
             return new Promise((resolve) => {
-                window.chrome.storage[this.storageType].set({ [key]: value }, resolve);
+                window.chrome.storage[this.storageType].set(values, resolve);
             });
         } else {
-            localStorage.setItem(key, JSON.stringify(value));
+            // FIXME: For local development adjust ot use with object for values
+            // localStorage.setItem(key, JSON.stringify(value));
             return Promise.resolve();
         }
     }
