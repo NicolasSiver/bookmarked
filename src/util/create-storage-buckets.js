@@ -7,7 +7,7 @@
  * @returns {Object} data distributed over buckets
  */
 export function createStorageBuckets(data, prefix, total) {
-    let bucketKey, i, position, itemsData;
+    let i, position, itemsData;
     let items = [];
     let result = {};
 
@@ -25,16 +25,16 @@ export function createStorageBuckets(data, prefix, total) {
         items = items.concat(itemsData);
     }
 
+    // Prepare the result object with empty buckets
+    for (i = 0; i < total; ++i) {
+        result[prefix + i] = [];
+    }
+
     // Split 
     for (i = 0; i < items.length; ++i) {
         position = i % total;
-        bucketKey = prefix + position;
 
-        if (result[bucketKey] === undefined) {
-            result[bucketKey] = [];
-        }
-
-        result[bucketKey].push(items[i]);
+        result[prefix + position].push(items[i]);
     }
 
     return result;
