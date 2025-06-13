@@ -8,7 +8,26 @@ import { hydrateItems, itemsSlice } from "../model/items-slice";
 
 export class StorageService {
     constructor() {
-        this.storage = new ExtensionStorage('sync');
+        this.isChromeEnvironment = window.chrome !== undefined &&
+            window.chrome.storage !== undefined &&
+            window.chrome.storage[this.storageType] !== undefined;
+        this.storage = this.createStorage();
+    }
+
+    createStorage() {
+        let storage = null;
+
+        if (this.isChromeEnvironment === true) {
+            console.log('Using Chrome storage API for persistence.');
+
+            storage = new ExtensionStorage('sync');
+        } else {
+            console.log('Using localStorage for persistence (development mode).');
+
+            storage = window.localStorage;
+        }
+
+        return storage;
     }
 
     initWithStore(store) {
@@ -18,14 +37,32 @@ export class StorageService {
     persistCollections(collections) {
         console.log('Persisting collections:', collections);
 
-        this.storage.setValue({ [collectionsSlice.name]: collections });
+        if (this.isChromeEnvironment === true) {
+            this.storage
+                .setValue({ [collectionsSlice.name]: collections })
+                .then(() => {
+                    console.log('Collections persisted successfully.');
+                });
+        } else {
+            this.storage.setItem(collectionsSlice.name, JSON.stringify(collections));
+        }
     }
 
     persistItems(items) {
+        let itemBuckets;
+
         console.log('Persisting items:', items);
 
-        const itemBuckets = createStorageBuckets(items, itemsSlice.name, Constants.STORAGE_BUCKETS_MAX);
-        this.storage.setValue(itemBuckets);
+        if (this.isChromeEnvironment === true) {
+            itemBuckets = createStorageBuckets(items, itemsSlice.name, Constants.STORAGE_BUCKETS_MAX);
+            this.storage
+                .setValue(itemBuckets)
+                .then(() => {
+                    console.log('Items persisted successfully.');
+                });
+        } else {
+            this.storage.setItem(itemsSlice.name, JSON.stringify(items));
+        }
     }
 
     restore() {
@@ -45,16 +82,23 @@ export class StorageService {
     }
 
     restoreLocalState() {
-        let collections, items;
+        let collections, items, result;
 
-        return Promise.all([
-            this.storage.getValue([collectionsSlice.name]),
-            this.storage.getValue(createBucketKeys(itemsSlice.name, Constants.STORAGE_BUCKETS_MAX))
-        ]).then(([collectionsData, itemsData]) => {
-            collections = collectionsData[collectionsSlice.name];
-            items = composeDataFromBuckets(itemsData);
+        if (this.isChromeEnvironment === true) {
+            result = Promise.all([
+                this.storage.getValue([collectionsSlice.name]),
+                this.storage.getValue(createBucketKeys(itemsSlice.name, Constants.STORAGE_BUCKETS_MAX))
+            ]).then(([collectionsData, itemsData]) => {
+                collections = collectionsData[collectionsSlice.name];
+                items = composeDataFromBuckets(itemsData);
+                return { collections, items };
+            });
+        } else {
+            collections = JSON.parse(this.storage.getItem(collectionsSlice.name) || '[]');
+            items = JSON.parse(this.storage.getItem(itemsSlice.name) || '{}');
+            result = Promise.resolve({ collections, items });
+        }
 
-            return { collections, items };
-        });
+        return result;
     }
 }
