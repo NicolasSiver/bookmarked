@@ -74,7 +74,7 @@ export function restoreLocalState() {
         storage.getValue([collectionsSlice.name]),
         storage.getValue(createBucketKeys(itemsSlice.name, Constants.STORAGE_BUCKETS_MAX))
     ]).then(([collectionsData, itemsData]) => {
-        collections = collectionsData;
+        collections = collectionsData[collectionsSlice.name];
         items = composeDataFromBuckets(itemsData);
 
         return { collections, items };
