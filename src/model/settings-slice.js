@@ -10,8 +10,12 @@ export const settingsSlice = createSlice({
     reducers: {
         changeTheme(state, action) {
             state.mode = action.payload.mode;
+        },
+
+        hydrateSettings(state, action) {
+            return action.payload;
         }
     }
 });
 
-export const { changeTheme } = settingsSlice.actions;
+export const { changeTheme, hydrateSettings } = settingsSlice.actions;

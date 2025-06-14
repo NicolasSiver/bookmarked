@@ -4,7 +4,7 @@ import { createBucketKeys } from "../util/create-bucket-keys";
 import { createStorageBuckets } from "../util/create-storage-buckets";
 import { ExtensionStorage } from "./extension-storage";
 import { hydrateItems, itemsSlice } from "../model/items-slice";
-import { settingsSlice } from "../model/settings-slice";
+import { hydrateSettings, settingsSlice } from "../model/settings-slice";
 
 export class StorageService {
     constructor() {
@@ -80,7 +80,7 @@ export class StorageService {
     }
 
     restore() {
-        return this.restoreLocalState().then(({ collections, items }) => {
+        return this.restoreLocalState().then(({ collections, items, settings }) => {
             console.log('Restoring persisted state...');
 
             if (Array.isArray(collections) === true && collections.length > 0) {
@@ -92,25 +92,35 @@ export class StorageService {
                 console.log('Hydrating items:', items);
                 this.store.dispatch(hydrateItems(items));
             }
+
+            if (typeof settings === 'object' && settings !== null) {
+                console.log('Hydrating settings:', settings);
+                this.store.dispatch(hydrateSettings(settings));
+            }
         });
     }
 
     restoreLocalState() {
-        let collections, items, result;
+        let collections, items, result, settings;
 
         if (this.isChromeEnvironment === true) {
             result = Promise.all([
                 this.storage.getValue([collectionsSlice.name]),
-                this.storage.getValue(createBucketKeys(itemsSlice.name, Constants.STORAGE_BUCKETS_MAX))
-            ]).then(([collectionsData, itemsData]) => {
+                this.storage.getValue(createBucketKeys(itemsSlice.name, Constants.STORAGE_BUCKETS_MAX)),
+                this.storage.getValue([settingsSlice.name])
+            ]).then(([collectionsData, itemsData, settingsData]) => {
                 collections = collectionsData[collectionsSlice.name];
                 items = composeDataFromBuckets(itemsData);
-                return { collections, items };
+                settings = settingsData[settingsSlice.name];
+
+                return { collections, items, settings };
             });
         } else {
             collections = JSON.parse(this.storage.getItem(collectionsSlice.name) || '[]');
             items = JSON.parse(this.storage.getItem(itemsSlice.name) || '{}');
-            result = Promise.resolve({ collections, items });
+            settings = JSON.parse(this.storage.getItem(settingsSlice.name));
+
+            result = Promise.resolve({ collections, items, settings });
         }
 
         return result;
