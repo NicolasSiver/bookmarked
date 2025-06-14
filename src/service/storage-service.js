@@ -1,10 +1,10 @@
-import * as Constants from "../model/constants";
 import { hydrateCollections, collectionsSlice } from "../model/collections-slice";
 import { composeDataFromBuckets } from "../util/compose-data-from-buckets";
 import { createBucketKeys } from "../util/create-bucket-keys";
 import { createStorageBuckets } from "../util/create-storage-buckets";
 import { ExtensionStorage } from "./extension-storage";
 import { hydrateItems, itemsSlice } from "../model/items-slice";
+import { settingsSlice } from "../model/settings-slice";
 
 export class StorageService {
     constructor() {
@@ -62,6 +62,20 @@ export class StorageService {
                 });
         } else {
             this.storage.setItem(itemsSlice.name, JSON.stringify(items));
+        }
+    }
+
+    persistSettings(settings) {
+        console.log('Persisting settings:', settings);
+
+        if (this.isChromeEnvironment === true) {
+            this.storage
+                .setValue({ [settingsSlice.name]: settings })
+                .then(() => {
+                    console.log('Settings persisted successfully.');
+                });
+        } else {
+            this.storage.setItem(settingsSlice.name, JSON.stringify(settings));
         }
     }
 

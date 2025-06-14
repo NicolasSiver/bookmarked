@@ -1,5 +1,6 @@
 import { collectionsSlice } from '../model/collections-slice';
 import { itemsSlice } from '../model/items-slice';
+import { settingsSlice } from '../model/settings-slice';
 
 export class PersistMiddleware {
     constructor(storageService) {
@@ -14,6 +15,7 @@ export class PersistMiddleware {
             const isCollectionAction = action.type.startsWith(`${collectionsSlice.name}/`);
             const isItemAction = action.type.startsWith(`${itemsSlice.name}/`);
             const isHydrationAction = action.type.includes('hydrate');
+            const isSettingsAction = action.type.startsWith(`${settingsSlice.name}/`);
 
             if (isHydrationAction === false) {
 
@@ -27,6 +29,12 @@ export class PersistMiddleware {
                     console.log(`Item action detected: ${action.type}`);
 
                     this.storageService.persistItems(store.getState()[itemsSlice.name]);
+                }
+
+                if (isSettingsAction === true) {
+                    console.log(`Settings action detected: ${action.type}`);
+
+                    this.storageService.persistSettings(store.getState()[settingsSlice.name]);
                 }
             }
 
