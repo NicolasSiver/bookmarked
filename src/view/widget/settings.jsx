@@ -26,12 +26,6 @@ export const Settings = (props) => {
                 open={settingsOpen}
                 onClose={toggleSettings}>
                 <div className="settings__content">
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <div>Version: <span className="settings__content-value">{getVersion()}</span></div>
-                        <Link href="https://github.com/NicolasSiver/bookmarked/releases" sx={{ px: '1rem' }}>Changelog</Link>
-                    </Box>
-                    <p>Storage usage: <span className="settings__content-value">{Number(storageQuota).toFixed(1)}%</span></p>
-                    <LinearProgress variant="determinate" value={storageQuota} />
                     <Typography variant="h6" sx={{ my: 2 }}>General</Typography>
                     <FormControl component="fieldset" variant="standard">
                         <FormLabel>Theme</FormLabel>
@@ -43,8 +37,18 @@ export const Settings = (props) => {
                             onChange={toggleTheme}/>
                         <Typography>Dark</Typography>
                     </Stack>
+
                     <Typography variant="h6" sx={{ my: 2 }}>View</Typography>
-                    TODO
+                    <p>TODO: Layout customizations</p>
+
+                    <Typography variant="h6" sx={{ my: 2 }}>Other</Typography>
+                    <p>Storage usage: <span className="settings__content-value">{Number(storageQuota).toFixed(1)}%</span></p>
+                    <LinearProgress variant="determinate" value={storageQuota} />
+
+                    <Box sx={{ display: 'flex', alignItems: 'center', mt: 4 }}>
+                        <div>Version: <span className="settings__content-value">{getVersion()}</span></div>
+                        <Link href="https://github.com/NicolasSiver/bookmarked/releases" sx={{ px: '1rem' }}>Changelog</Link>
+                    </Box>
                 </div>
             </Drawer>
         </div>
