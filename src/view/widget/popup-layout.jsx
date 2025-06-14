@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { getMuiTheme } from "../../util/get-mui-theme";
-import { PopupList } from "../widget/popup-list";
+import { PopupList } from "./popup-list";
 import { getSettingsMode } from "../../model/selectors";
 
 export const PopupLayout = props => {

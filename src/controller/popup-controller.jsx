@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import * as Constants from '../model/constants';
 import { getShortTitle } from '../util/get-short-title';
 import { addItem } from '../model/items-slice';
-import { PopupLayout } from '../view/display/popup-layout';
+import { PopupLayout } from '../view/widget/popup-layout';
 import { StorageService } from '../service/storage-service';
 import { createInitState, createNewStore } from '../model/store';
 import { getTabFavIconUrl, getTabTitle, getTabUrl } from '../model/selectors';
@@ -21,6 +21,7 @@ export class PopupController {
     init() {
         console.log('Popup is initialising...');
 
+        // TODO: Introduce Observer for Settings and render only when Settings are restored
         this.render();
         this.storageService.restore();
         this.getCurrentTab();
