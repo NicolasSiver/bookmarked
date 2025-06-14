@@ -14,6 +14,7 @@ import * as Modes from '../model/modes';
 import { RootLayout } from "../view/widget/root-layout";
 import { getDialogTarget, getMode } from '../model/selectors';
 import { changeStorageQuota, openSettings, toggleSettings } from '../model/settings-panel-slice';
+import { changeTheme } from '../model/settings-slice';
 import { StorageService } from '../service/storage-service';
 import { createInitState, createNewStore } from '../model/store';
 
@@ -55,6 +56,12 @@ export class MainController {
         this.store.dispatch(changeMode(mode === Modes.VIEW ? Modes.EDIT : Modes.VIEW));
         // Ensure that the menu is closed when the mode changes
         this.store.dispatch(closeMenu());
+    }
+
+    changeTheme(theme) {
+        console.log(`Changing theme to ${theme}`);
+
+        this.store.dispatch(changeTheme({mode: theme}));
     }
 
     closeDialog() {
@@ -163,6 +170,7 @@ export class MainController {
                     changeCollectionName={(id, name) => this.changeCollectionName(id, name)}
                     changeDialogTarget={value => this.changeDialogTarget(value)}
                     changeMode={() => this.changeMode()}
+                    changeTheme={theme => this.changeTheme(theme)}
                     closeDialog={() => this.closeDialog()}
                     collectionWillDelete={id => this.collectionWillDelete(id)}
                     createCollection={() => this.createCollection()}

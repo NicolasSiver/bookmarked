@@ -15,6 +15,10 @@ export const Settings = (props) => {
         props.toggleSettings();
     };
 
+    const toggleTheme = event => {
+        props.changeTheme(event.target.checked === true ? 'dark' : 'light');
+    };
+
     return (
         < div className="settings">
             <Drawer
@@ -35,7 +39,8 @@ export const Settings = (props) => {
                     <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
                         <Typography>Light</Typography>
                         <Switch
-                            checked={mode === 'dark'} />
+                            checked={mode === 'dark'} 
+                            onChange={toggleTheme}/>
                         <Typography>Dark</Typography>
                     </Stack>
                     <Typography variant="h6" sx={{ my: 2 }}>View</Typography>
