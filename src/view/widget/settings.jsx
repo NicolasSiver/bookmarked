@@ -3,11 +3,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { getVersion } from "../../util/get-version";
-import { getSettingsPanelOpen, getSettingsPanelStorageQuota } from "../../model/selectors";
+import { getSettingsMode, getSettingsPanelOpen, getSettingsPanelStorageQuota } from "../../model/selectors";
 
 export const Settings = (props) => {
     const settingsOpen = useSelector(getSettingsPanelOpen);
     const storageQuota = useSelector(getSettingsPanelStorageQuota);
+    // Settings
+    const mode = useSelector(getSettingsMode);
 
     const toggleSettings = () => {
         props.toggleSettings();
@@ -32,7 +34,8 @@ export const Settings = (props) => {
                     </FormControl>
                     <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
                         <Typography>Light</Typography>
-                        <Switch />
+                        <Switch
+                            checked={mode === 'dark'} />
                         <Typography>Dark</Typography>
                     </Stack>
                     <Typography variant="h6" sx={{ my: 2 }}>View</Typography>

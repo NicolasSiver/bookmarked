@@ -10,6 +10,8 @@ export const getMenuAnchorElement = state => state.menu.anchorElement;
 
 export const getMode = state => state.mode;
 
+export const getSettingsMode = state => state.settings.mode;
+
 export const getSettingsPanelOpen = state => state.settingsPanel.open;
 
 export const getSettingsPanelStorageQuota = state => state.settingsPanel.storageQuota;
