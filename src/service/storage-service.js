@@ -8,19 +8,21 @@ import { hydrateSettings, settingsSlice } from "../model/settings-slice";
 
 export class StorageService {
     constructor() {
+        const storageType = 'sync'; // Default to sync storage for Chrome extensions
+
         this.isChromeEnvironment = window.chrome !== undefined &&
             window.chrome.storage !== undefined &&
-            window.chrome.storage[this.storageType] !== undefined;
-        this.storage = this.createStorage();
+            window.chrome.storage[storageType] !== undefined;
+        this.storage = this.createStorage(storageType);
     }
 
-    createStorage() {
+    createStorage(storageType) {
         let storage = null;
 
         if (this.isChromeEnvironment === true) {
             console.log('Using Chrome storage API for persistence.');
 
-            storage = new ExtensionStorage('sync');
+            storage = new ExtensionStorage(storageType);
         } else {
             console.log('Using localStorage for persistence (development mode).');
 
