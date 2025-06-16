@@ -32,7 +32,14 @@ export const DialogCollectionNew = (props) => {
                         label="Collection name"
                         fullWidth
                         value={props.dialogContext}
-                        onChange={dialogTargetCallback} />
+                        onChange={dialogTargetCallback}
+                        onKeyDown={e => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                collectionCreateCallback();
+                            }
+                        }}
+                    />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={dialogCloseCallback}>Cancel</Button>
