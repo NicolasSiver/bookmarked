@@ -3,7 +3,7 @@ import IconMenu from "@mui/icons-material/Menu";
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { CollectionItem } from "../display/collection-item";
+import { CollectionItem } from "./collection-item";
 import { getCollections, getMode } from "../../model/selectors";
 
 export const CollectionList = props => {
