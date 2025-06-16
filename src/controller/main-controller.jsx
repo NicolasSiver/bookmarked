@@ -14,7 +14,7 @@ import * as Modes from '../model/modes';
 import { RootLayout } from "../view/widget/root-layout";
 import { getDialogTarget, getMode } from '../model/selectors';
 import { changeStorageQuota, openSettings, toggleSettings } from '../model/settings-panel-slice';
-import { changeTheme } from '../model/settings-slice';
+import { changeItemWidth, changeTheme } from '../model/settings-slice';
 import { StorageService } from '../service/storage-service';
 import { createInitState, createNewStore } from '../model/store';
 
@@ -50,6 +50,12 @@ export class MainController {
         this.store.dispatch(changeDialogTarget(value));
     }
 
+    changeItemWidth(itemWidth) {
+        console.log(`Changing item width to ${itemWidth}`);
+
+        this.store.dispatch(changeItemWidth({ itemWidth }));
+    }
+
     changeMode() {
         let mode = getMode(this.store.getState());
 
@@ -61,7 +67,7 @@ export class MainController {
     changeTheme(theme) {
         console.log(`Changing theme to ${theme}`);
 
-        this.store.dispatch(changeTheme({mode: theme}));
+        this.store.dispatch(changeTheme({ mode: theme }));
     }
 
     closeDialog() {
@@ -169,6 +175,7 @@ export class MainController {
                 <RootLayout
                     changeCollectionName={(id, name) => this.changeCollectionName(id, name)}
                     changeDialogTarget={value => this.changeDialogTarget(value)}
+                    changeItemWidth={itemWidth => this.changeItemWidth(itemWidth)}
                     changeMode={() => this.changeMode()}
                     changeTheme={theme => this.changeTheme(theme)}
                     closeDialog={() => this.closeDialog()}

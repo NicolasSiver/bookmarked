@@ -37,6 +37,7 @@ export function createInitState() {
         mode: Modes.VIEW,
 
         settings: {
+            itemWidth: 3, // 1 to 12
             mode: 'dark', // 'dark' or 'light'
         },
 
