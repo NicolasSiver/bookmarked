@@ -1,4 +1,4 @@
-import { Box, Drawer, FormControl, FormLabel, InputLabel, LinearProgress, Link, MenuItem, Select, Stack, Switch, Typography } from "@mui/material";
+import { Box, Drawer, FormControl, FormHelperText, FormLabel, InputLabel, LinearProgress, Link, MenuItem, Select, Stack, Switch, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -59,6 +59,7 @@ export const Settings = (props) => {
                             <MenuItem value={6}>6</MenuItem>
                             <MenuItem value={12}>12</MenuItem>
                         </Select>
+                        <FormHelperText>The whole layout is 12 units.<br/>Item width 12 will take the whole screen.</FormHelperText>
                     </FormControl>
 
                     <Typography variant="h6" sx={{ my: 2 }}>Other</Typography>
