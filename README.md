@@ -42,8 +42,8 @@ I think it's possible to have that initial functionality without any additional 
 
 - [x] Add storage tracker into the settings
 - [x] Add settings as a wide slider
+- [x] Support "Enter" button for confirmation of inputs
 - [ ] Add icons to the main menu
 - [ ] URL validation
-- [ ] Support "Enter" button for confirmation of inputs
 - [ ] Popup - fast delete?
-- [ ] Notifications for key async operations and errors
+- [ ] Notifications for pivotal async operations and errors
