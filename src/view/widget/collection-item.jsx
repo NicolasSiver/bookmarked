@@ -5,11 +5,9 @@ import IconDelete from "@mui/icons-material/DeleteOutline";
 import React from "react";
 import { useSelector } from "react-redux";
 
-import * as Constants from "../../model/constants";
 import { getCollectionItemsById } from "../../model/selector/get-collection-items-by-id";
 import * as Modes from "../../model/modes";
 import { getSettingsItemWidth } from "../../model/selectors";
-import { truncateForEllipsis } from "../../util/truncate-for-ellipsis";
 
 export const CollectionItem = ({ changeCollectionName, collection, collectionWillDelete, editCollectionItem, mode, index, itemDidClick, total, shiftCollection }) => {
     const items = useSelector(getCollectionItemsById(collection.id)) || [];
