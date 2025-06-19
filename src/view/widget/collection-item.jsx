@@ -22,8 +22,6 @@ export const CollectionItem = ({ changeCollectionName, collection, collectionWil
     const renderItem = item => {
         let clickCallback = mode === Modes.EDIT ? () => itemEditCallback(item.id) : () => itemDidClick(item);
 
-        // TODO: Replace buttons with something more flexible, like a link or a card
-
         return (
             <Grid key={item.id} size={itemWidth}>
                 <Tooltip title={item.desc} placement="top">
@@ -32,7 +30,13 @@ export const CollectionItem = ({ changeCollectionName, collection, collectionWil
                         onClick={clickCallback}
                         startIcon={<img src={item.favUrl} style={{ width: 16, height: 16 }} />}
                         variant="outlined">
-                        {truncateForEllipsis(item.title, Constants.MAX_ITEM_TITLE_LENGTH)}
+                        <span style={{
+                            display: 'block',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            width: '100%'
+                        }}>{item.title}</span>
                     </Button>
                 </Tooltip>
             </Grid>
