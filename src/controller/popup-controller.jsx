@@ -52,6 +52,17 @@ export class PopupController {
 
         console.log('Fetching current tab...');
 
+        if (import.meta.env.DEV) {
+            console.log('Running in development mode');
+
+            return this.store.dispatch(changeTab({
+                favIconUrl: 'https://www.google.com/favicon.ico',
+                status: 'loading',
+                title: 'Google',
+                url: 'https://www.google.com'
+            }));
+        }
+
         return new Promise((resolve, reject) => {
             chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
                 if (chrome.runtime.lastError) {
