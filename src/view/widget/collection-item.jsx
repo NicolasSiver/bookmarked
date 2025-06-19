@@ -27,6 +27,7 @@ export const CollectionItem = ({ changeCollectionName, collection, collectionWil
                         fullWidth
                         onClick={clickCallback}
                         startIcon={<img src={item.favUrl} style={{ width: 16, height: 16 }} />}
+                        sx={{ textAlign: 'left' }}
                         variant="outlined">
                         <span style={{
                             display: 'block',
