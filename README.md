@@ -37,6 +37,9 @@ I think it's possible to have that initial functionality without any additional 
 - [ ] Data migration from Toby
 - [ ] Highlight already opened bookmarks
 - [ ] Bookmarks: color-coding
+- [ ] Search
+- [ ] Bookmark management: Spaces
+- [ ] Sync: Google Drive API
 
 ## Small things
 
