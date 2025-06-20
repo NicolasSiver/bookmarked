@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 import * as DialogTypes from "../../model/dialog-types";
 import * as Modes from "../../model/modes";
+import { SearchBar } from "./search-bar";
 import { getMenuAnchorElement, getMode } from "../../model/selectors";
 
 export const Header = ({ changeMode, menuDidSelect, openDialog, openSettings }) => {
@@ -81,6 +82,8 @@ export const Header = ({ changeMode, menuDidSelect, openDialog, openSettings }) 
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Bookmarked
                     </Typography>
+
+                    <SearchBar/>
 
                     <Tooltip title="Settings">
                         <IconButton
