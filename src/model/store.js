@@ -7,6 +7,7 @@ import { menuSlice } from "./menu-slice";
 import { modeSlice } from './mode-slice';
 import * as Modes from "./modes";
 import { PersistMiddleware } from "../controller/persist-middleware";
+import { searchSlice } from "./search-slice";
 import { settingsSlice } from "./settings-slice";
 import { settingsPanelSlice } from "./settings-panel-slice";
 import { tabSlice } from "./tab-slice";
@@ -36,6 +37,11 @@ export function createInitState() {
 
         mode: Modes.VIEW,
 
+        search: {
+            query: '',
+            results: null
+        },
+
         settings: {
             itemWidth: 3, // 1 to 12
             mode: 'dark', // 'dark' or 'light'
@@ -61,6 +67,7 @@ export function createNewStore(initState, storageService) {
             items: itemsSlice.reducer,
             menu: menuSlice.reducer,
             mode: modeSlice.reducer,
+            search: searchSlice.reducer,
             settings: settingsSlice.reducer,
             settingsPanel: settingsPanelSlice.reducer,
             tab: tabSlice.reducer

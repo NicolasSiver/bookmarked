@@ -75,6 +75,7 @@ export const Header = ({ changeMode, menuDidSelect, openDialog, openSettings }) 
                             open={anchorElement !== null}
                             onClose={menuCloseCallback}>
                             <MenuItem onClick={collectionDialogCallback}>Add collection</MenuItem>
+                            <MenuItem onClick={() => undefined}>Add space</MenuItem>
                             <MenuItem onClick={modeCallback}>{getModeLabel()}</MenuItem>
                         </Menu>
                     </div>
