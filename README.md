@@ -50,3 +50,4 @@ I think it's possible to have that initial functionality without any additional 
 - [ ] URL validation
 - [ ] Popup - fast delete?
 - [ ] Notifications for pivotal async operations and errors
+- [ ] Collapse collections with persistence

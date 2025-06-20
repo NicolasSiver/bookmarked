@@ -10,6 +10,10 @@ export const getMenuAnchorElement = state => state.menu.anchorElement;
 
 export const getMode = state => state.mode;
 
+export const getSearchQuery = state => state.search.query;
+
+export const getSearchResults = state => state.search.results;
+
 export const getSettingsItemWidth = state => state.settings.itemWidth;
 
 export const getSettingsMode = state => state.settings.mode;

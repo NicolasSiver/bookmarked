@@ -12,6 +12,7 @@ import { closeMenu, toggleMenu } from '../model/menu-slice';
 import { changeMode } from '../model/mode-slice';
 import * as Modes from '../model/modes';
 import { RootLayout } from "../view/widget/root-layout";
+import { changeQuery } from '../model/search-slice';
 import { getDialogTarget, getMode } from '../model/selectors';
 import { changeStorageQuota, openSettings, toggleSettings } from '../model/settings-panel-slice';
 import { changeItemWidth, changeTheme } from '../model/settings-slice';
@@ -62,6 +63,12 @@ export class MainController {
         this.store.dispatch(changeMode(mode === Modes.VIEW ? Modes.EDIT : Modes.VIEW));
         // Ensure that the menu is closed when the mode changes
         this.store.dispatch(closeMenu());
+    }
+
+    changeSearchQuery(query) {
+        console.log(`Changing search query to "${query}"`);
+
+        this.store.dispatch(changeQuery({ query }));
     }
 
     changeTheme(theme) {
@@ -177,6 +184,7 @@ export class MainController {
                     changeDialogTarget={value => this.changeDialogTarget(value)}
                     changeItemWidth={itemWidth => this.changeItemWidth(itemWidth)}
                     changeMode={() => this.changeMode()}
+                    changeSearchQuery={query => this.changeSearchQuery(query)}
                     changeTheme={theme => this.changeTheme(theme)}
                     closeDialog={() => this.closeDialog()}
                     collectionWillDelete={id => this.collectionWillDelete(id)}

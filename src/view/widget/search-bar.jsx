@@ -1,9 +1,18 @@
 import { InputBase } from '@mui/material';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import IconSearch from '@mui/icons-material/Search';
 import { alpha, styled } from '@mui/material/styles';
 
-export const SearchBar = (props) => {
+import { getSearchQuery } from '../../model/selectors';
+
+export const SearchBar = props => {
+    const query = useSelector(getSearchQuery);
+
+    const queryCallback = event => {
+        props.changeSearchQuery(event.target.value);
+    };
+
     const StyledBackground = styled('div')(({ theme }) => ({
         backgroundColor: alpha(theme.palette.common.white, 0.15),
         borderRadius: theme.shape.borderRadius,
@@ -35,13 +44,7 @@ export const SearchBar = (props) => {
         '& .MuiInputBase-input': {
             padding: theme.spacing(1, 1, 1, 0),
             paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-            transition: theme.transitions.create('width'),
-            [theme.breakpoints.up('sm')]: {
-                width: '12ch',
-                '&:focus': {
-                    width: '20ch',
-                }
-            },
+            width: '20ch'
         },
     }));
 
@@ -52,7 +55,9 @@ export const SearchBar = (props) => {
                     <IconSearch />
                 </StyledIcon>
                 <StyledInput
-                    placeholder="Search…" />
+                    onChange={queryCallback}
+                    placeholder="Search…"
+                    value={query} />
             </StyledBackground>
         </div>
     );

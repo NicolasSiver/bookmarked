@@ -9,28 +9,28 @@ import * as Modes from "../../model/modes";
 import { SearchBar } from "./search-bar";
 import { getMenuAnchorElement, getMode } from "../../model/selectors";
 
-export const Header = ({ changeMode, menuDidSelect, openDialog, openSettings }) => {
+export const Header = (props) => {
     let anchorElement = useSelector(getMenuAnchorElement);
 
     const collectionDialogCallback = () => {
-        openDialog(DialogTypes.COLLECTION_NEW, null);
+        props.openDialog(DialogTypes.COLLECTION_NEW, null);
     };
 
     const menuCallback = event => {
-        menuDidSelect(event.currentTarget);
+        props.menuDidSelect(event.currentTarget);
     };
 
     const menuCloseCallback = (event, reason) => {
         // TODO Utilize "reason" to determine if the menu should be closed
-        menuDidSelect(null);
+        props.menuDidSelect(null);
     };
 
     const modeCallback = () => {
-        changeMode();
+        props.changeMode();
     };
 
     const settingsCallback = () => {
-        openSettings();
+        props.openSettings();
     };
 
     const getModeLabel = () => {
@@ -84,7 +84,7 @@ export const Header = ({ changeMode, menuDidSelect, openDialog, openSettings }) 
                         Bookmarked
                     </Typography>
 
-                    <SearchBar/>
+                    <SearchBar {...props}/>
 
                     <Tooltip title="Settings">
                         <IconButton
