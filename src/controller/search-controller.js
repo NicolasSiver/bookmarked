@@ -10,6 +10,7 @@ export class SearchController {
         this.miniSearch = null;
     }
 
+    // FIXME: Clear Index if the items change
     createIndexIfNeeded() {
         let items, itemsData;
 
