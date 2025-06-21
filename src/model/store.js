@@ -56,7 +56,7 @@ export function createInitState() {
     };
 }
 
-export function createNewStore(initState, storageService) {
+export function createNewStore(initState, storageService, listenerMiddleware = null) {
     let persistMiddleware = new PersistMiddleware(storageService).createMiddleware();
 
     return configureStore({
@@ -72,6 +72,14 @@ export function createNewStore(initState, storageService) {
             settingsPanel: settingsPanelSlice.reducer,
             tab: tabSlice.reducer
         },
-        middleware: getDefaultMiddleware => getDefaultMiddleware().concat(persistMiddleware)
+        middleware: getDefaultMiddleware => {
+            let middleware = getDefaultMiddleware();
+
+            if (listenerMiddleware !== null) {
+               middleware = middleware.prepend(listenerMiddleware);
+            }
+
+            return middleware.concat(persistMiddleware);
+        }
     });
 }
