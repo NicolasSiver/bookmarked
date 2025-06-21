@@ -76,7 +76,7 @@ export function createNewStore(initState, storageService, listenerMiddleware = n
             let middleware = getDefaultMiddleware();
 
             if (listenerMiddleware !== null) {
-               middleware = middleware.prepend(listenerMiddleware);
+               middleware = middleware.prepend(listenerMiddleware.middleware);
             }
 
             return middleware.concat(persistMiddleware);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { createListenerMiddleware } from '@reduxjs/toolkit';
 
 import { addCollection, changeCollectionName, deleteCollection, shiftColleciton } from '../model/collections-slice';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
@@ -12,6 +13,7 @@ import { closeMenu, toggleMenu } from '../model/menu-slice';
 import { changeMode } from '../model/mode-slice';
 import * as Modes from '../model/modes';
 import { RootLayout } from "../view/widget/root-layout";
+import { SearchController } from './search-controller';
 import { changeQuery } from '../model/search-slice';
 import { getDialogTarget, getMode } from '../model/selectors';
 import { changeStorageQuota, openSettings, toggleSettings } from '../model/settings-panel-slice';
@@ -21,9 +23,13 @@ import { createInitState, createNewStore } from '../model/store';
 
 export class MainController {
     constructor() {
+        this.listenerMiddleware = createListenerMiddleware();
         this.storageService = new StorageService();
-        this.store = createNewStore(createInitState(), this.storageService);
+        this.store = createNewStore(createInitState(), this.storageService, this.listenerMiddleware);
+        this.searchController = new SearchController(this.store, this.listenerMiddleware);
         this.storageService.initWithStore(this.store);
+
+        this.searchController.init();
     }
 
     init() {
