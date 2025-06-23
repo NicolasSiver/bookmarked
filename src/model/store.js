@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, current } from "@reduxjs/toolkit";
 
 import { collectionsSlice } from "./collections-slice";
 import { dialogSlice } from "./dialog-slice";
@@ -10,6 +10,7 @@ import { PersistMiddleware } from "../controller/persist-middleware";
 import { searchSlice } from "./search-slice";
 import { settingsSlice } from "./settings-slice";
 import { settingsPanelSlice } from "./settings-panel-slice";
+import { spacesSlice } from "./spaces-slice";
 import { tabSlice } from "./tab-slice";
 
 export function createInitState() {
@@ -52,6 +53,15 @@ export function createInitState() {
             storageQuota: 0
         },
 
+        spaces: {
+            current: null, // Current space id
+            list: [
+                // Signature - id: string, name: string, collections: Array<string>
+                // Example:
+                // { id: "space1", name: "Work", collections: ["collectionId1", "collectionId2"] }
+            ],
+        },
+
         tab: null
     };
 }
@@ -70,13 +80,14 @@ export function createNewStore(initState, storageService, listenerMiddleware = n
             search: searchSlice.reducer,
             settings: settingsSlice.reducer,
             settingsPanel: settingsPanelSlice.reducer,
+            spaces: spacesSlice.reducer,
             tab: tabSlice.reducer
         },
         middleware: getDefaultMiddleware => {
             let middleware = getDefaultMiddleware();
 
             if (listenerMiddleware !== null) {
-               middleware = middleware.prepend(listenerMiddleware.middleware);
+                middleware = middleware.prepend(listenerMiddleware.middleware);
             }
 
             return middleware.concat(persistMiddleware);
