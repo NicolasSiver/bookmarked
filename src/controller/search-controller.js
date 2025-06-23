@@ -1,7 +1,9 @@
 import MiniSearch from 'minisearch';
 
+import { addItem, changeItemDescription, changeItemTitle, changeItemUrl, deleteItem, deleteItemsByCollectionId } from "../model/items-slice";
 import { changeQuery, setResults } from "../model/search-slice";
 import { getItems } from '../model/selectors';
+import { isAnyOf } from '@reduxjs/toolkit';
 
 export class SearchController {
     constructor(store, listenerMiddleware) {
@@ -10,7 +12,7 @@ export class SearchController {
         this.miniSearch = null;
     }
 
-    // FIXME: Clear Index if the items change
+    // FIXME: Remove search panel when query is empty
     createIndexIfNeeded() {
         let items, itemsData;
 
@@ -80,6 +82,19 @@ export class SearchController {
                 });
 
                 this.processSearchResult(searchResult);
+            }
+        });
+
+        this.listenerMiddleware.startListening({
+            matcher: isAnyOf(addItem, changeItemDescription, changeItemTitle, changeItemUrl, deleteItem, deleteItemsByCollectionId),
+            effect: (action, listenerApi) => {
+                if (this.miniSearch !== null) {
+                    console.log('Items changed, dropping search index...');
+
+                    // Clear the search index
+                    this.miniSearch.removeAll();
+                    this.miniSearch = null;
+                }
             }
         });
     }
