@@ -18,3 +18,10 @@ export const COLLECTION_ITEM_EDIT = 'collectionItemEdit';
  * @constant
  */
 export const COLLECTION_NEW = 'collectionNew';
+
+/**
+ * Creating a new space dialog.
+ * @type {string}
+ * @constant
+ */
+export const SPACE_NEW = 'spaceNew';

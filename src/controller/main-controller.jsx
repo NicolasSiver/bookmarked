@@ -18,6 +18,7 @@ import { clearSearch, changeQuery } from '../model/search-slice';
 import { getDialogTarget, getMode } from '../model/selectors';
 import { changeStorageQuota, openSettings, toggleSettings } from '../model/settings-panel-slice';
 import { changeItemWidth, changeTheme } from '../model/settings-slice';
+import { addSpace } from '../model/spaces-slice';
 import { StorageService } from '../service/storage-service';
 import { createInitState, createNewStore } from '../model/store';
 
@@ -101,6 +102,15 @@ export class MainController {
         console.log(`Creating new collection with name: ${collectionName}`);
 
         this.store.dispatch(addCollection({ name: collectionName }));
+        this.closeDialog();
+    }
+
+    createSpace() {
+        let spaceName = getDialogTarget(this.store.getState()) || 'Untitled space';
+
+        console.log(`Creating new space with name: ${spaceName}`);
+
+        this.store.dispatch(addSpace({ name: spaceName }));
         this.closeDialog();
     }
 
@@ -202,6 +212,7 @@ export class MainController {
                     closeDialog={() => this.closeDialog()}
                     collectionWillDelete={id => this.collectionWillDelete(id)}
                     createCollection={() => this.createCollection()}
+                    createSpace={() => this.createSpace()}
                     deleteCollection={id => this.deleteCollection(id)}
                     deleteItem={(collectionId, itemId) => this.deleteItem(collectionId, itemId)}
                     editCollectionItem={(collectionId, itemId) => this.editCollectionItem(collectionId, itemId)}

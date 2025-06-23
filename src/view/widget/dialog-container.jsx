@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { DialogCollectionDeleteConfirmation } from "../display/dialog-collection-delete-confirmation";
 import { DialogItemEdit } from "../display/dialog-item-edit";
 import { DialogCollectionNew } from "../display/dialog-collection-new";
+import { DialogSpaceNew } from "../display/dialog-space-new";
 import * as DialogTypes from "../../model/dialog-types";
 import { getDialogTarget, getDialogType } from "../../model/selectors";
 
@@ -27,6 +28,11 @@ const createDialogByType = (dialogType, dialogTarget, props) => {
 
         case DialogTypes.COLLECTION_ITEM_EDIT:
             return <DialogItemEdit
+                dialogContext={dialogTarget}
+                {...props} />;
+
+        case DialogTypes.SPACE_NEW:
+            return <DialogSpaceNew
                 dialogContext={dialogTarget}
                 {...props} />;
 

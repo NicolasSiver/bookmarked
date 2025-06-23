@@ -33,6 +33,10 @@ export const Header = (props) => {
         props.openSettings();
     };
 
+    const spaceDialogCallback = () => {
+        props.openDialog(DialogTypes.SPACE_NEW, null);
+    };
+
     const getModeLabel = () => {
         let label = null;
         let mode = useSelector(getMode);
@@ -75,7 +79,7 @@ export const Header = (props) => {
                             open={anchorElement !== null}
                             onClose={menuCloseCallback}>
                             <MenuItem onClick={collectionDialogCallback}>Add collection</MenuItem>
-                            <MenuItem onClick={() => undefined}>Add space</MenuItem>
+                            <MenuItem onClick={spaceDialogCallback}>Add space</MenuItem>
                             <MenuItem onClick={modeCallback}>{getModeLabel()}</MenuItem>
                         </Menu>
                     </div>

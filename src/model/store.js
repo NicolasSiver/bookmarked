@@ -1,4 +1,4 @@
-import { configureStore, current } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 
 import { collectionsSlice } from "./collections-slice";
 import { dialogSlice } from "./dialog-slice";
