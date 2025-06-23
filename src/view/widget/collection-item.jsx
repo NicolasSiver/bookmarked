@@ -6,6 +6,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { getCollectionItemsById } from "../../model/selector/get-collection-items-by-id";
+import { Bookmark } from "../display/bookmark";
 import * as Modes from "../../model/modes";
 import { getSettingsItemWidth } from "../../model/selectors";
 
@@ -22,25 +23,9 @@ export const CollectionItem = ({ changeCollectionName, collection, collectionWil
 
         return (
             <Grid key={item.id} size={itemWidth}>
-                <Tooltip title={item.desc} placement="top">
-                    <Button
-                        fullWidth
-                        onClick={clickCallback}
-                        startIcon={<img src={item.favUrl} style={{ width: 16, height: 16 }} />}
-                        sx={{
-                            textAlign: 'left',
-                            textTransform: 'none'
-                        }}
-                        variant="outlined">
-                        <span style={{
-                            display: 'block',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap',
-                            width: '100%'
-                        }}>{item.title}</span>
-                    </Button>
-                </Tooltip>
+                <Bookmark
+                    item={item}
+                    clickHandler={clickCallback} />
             </Grid>
         );
     };

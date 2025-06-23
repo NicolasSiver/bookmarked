@@ -34,10 +34,10 @@ I think it's possible to have that initial functionality without any additional 
 - [x] Bookmarks: change order
 - [x] Data persistence: utilize 8 KB limit for a single key (Compression Streams API)
 - [x] Themes (Dark / Light)
+- [x] Search
 - [ ] Data migration from Toby
 - [ ] Highlight already opened bookmarks
 - [ ] Bookmarks: color-coding
-- [ ] Search
 - [ ] Bookmark management: Spaces
 - [ ] Sync: Google Drive API
 
