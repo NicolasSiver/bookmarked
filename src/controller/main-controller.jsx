@@ -14,7 +14,7 @@ import { changeMode } from '../model/mode-slice';
 import * as Modes from '../model/modes';
 import { RootLayout } from "../view/widget/root-layout";
 import { SearchController } from './search-controller';
-import { changeQuery } from '../model/search-slice';
+import { clearSearch, changeQuery } from '../model/search-slice';
 import { getDialogTarget, getMode } from '../model/selectors';
 import { changeStorageQuota, openSettings, toggleSettings } from '../model/settings-panel-slice';
 import { changeItemWidth, changeTheme } from '../model/settings-slice';
@@ -87,6 +87,12 @@ export class MainController {
         console.log('Closing dialog');
 
         this.store.dispatch(closeDialog());
+    }
+
+    closeSearch() {
+        console.log('Closing search panel');
+
+        this.store.dispatch(clearSearch());
     }
 
     createCollection() {
@@ -192,6 +198,7 @@ export class MainController {
                     changeMode={() => this.changeMode()}
                     changeSearchQuery={query => this.changeSearchQuery(query)}
                     changeTheme={theme => this.changeTheme(theme)}
+                    closeSearch={() => this.closeSearch()}
                     closeDialog={() => this.closeDialog()}
                     collectionWillDelete={id => this.collectionWillDelete(id)}
                     createCollection={() => this.createCollection()}

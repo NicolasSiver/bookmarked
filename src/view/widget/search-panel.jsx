@@ -1,6 +1,7 @@
-import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Box, Grid, IconButton, Paper, Stack, Tooltip, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
+import IconClose from "@mui/icons-material/Close";
 
 import { getSearchResults, getSettingsItemWidth } from "../../model/selectors";
 import { Bookmark } from "../display/bookmark";
@@ -8,6 +9,10 @@ import { Bookmark } from "../display/bookmark";
 export const SearchPanel = props => {
     const itemWidth = useSelector(getSettingsItemWidth);
     const searchResults = useSelector(getSearchResults);
+
+    const closeCallback = () => {
+        props.closeSearch();
+    };
 
     const createHint = () => {
         return (
@@ -35,9 +40,24 @@ export const SearchPanel = props => {
         <div className="search-panel">
             <Paper elevation={2} sx={{ mx: 2, my: 1 }}>
                 <Stack spacing={3} sx={{ px: 2, py: 1 }}>
-                    <Typography variant="h5" component="div" sx={{ m: 1, fontWeight: 300 }}>
-                        Search results {`(${searchResults.length})`}
-                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Typography variant="h5" component="div" sx={{ m: 1, fontWeight: 300 }}>
+                            Search results {`(${searchResults.length})`}
+                        </Typography>
+
+                        <Tooltip title="Close">
+                            <IconButton
+                                size="large"
+                                edge="end"
+                                color="inherit"
+                                aria-label="close"
+                                sx={{ ml: 1 }}
+                                onClick={closeCallback}>
+                                <IconClose />
+                            </IconButton>
+                        </Tooltip>
+                    </Box>
+
                     {searchResults.length === 0 ? createHint() : renderResults()}
                 </Stack>
             </Paper>
