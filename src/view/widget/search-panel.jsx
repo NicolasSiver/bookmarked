@@ -3,12 +3,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import IconClose from "@mui/icons-material/Close";
 
-import { getSearchResults, getSettingsItemWidth } from "../../model/selectors";
+import { getSearchQuery, getSearchResults, getSettingsItemWidth } from "../../model/selectors";
 import { Bookmark } from "../display/bookmark";
 
 export const SearchPanel = props => {
     const itemWidth = useSelector(getSettingsItemWidth);
     const searchResults = useSelector(getSearchResults);
+    const searchQuery = useSelector(getSearchQuery);
 
     const closeCallback = () => {
         props.closeSearch();
@@ -17,7 +18,7 @@ export const SearchPanel = props => {
     const createHint = () => {
         return (
             <div className="search-panel__hint">
-                <Box sx={{ py: 2 }}>No results found.</Box>
+                <Box sx={{ py: 2 }}>No results found for "{searchQuery}".</Box>
             </div>
         );
     };
