@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { createListenerMiddleware } from '@reduxjs/toolkit';
 
 import { addCollection, changeCollectionName, deleteCollection, shiftColleciton } from '../model/collections-slice';
+import * as Constants from '../model/constants';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
 import * as DialogTypes from '../model/dialog-types';
 import { getStorageUsageRatio } from '../util/get-storage-usage-ratio';
@@ -18,7 +19,7 @@ import { clearSearch, changeQuery } from '../model/search-slice';
 import { getDialogTarget, getMode } from '../model/selectors';
 import { changeStorageQuota, openSettings, toggleSettings } from '../model/settings-panel-slice';
 import { changeItemWidth, changeTheme } from '../model/settings-slice';
-import { addSpace } from '../model/spaces-slice';
+import { addSpace, setCurrentSpace } from '../model/spaces-slice';
 import { StorageService } from '../service/storage-service';
 import { createInitState, createNewStore } from '../model/store';
 
@@ -76,6 +77,14 @@ export class MainController {
         console.log(`Changing search query to "${query}"`);
 
         this.store.dispatch(changeQuery({ query }));
+    }
+
+    changeSpace(spaceId) {
+        let switchSpace = spaceId === Constants.DEFAULT_SPACE ? null : spaceId;
+
+        console.log(`Changing current space to ${switchSpace}`);
+
+        this.store.dispatch(setCurrentSpace(switchSpace));
     }
 
     changeTheme(theme) {
@@ -207,6 +216,7 @@ export class MainController {
                     changeItemWidth={itemWidth => this.changeItemWidth(itemWidth)}
                     changeMode={() => this.changeMode()}
                     changeSearchQuery={query => this.changeSearchQuery(query)}
+                    changeSpace={spaceId => this.changeSpace(spaceId)}
                     changeTheme={theme => this.changeTheme(theme)}
                     closeSearch={() => this.closeSearch()}
                     closeDialog={() => this.closeDialog()}

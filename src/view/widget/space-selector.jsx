@@ -9,7 +9,9 @@ export const SpaceSelector = props => {
     const currentSpace = useSelector(getSpacesCurrent) || Constants.DEFAULT_SPACE;
     const spacesList = useSelector(getSpacesList);
 
-    console.log(currentSpace, spacesList);
+    const spaceCallback = event => {
+        props.changeSpace(event.target.value);
+    };
 
     const renderList = () => {
         return (
@@ -17,7 +19,7 @@ export const SpaceSelector = props => {
                 <FormControl size='small' sx={{ m: 1, minWidth: 120 }}>
                     <Select
                         id='space-selector'
-                        onChange={() => undefined}
+                        onChange={spaceCallback}
                         value={currentSpace}>
                         <MenuItem value={Constants.DEFAULT_SPACE}>
                             <em>Show all</em>
