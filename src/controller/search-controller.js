@@ -1,9 +1,9 @@
 import MiniSearch from 'minisearch';
+import { isAnyOf } from '@reduxjs/toolkit';
 
 import { addItem, changeItemDescription, changeItemTitle, changeItemUrl, deleteItem, deleteItemsByCollectionId } from "../model/items-slice";
-import { changeQuery, setResults } from "../model/search-slice";
-import { getItems } from '../model/selectors';
-import { isAnyOf } from '@reduxjs/toolkit';
+import { changeQuery, clearSearch, setResults } from "../model/search-slice";
+import { getItems, getSearchQuery } from '../model/selectors';
 
 export class SearchController {
     constructor(store, listenerMiddleware) {
@@ -12,7 +12,6 @@ export class SearchController {
         this.miniSearch = null;
     }
 
-    // FIXME: Remove search panel when query is empty
     createIndexIfNeeded() {
         let items, itemsData;
 
@@ -95,6 +94,19 @@ export class SearchController {
                     this.miniSearch.removeAll();
                     this.miniSearch = null;
                 }
+            }
+        });
+
+        this.listenerMiddleware.startListening({
+            predicate: (action, currentState, previousState) => {
+                // Only trigger if the search query has emptied
+                return getSearchQuery(currentState) === '' && getSearchQuery(previousState) !== '';
+            },
+            effect: (action, listenerApi) => {
+                console.log('Search query emptied, clearing search results...');
+
+                // Clear the search results
+                this.store.dispatch(clearSearch());
             }
         });
     }
