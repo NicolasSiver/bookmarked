@@ -51,3 +51,4 @@ I think it's possible to have that initial functionality without any additional 
 - [ ] Popup - fast delete?
 - [ ] Notifications for pivotal async operations and errors
 - [ ] Collapse collections with persistence
+- [ ] Custom colors for spaces

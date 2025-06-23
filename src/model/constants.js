@@ -1,4 +1,12 @@
 /**
+ * Special space identifier for the default space.
+ * This space is used to represent all items that are not assigned to a specific space.
+ * @type {string}
+ * @constant
+ */
+export const DEFAULT_SPACE = 'defaultSpaceAll';
+
+/**
  * Soft limit for the number of characters in an item title.
  * This is used to ensure that titles are not too long for display purposes.
  * @type {number}

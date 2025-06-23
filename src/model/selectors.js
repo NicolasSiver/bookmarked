@@ -22,6 +22,10 @@ export const getSettingsPanelOpen = state => state.settingsPanel.open;
 
 export const getSettingsPanelStorageQuota = state => state.settingsPanel.storageQuota;
 
+export const getSpacesCurrent = state => state.spaces.current;
+
+export const getSpacesList = state => state.spaces.list;
+
 export const getTabFavIconUrl = state => state.tab?.favIconUrl || null;
 
 export const getTabTitle = state => state.tab?.title || null;

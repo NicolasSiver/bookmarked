@@ -8,6 +8,7 @@ import * as DialogTypes from "../../model/dialog-types";
 import * as Modes from "../../model/modes";
 import { SearchBar } from "./search-bar";
 import { getMenuAnchorElement, getMode } from "../../model/selectors";
+import { SpaceSelector } from "./space-selector";
 
 export const Header = (props) => {
     let anchorElement = useSelector(getMenuAnchorElement);
@@ -55,8 +56,6 @@ export const Header = (props) => {
         return label;
     }
 
-    // TODO: Move version to the settings drawer?
-
     return (
         <div className="header">
             <AppBar position="sticky">
@@ -87,6 +86,8 @@ export const Header = (props) => {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Bookmarked
                     </Typography>
+
+                    <SpaceSelector {...props} />
 
                     <SearchBar {...props}/>
 
