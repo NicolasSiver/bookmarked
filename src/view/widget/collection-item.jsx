@@ -5,14 +5,20 @@ import IconDelete from "@mui/icons-material/DeleteOutline";
 import React from "react";
 import { useSelector } from "react-redux";
 
+import { CollectionSpaceSelector } from "./collection-space-selector";
 import { getCollectionItemsById } from "../../model/selector/get-collection-items-by-id";
 import { Bookmark } from "../display/bookmark";
 import * as Modes from "../../model/modes";
-import { getSettingsItemWidth } from "../../model/selectors";
+import { getSettingsItemWidth, getSpacesList } from "../../model/selectors";
 
-export const CollectionItem = ({ changeCollectionName, collection, collectionWillDelete, editCollectionItem, mode, index, itemDidClick, total, shiftCollection }) => {
+export const CollectionItem = ({ changeCollectionName, changeCollectionSpaces, collection, collectionWillDelete, editCollectionItem, mode, index, itemDidClick, total, shiftCollection }) => {
     const items = useSelector(getCollectionItemsById(collection.id)) || [];
     const itemWidth = useSelector(getSettingsItemWidth);
+    const spacesList = useSelector(getSpacesList);
+
+    const collectionSpacesCallback = (collectionId, spaceIds) => {
+        changeCollectionSpaces(collectionId, spaceIds);
+    };
 
     const itemEditCallback = itemId => {
         editCollectionItem(collection.id, itemId);
@@ -95,6 +101,8 @@ export const CollectionItem = ({ changeCollectionName, collection, collectionWil
                         onClick={() => collectionWillDelete(collection.id)}>
                         <IconDelete />
                     </IconButton>
+
+                    {spacesList.length > 0 ? <CollectionSpaceSelector changeCollectionSpaces={collectionSpacesCallback} collection={collection} spaces={spacesList} /> : null}
                 </div>
             );
         } else if (mode === Modes.VIEW) {

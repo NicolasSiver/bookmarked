@@ -20,6 +20,18 @@ export const spacesSlice = createSlice({
             state.list.push(space);
         },
 
+        changeCollectionSpaces(state, action) {
+            let { collectionId, spaceIds } = action.payload;
+
+            state.list.forEach(space => {
+                space.collections = space.collections.filter(id => id !== collectionId);
+
+                if (spaceIds.includes(space.id) === true) {
+                    space.collections.push(collectionId);
+                }
+            });
+        },
+
         removeSpace(state, action) {
             state.list = state.list.filter(space => space.id !== action.payload);
         },
@@ -30,4 +42,4 @@ export const spacesSlice = createSlice({
     }
 });
 
-export const { addSpace, removeSpace, setCurrentSpace } = spacesSlice.actions;
+export const { addSpace, changeCollectionSpaces, removeSpace, setCurrentSpace } = spacesSlice.actions;

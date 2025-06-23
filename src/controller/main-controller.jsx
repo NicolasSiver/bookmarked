@@ -19,7 +19,7 @@ import { clearSearch, changeQuery } from '../model/search-slice';
 import { getDialogTarget, getMode } from '../model/selectors';
 import { changeStorageQuota, openSettings, toggleSettings } from '../model/settings-panel-slice';
 import { changeItemWidth, changeTheme } from '../model/settings-slice';
-import { addSpace, setCurrentSpace } from '../model/spaces-slice';
+import { addSpace, changeCollectionSpaces, setCurrentSpace } from '../model/spaces-slice';
 import { StorageService } from '../service/storage-service';
 import { createInitState, createNewStore } from '../model/store';
 
@@ -51,6 +51,12 @@ export class MainController {
         console.log(`Changing collection name for ${collectionId} to ${name}`);
 
         this.store.dispatch(changeCollectionName({ collectionId, name }));
+    }
+
+    changeCollectionSpaces(collectionId, spaceIds) {
+        console.log(`Changing spaces for collection ${collectionId} to ${spaceIds}`);
+
+        this.store.dispatch(changeCollectionSpaces({ collectionId, spaceIds }));
     }
 
     changeDialogTarget(value) {
@@ -212,6 +218,7 @@ export class MainController {
             <Provider store={this.store}>
                 <RootLayout
                     changeCollectionName={(id, name) => this.changeCollectionName(id, name)}
+                    changeCollectionSpaces={(id, spaces) => this.changeCollectionSpaces(id, spaces)}
                     changeDialogTarget={value => this.changeDialogTarget(value)}
                     changeItemWidth={itemWidth => this.changeItemWidth(itemWidth)}
                     changeMode={() => this.changeMode()}
