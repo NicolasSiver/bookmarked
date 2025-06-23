@@ -1,3 +1,8 @@
 .collection-item {
     padding: 1rem;
 }
+
+.collection-item__title {
+    display: flex;
+    align-items: center;
+}
