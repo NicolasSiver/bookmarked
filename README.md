@@ -52,3 +52,4 @@ I think it's possible to have that initial functionality without any additional 
 - [ ] Notifications for pivotal async operations and errors
 - [ ] Collapse collections with persistence
 - [ ] Custom colors for spaces
+- [ ] Feedback when space is applied and no collections are shown
