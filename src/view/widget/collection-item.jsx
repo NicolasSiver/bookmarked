@@ -1,4 +1,4 @@
-import { Alert, Button, Grid, IconButton, TextField, Tooltip, Typography } from "@mui/material";
+import { Alert, Box, Button, Chip, Grid, IconButton, Stack, TextField, Tooltip, Typography } from "@mui/material";
 import IconArrowDownward from "@mui/icons-material/ArrowDownward";
 import IconArrowUpward from "@mui/icons-material/ArrowUpward";
 import IconDelete from "@mui/icons-material/DeleteOutline";
@@ -58,6 +58,23 @@ export const CollectionItem = ({ changeCollectionName, changeCollectionSpaces, c
         return container;
     };
 
+    const renderSpaces = () => {
+        let result = null;
+        let spaces = spacesList.filter(space => space.collections.includes(collection.id));
+
+        if (spaces.length > 0) {
+            result = (
+                <Stack direction="row" spacing={1} sx={{ ml: 2, flexWrap: 'wrap' }}>
+                    {spaces.map(space => (
+                        <Chip key={space.id} label={space.name} variant="outlined" />
+                    ))}
+                </Stack>
+            );
+        }
+
+        return result;
+    };
+
     const renderTitle = () => {
         let title = null;
 
@@ -107,9 +124,13 @@ export const CollectionItem = ({ changeCollectionName, changeCollectionSpaces, c
             );
         } else if (mode === Modes.VIEW) {
             title = (
-                <Typography variant="h5" component="div" sx={{ m: 1, fontWeight: 300 }}>
-                    {collection.name}
-                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center'}}>
+                    <Typography variant="h5" component="div" sx={{ m: 1, fontWeight: 300 }}>
+                        {collection.name}
+                    </Typography>
+                    {renderSpaces()}
+                </Box>
+
             );
         }
 
