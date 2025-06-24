@@ -19,7 +19,7 @@ import { clearSearch, changeQuery } from '../model/search-slice';
 import { getDialogTarget, getMode } from '../model/selectors';
 import { changeStorageQuota, openSettings, toggleSettings } from '../model/settings-panel-slice';
 import { changeItemWidth, changeTheme } from '../model/settings-slice';
-import { addSpace, changeCollectionSpaces, changeSpaceName, removeSpace, setCurrentSpace } from '../model/spaces-slice';
+import { addSpace, changeCollectionSpaces, changeSpaceName, removeSpace, setCurrentSpace, shiftSpace } from '../model/spaces-slice';
 import { StorageService } from '../service/storage-service';
 import { createInitState, createNewStore } from '../model/store';
 
@@ -253,6 +253,7 @@ export class MainController {
                     openDialog={(type, target) => this.openDialog(type, target)}
                     openSettings={() => this.openSettings()}
                     shiftCollection={(from, to) => this.shiftCollection(from, to)}
+                    shiftSpace={(from, to) => this.shiftSpace(from, to)}
                     toggleSettings={() => this.toggleSettings()} />
             </Provider>
         );
@@ -262,6 +263,12 @@ export class MainController {
         console.log(`Shifting collection from ${fromIndex} to ${toIndex}`);
 
         this.store.dispatch(shiftColleciton({ fromIndex, toIndex }));
+    }
+
+    shiftSpace(fromIndex, toIndex) {
+        console.log(`Shifting space from ${fromIndex} to ${toIndex}`);
+
+        this.store.dispatch(shiftSpace({ fromIndex, toIndex }));
     }
 
     toggleSettings() {

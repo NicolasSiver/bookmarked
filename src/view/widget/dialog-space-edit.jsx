@@ -35,7 +35,7 @@ export const DialogSpaceEdit = props => {
                     aria-label="up"
                     disabled={index === 0}
                     sx={{ mx: 0.5 }}
-                    onClick={() => shiftCollection(index, index - 1)}>
+                    onClick={() => props.shiftSpace(index, index - 1)}>
                     <IconArrowUpward />
                 </IconButton>
 
@@ -46,7 +46,7 @@ export const DialogSpaceEdit = props => {
                     aria-label="down"
                     disabled={index === total - 1}
                     sx={{ mx: 0.5 }}
-                    onClick={() => shiftCollection(index, index + 1)}>
+                    onClick={() => props.shiftSpace(index, index + 1)}>
                     <IconArrowDownward />
                 </IconButton>
 

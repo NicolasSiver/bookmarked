@@ -47,8 +47,17 @@ export const spacesSlice = createSlice({
 
         setCurrentSpace(state, action) {
             state.current = action.payload;
+        },
+
+        shiftSpace(state, action) {
+            let { fromIndex, toIndex } = action.payload;
+            let space = state.list.splice(fromIndex, 1)[0];
+
+            if (space !== undefined) {
+                state.list.splice(toIndex, 0, space);
+            }
         }
     }
 });
 
-export const { addSpace, changeCollectionSpaces, changeSpaceName, removeSpace, setCurrentSpace } = spacesSlice.actions;
+export const { addSpace, changeCollectionSpaces, changeSpaceName, removeSpace, setCurrentSpace, shiftSpace } = spacesSlice.actions;
