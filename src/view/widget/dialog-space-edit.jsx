@@ -53,11 +53,11 @@ export const DialogSpaceEdit = props => {
                 <IconButton
                     size="small"
                     edge="start"
-                    color="inherit"
+                    color="error"
                     aria-label="delete"
                     disabled={currentSpace === space.id}
                     sx={{ mx: 0.5 }}
-                    onClick={() => collectionWillDelete(collection.id)}>
+                    onClick={() => props.deleteSpace(space.id)}>
                     <IconDelete />
                 </IconButton>
             </Box>

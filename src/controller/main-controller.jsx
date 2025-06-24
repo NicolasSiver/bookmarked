@@ -19,7 +19,7 @@ import { clearSearch, changeQuery } from '../model/search-slice';
 import { getDialogTarget, getMode } from '../model/selectors';
 import { changeStorageQuota, openSettings, toggleSettings } from '../model/settings-panel-slice';
 import { changeItemWidth, changeTheme } from '../model/settings-slice';
-import { addSpace, changeCollectionSpaces, setCurrentSpace } from '../model/spaces-slice';
+import { addSpace, changeCollectionSpaces, removeSpace, setCurrentSpace } from '../model/spaces-slice';
 import { StorageService } from '../service/storage-service';
 import { createInitState, createNewStore } from '../model/store';
 
@@ -151,6 +151,12 @@ export class MainController {
         this.store.dispatch(deleteItem({ collectionId, itemId }));
     }
 
+    deleteSpace(spaceId) {
+        console.log(`Deleting space with ID ${spaceId}`);
+
+        this.store.dispatch(removeSpace(spaceId));
+    }
+
     editCollectionItem(collectionId, itemId) {
         console.log(`Editing item with ID "${itemId}" in collection "${collectionId}"`);
 
@@ -232,6 +238,7 @@ export class MainController {
                     createSpace={() => this.createSpace()}
                     deleteCollection={id => this.deleteCollection(id)}
                     deleteItem={(collectionId, itemId) => this.deleteItem(collectionId, itemId)}
+                    deleteSpace={spaceId => this.deleteSpace(spaceId)}
                     editCollectionItem={(collectionId, itemId) => this.editCollectionItem(collectionId, itemId)}
                     editItemProperty={(collectionId, itemId, property, value) => this.editItemProperty(collectionId, itemId, property, value)}
                     itemDidClick={item => this.itemDidClick(item)}
