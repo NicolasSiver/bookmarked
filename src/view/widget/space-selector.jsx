@@ -4,6 +4,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import * as Constants from '../../model/constants';
+import * as DialogTypes from '../../model/dialog-types';
 import { getMode, getSpacesCurrent, getSpacesList } from '../../model/selectors';
 
 export const SpaceSelector = props => {
@@ -13,6 +14,10 @@ export const SpaceSelector = props => {
 
     const spaceCallback = event => {
         props.changeSpace(event.target.value);
+    };
+
+    const spaceEditCallback = () => {
+        props.openDialog(DialogTypes.SPACE_EDIT);
     };
 
     const renderList = () => {
@@ -41,7 +46,7 @@ export const SpaceSelector = props => {
                             color="inherit"
                             aria-label="edit-spaces"
                             sx={{ mr: 1 }}
-                            onClick={() => undefined}>
+                            onClick={spaceEditCallback}>
                             <IconEdit />
                         </IconButton>
                     </Tooltip>
