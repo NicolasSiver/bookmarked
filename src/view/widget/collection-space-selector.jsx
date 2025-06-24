@@ -13,6 +13,7 @@ export const CollectionSpaceSelector = ({ changeCollectionSpaces, collection, sp
             multiple={true}
             disablePortal
             options={spaces}
+            getOptionKey={option => option.id}
             getOptionLabel={option => option.name}
             filterSelectedOptions={true}
             value={selectedValues}
