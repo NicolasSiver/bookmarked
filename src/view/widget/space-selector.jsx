@@ -1,12 +1,14 @@
-import { FormControl, MenuItem, Select } from '@mui/material';
+import { FormControl, IconButton, MenuItem, Select, Tooltip } from '@mui/material';
+import IconEdit from '@mui/icons-material/Edit';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
 import * as Constants from '../../model/constants';
-import { getSpacesCurrent, getSpacesList } from '../../model/selectors';
+import { getMode, getSpacesCurrent, getSpacesList } from '../../model/selectors';
 
 export const SpaceSelector = props => {
     const currentSpace = useSelector(getSpacesCurrent) || Constants.DEFAULT_SPACE;
+    const mode = useSelector(getMode);
     const spacesList = useSelector(getSpacesList);
 
     const spaceCallback = event => {
@@ -31,6 +33,19 @@ export const SpaceSelector = props => {
                         ))}
                     </Select>
                 </FormControl>
+
+                {mode === 'edit' && (
+                    <Tooltip title="Edit spaces">
+                        <IconButton
+                            size="large"
+                            color="inherit"
+                            aria-label="edit-spaces"
+                            sx={{ mr: 1 }}
+                            onClick={() => undefined}>
+                            <IconEdit />
+                        </IconButton>
+                    </Tooltip>
+                )}
             </div>
         );
     };
