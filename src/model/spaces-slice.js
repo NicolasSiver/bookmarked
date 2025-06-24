@@ -32,6 +32,15 @@ export const spacesSlice = createSlice({
             });
         },
 
+        changeSpaceName(state, action) {
+            let { id, name } = action.payload;
+            let space = state.list.find(space => space.id === id);
+
+            if (space !== undefined) {
+                space.name = name;
+            }
+        },
+
         removeSpace(state, action) {
             state.list = state.list.filter(space => space.id !== action.payload);
         },
@@ -42,4 +51,4 @@ export const spacesSlice = createSlice({
     }
 });
 
-export const { addSpace, changeCollectionSpaces, removeSpace, setCurrentSpace } = spacesSlice.actions;
+export const { addSpace, changeCollectionSpaces, changeSpaceName, removeSpace, setCurrentSpace } = spacesSlice.actions;

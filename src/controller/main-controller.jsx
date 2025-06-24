@@ -19,7 +19,7 @@ import { clearSearch, changeQuery } from '../model/search-slice';
 import { getDialogTarget, getMode } from '../model/selectors';
 import { changeStorageQuota, openSettings, toggleSettings } from '../model/settings-panel-slice';
 import { changeItemWidth, changeTheme } from '../model/settings-slice';
-import { addSpace, changeCollectionSpaces, removeSpace, setCurrentSpace } from '../model/spaces-slice';
+import { addSpace, changeCollectionSpaces, changeSpaceName, removeSpace, setCurrentSpace } from '../model/spaces-slice';
 import { StorageService } from '../service/storage-service';
 import { createInitState, createNewStore } from '../model/store';
 
@@ -91,6 +91,12 @@ export class MainController {
         console.log(`Changing current space to ${switchSpace}`);
 
         this.store.dispatch(setCurrentSpace(switchSpace));
+    }
+
+    changeSpaceName(spaceId, name) {
+        console.log(`Changing space name for ${spaceId} to ${name}`);
+
+        this.store.dispatch(changeSpaceName({ id: spaceId, name }));
     }
 
     changeTheme(theme) {
@@ -230,6 +236,7 @@ export class MainController {
                     changeMode={() => this.changeMode()}
                     changeSearchQuery={query => this.changeSearchQuery(query)}
                     changeSpace={spaceId => this.changeSpace(spaceId)}
+                    changeSpaceName={(id, name) => this.changeSpaceName(id, name)}
                     changeTheme={theme => this.changeTheme(theme)}
                     closeSearch={() => this.closeSearch()}
                     closeDialog={() => this.closeDialog()}

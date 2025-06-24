@@ -26,7 +26,7 @@ export const DialogSpaceEdit = props => {
                     label="Space name"
                     fullWidth
                     value={space.name}
-                    onChange={e => undefined} />
+                    onChange={e => props.changeSpaceName(space.id, e.target.value)} />
 
                 <IconButton
                     size="small"
