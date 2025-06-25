@@ -6,7 +6,7 @@ import { createStorageBuckets } from "../util/create-storage-buckets";
 import { ExtensionStorage } from "./extension-storage";
 import { hydrateItems, itemsSlice } from "../model/items-slice";
 import { hydrateSettings, settingsSlice } from "../model/settings-slice";
-import { spacesSlice } from "../model/spaces-slice";
+import { hydrateSpaces, spacesSlice } from "../model/spaces-slice";
 
 export class StorageService {
     constructor() {
@@ -98,7 +98,7 @@ export class StorageService {
     }
 
     restore() {
-        return this.restoreLocalState().then(({ collections, items, settings }) => {
+        return this.restoreLocalState().then(({ collections, items, settings, spaces }) => {
             console.log('Restoring persisted state...');
 
             if (Array.isArray(collections) === true && collections.length > 0) {
@@ -115,30 +115,38 @@ export class StorageService {
                 console.log('Hydrating settings:', settings);
                 this.store.dispatch(hydrateSettings(settings));
             }
+
+            if (typeof spaces === 'object' && spaces !== null) {
+                console.log('Hydrating spaces:', spaces);
+                this.store.dispatch(hydrateSpaces(spaces));
+            }
         });
     }
 
     restoreLocalState() {
-        let collections, items, result, settings;
+        let collections, items, result, settings, spaces;
 
         if (this.isChromeEnvironment === true) {
             result = Promise.all([
                 this.storage.getValue([collectionsSlice.name]),
                 this.storage.getValue(createBucketKeys(itemsSlice.name, Constants.STORAGE_BUCKETS_MAX)),
-                this.storage.getValue([settingsSlice.name])
-            ]).then(([collectionsData, itemsData, settingsData]) => {
+                this.storage.getValue([settingsSlice.name]),
+                this.storage.getValue([spacesSlice.name])
+            ]).then(([collectionsData, itemsData, settingsData, spacesData]) => {
                 collections = collectionsData[collectionsSlice.name];
                 items = composeDataFromBuckets(itemsData);
                 settings = settingsData[settingsSlice.name];
+                spaces = spacesData[spacesSlice.name];
 
-                return { collections, items, settings };
+                return { collections, items, settings, spaces };
             });
         } else {
             collections = JSON.parse(this.storage.getItem(collectionsSlice.name) || '[]');
             items = JSON.parse(this.storage.getItem(itemsSlice.name) || '{}');
             settings = JSON.parse(this.storage.getItem(settingsSlice.name));
+            spaces = JSON.parse(this.storage.getItem(spacesSlice.name));
 
-            result = Promise.resolve({ collections, items, settings });
+            result = Promise.resolve({ collections, items, settings, spaces });
         }
 
         return result;

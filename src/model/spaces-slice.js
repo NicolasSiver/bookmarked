@@ -41,6 +41,11 @@ export const spacesSlice = createSlice({
             }
         },
 
+        hydrateSpaces(state, action) {
+            // This action is used to hydrate the spaces from persisted state
+            return action.payload;
+        },
+
         removeSpace(state, action) {
             state.list = state.list.filter(space => space.id !== action.payload);
         },
@@ -60,4 +65,4 @@ export const spacesSlice = createSlice({
     }
 });
 
-export const { addSpace, changeCollectionSpaces, changeSpaceName, removeSpace, setCurrentSpace, shiftSpace } = spacesSlice.actions;
+export const { addSpace, changeCollectionSpaces, changeSpaceName, hydrateSpaces, removeSpace, setCurrentSpace, shiftSpace } = spacesSlice.actions;
