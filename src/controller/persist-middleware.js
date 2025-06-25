@@ -1,6 +1,7 @@
 import { collectionsSlice } from '../model/collections-slice';
 import { itemsSlice } from '../model/items-slice';
 import { settingsSlice } from '../model/settings-slice';
+import { spacesSlice } from '../model/spaces-slice';
 
 export class PersistMiddleware {
     constructor(storageService) {
@@ -16,6 +17,7 @@ export class PersistMiddleware {
             const isItemAction = action.type.startsWith(`${itemsSlice.name}/`);
             const isHydrationAction = action.type.includes('hydrate');
             const isSettingsAction = action.type.startsWith(`${settingsSlice.name}/`);
+            const isSpaceAction = action.type.startsWith(`${spacesSlice.name}/`);
 
             if (isHydrationAction === false) {
 
@@ -35,6 +37,12 @@ export class PersistMiddleware {
                     console.log(`Settings action detected: ${action.type}`);
 
                     this.storageService.persistSettings(store.getState()[settingsSlice.name]);
+                }
+
+                if (isSpaceAction === true) {
+                    console.log(`Space action detected: ${action.type}`);
+
+                    this.storageService.persistSpaces(store.getState()[spacesSlice.name]);
                 }
             }
 

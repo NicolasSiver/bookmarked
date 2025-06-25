@@ -35,10 +35,10 @@ I think it's possible to have that initial functionality without any additional 
 - [x] Data persistence: utilize 8 KB limit for a single key (Compression Streams API)
 - [x] Themes (Dark / Light)
 - [x] Search
+- [ ] Bookmark management: Spaces
 - [ ] Data migration from Toby
 - [ ] Highlight already opened bookmarks
 - [ ] Bookmarks: color-coding
-- [ ] Bookmark management: Spaces
 - [ ] Sync: Google Drive API
 
 ## Small things
@@ -53,3 +53,4 @@ I think it's possible to have that initial functionality without any additional 
 - [ ] Collapse collections with persistence
 - [ ] Custom colors for spaces
 - [ ] Feedback when space is applied and no collections are shown
+- [ ] Hotkeys

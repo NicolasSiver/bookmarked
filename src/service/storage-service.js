@@ -6,6 +6,7 @@ import { createStorageBuckets } from "../util/create-storage-buckets";
 import { ExtensionStorage } from "./extension-storage";
 import { hydrateItems, itemsSlice } from "../model/items-slice";
 import { hydrateSettings, settingsSlice } from "../model/settings-slice";
+import { spacesSlice } from "../model/spaces-slice";
 
 export class StorageService {
     constructor() {
@@ -79,6 +80,20 @@ export class StorageService {
                 });
         } else {
             this.storage.setItem(settingsSlice.name, JSON.stringify(settings));
+        }
+    }
+
+    persistSpaces(spaces) {
+        console.log('Persisting spaces:', spaces);
+
+        if (this.isChromeEnvironment === true) {
+            this.storage
+                .setValue({ [spacesSlice.name]: spaces })
+                .then(() => {
+                    console.log('Spaces persisted successfully.');
+                });
+        } else {
+            this.storage.setItem(spacesSlice.name, JSON.stringify(spaces));
         }
     }
 
