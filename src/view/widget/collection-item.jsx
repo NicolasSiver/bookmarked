@@ -124,7 +124,7 @@ export const CollectionItem = ({ changeCollectionName, changeCollectionSpaces, c
             );
         } else if (mode === Modes.VIEW) {
             title = (
-                <Box sx={{ display: 'flex', alignItems: 'center'}}>
+                <Box className="collection-item__title" sx={{ display: 'flex', alignItems: 'center'}}>
                     <Typography variant="h5" component="div" sx={{ m: 1, fontWeight: 300 }}>
                         {collection.name}
                     </Typography>
