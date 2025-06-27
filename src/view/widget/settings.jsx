@@ -67,7 +67,7 @@ export const Settings = (props) => {
                     </Stack>
 
                     <Typography variant="h6" sx={{ my: 2 }}>View</Typography>
-                    <FormControl sx={{ m: 1, minWidth: 200 }}>
+                    <FormControl sx={{ my: 1, minWidth: 200 }}>
                         <InputLabel id="item-width-label">Item width</InputLabel>
                         <Select
                             labelId="item-width-label"
@@ -89,7 +89,7 @@ export const Settings = (props) => {
                     <FormControl component="fieldset" variant="standard">
                         <FormLabel>Data sync</FormLabel>
                         <Button
-                            variant="outlined"
+                            variant="contained"
                             onClick={() => undefined}
                             sx={{ mt: 1, mb: 1 }}>
                             Connect to Dropbox
