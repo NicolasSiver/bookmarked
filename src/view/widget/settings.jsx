@@ -1,4 +1,5 @@
-import { Box, Drawer, FormControl, FormHelperText, FormLabel, InputLabel, LinearProgress, Link, MenuItem, Select, Stack, Switch, Typography } from "@mui/material";
+import { Box, Button, Drawer, FormControl, FormHelperText, FormLabel, Icon, IconButton, InputLabel, LinearProgress, Link, MenuItem, Select, Stack, Switch, TextField, Typography } from "@mui/material";
+import IconCheck from "@mui/icons-material/CheckCircle";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -22,6 +23,28 @@ export const Settings = (props) => {
 
     const toggleTheme = event => {
         props.changeTheme(event.target.checked === true ? 'dark' : 'light');
+    };
+
+    const renderDropboxSync = () => {
+        let result = null;
+
+        if (true) {
+            return (
+                <Box sx={{ display: 'flex', alignItems: 'center', my: 1 }}>
+                    <TextField
+                        fullWidth
+                        label="OAuth code"
+                        size="small"
+                        placeholder="Example: 4/0AY0e-g5..."
+                        onChange={event => undefined} />
+                        <IconButton onClick={() => undefined} sx={{ ml: 1 }} loading={true}>
+                            <IconCheck />
+                        </IconButton>
+                </Box>
+            );
+        }
+
+        return result;
     };
 
     return (
@@ -59,7 +82,20 @@ export const Settings = (props) => {
                             <MenuItem value={6}>6</MenuItem>
                             <MenuItem value={12}>12</MenuItem>
                         </Select>
-                        <FormHelperText>The whole layout is 12 units.<br/>Item width 12 will take the whole screen.</FormHelperText>
+                        <FormHelperText>The whole layout is 12 units.<br />Item width 12 will take the whole screen.</FormHelperText>
+                    </FormControl>
+
+                    <Typography variant="h6" sx={{ my: 2 }}>Integrations</Typography>
+                    <FormControl component="fieldset" variant="standard">
+                        <FormLabel>Data sync</FormLabel>
+                        <Button
+                            variant="outlined"
+                            onClick={() => undefined}
+                            sx={{ mt: 1, mb: 1 }}>
+                            Connect to Dropbox
+                        </Button>
+                        {renderDropboxSync()}
+                        <FormHelperText>Syncrhonize data to Dropbox <br />via Bookmarked Dropbox Application.<br />It will create "Bookmarked" folder for all data.</FormHelperText>
                     </FormControl>
 
                     <Typography variant="h6" sx={{ my: 2 }}>Other</Typography>
