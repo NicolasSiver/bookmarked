@@ -83,7 +83,7 @@ export const CollectionItem = ({ changeCollectionName, changeCollectionSpaces, c
                 <div className="collection-item__title">
                     <TextField
                         label="Collection name"
-                        defaultValue={collection.name}
+                        value={collection.name}
                         sx={{ my: 1 }}
                         onChange={event => changeCollectionName(collection.id, event.target.value)} />
 
