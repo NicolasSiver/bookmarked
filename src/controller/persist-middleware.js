@@ -1,4 +1,5 @@
 import { collectionsSlice } from '../model/collections-slice';
+import { dropboxSyncSlice } from '../model/dropbox-sync-slice';
 import { itemsSlice } from '../model/items-slice';
 import { settingsSlice } from '../model/settings-slice';
 import { spacesSlice } from '../model/spaces-slice';
@@ -14,6 +15,7 @@ export class PersistMiddleware {
 
             // Only persist if collections or items changed, and exclude any action containing 'hydrate'
             const isCollectionAction = action.type.startsWith(`${collectionsSlice.name}/`);
+            const isDropboxSyncAction = action.type.startsWith(`${dropboxSyncSlice.name}/`);
             const isItemAction = action.type.startsWith(`${itemsSlice.name}/`);
             const isHydrationAction = action.type.includes('hydrate');
             const isSettingsAction = action.type.startsWith(`${settingsSlice.name}/`);
@@ -43,6 +45,12 @@ export class PersistMiddleware {
                     console.log(`Space action detected: ${action.type}`);
 
                     this.storageService.persistSpaces(store.getState()[spacesSlice.name]);
+                }
+
+                if (isDropboxSyncAction === true) {
+                    console.log(`Dropbox sync action detected: ${action.type}`);
+
+                    this.storageService.persistDropboxSync(store.getState()[dropboxSyncSlice.name]);
                 }
             }
 

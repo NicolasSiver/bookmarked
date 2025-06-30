@@ -4,6 +4,7 @@ import * as Constants from "../model/constants";
 import { createBucketKeys } from "../util/create-bucket-keys";
 import { createStorageBuckets } from "../util/create-storage-buckets";
 import { ExtensionStorage } from "./extension-storage";
+import { dropboxSyncSlice } from "../model/dropbox-sync-slice"; 
 import { hydrateItems, itemsSlice } from "../model/items-slice";
 import { hydrateSettings, settingsSlice } from "../model/settings-slice";
 import { hydrateSpaces, spacesSlice } from "../model/spaces-slice";
@@ -49,6 +50,20 @@ export class StorageService {
                 });
         } else {
             this.storage.setItem(collectionsSlice.name, JSON.stringify(collections));
+        }
+    }
+
+    persistDropboxSync(dropboxSync) {
+        console.log('Persisting Dropbox sync state:', dropboxSync);
+
+        if (this.isChromeEnvironment === true) {
+            this.storage
+                .setValue({ [dropboxSyncSlice.name]: dropboxSync })
+                .then(() => {
+                    console.log('Dropbox sync state persisted successfully.');
+                });
+        } else {
+            this.storage.setItem(dropboxSyncSlice.name, JSON.stringify(dropboxSync));
         }
     }
 
