@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import { collectionsSlice } from "./collections-slice";
 import { dialogSlice } from "./dialog-slice";
+import { dropboxSyncSlice } from "./dropbox-sync-slice";
 import { itemsSlice } from "./items-slice";
 import { menuSlice } from "./menu-slice";
 import { modeSlice } from './mode-slice';
@@ -22,6 +23,13 @@ export function createInitState() {
         dialog: {
             target: null,
             type: null
+        },
+
+        dropboxSync: {
+            accessToken: null, // Dropbox access token
+            busy: false, // Is Dropbox syncing
+            codeVerifier: null, // Code verifier for Dropbox OAuth
+            error: null, // Error message if any
         },
 
         items: {
@@ -74,6 +82,7 @@ export function createNewStore(initState, storageService, listenerMiddleware = n
         reducer: {
             collections: collectionsSlice.reducer,
             dialog: dialogSlice.reducer,
+            dropboxSync: dropboxSyncSlice.reducer,
             items: itemsSlice.reducer,
             menu: menuSlice.reducer,
             mode: modeSlice.reducer,
