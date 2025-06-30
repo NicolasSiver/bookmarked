@@ -4,6 +4,10 @@ export const getDialogTarget = state => state.dialog.target;
 
 export const getDialogType = state => state.dialog.type;
 
+export const getDropboxSyncAccessToken = state => state.dropboxSync.accessToken;
+
+export const getDropboxSyncCodeChallenge = state => state.dropboxSync.codeChallenge;
+
 export const getDropboxSyncCodeVerifier = state => state.dropboxSync.codeVerifier;
 
 export const getItems = state => state.items;

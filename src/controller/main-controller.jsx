@@ -8,6 +8,7 @@ import * as Constants from '../model/constants';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
 import * as DialogTypes from '../model/dialog-types';
 import { DropboxController } from './dropbox-controller';
+import { setCodeChallenge } from '../model/dropbox-sync-slice';
 import { getStorageUsageRatio } from '../util/get-storage-usage-ratio';
 import { changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItem, deleteItemsByCollectionId } from '../model/items-slice';
 import * as ItemProperties from '../model/item-properties';
@@ -72,6 +73,12 @@ export class MainController {
         console.log(`Changing dialog target to ${value}`);
 
         this.store.dispatch(changeDialogTarget(value));
+    }
+
+    changeDropboxSyncCodeChallenge(codeChallenge) {
+        console.log(`Changing Dropbox sync code challenge to ${codeChallenge}`);
+
+        this.store.dispatch(setCodeChallenge(codeChallenge));
     }
 
     changeItemWidth(itemWidth) {
@@ -204,6 +211,12 @@ export class MainController {
         }
     }
 
+    finishDropboxAuth() {
+        console.log('Finishing Dropbox authentication...');
+
+        this.dropboxController.verifyCodeChallenge();
+    }
+
     itemDidClick(item) {
         console.log(`Item clicked: ${item}`);
 
@@ -242,6 +255,7 @@ export class MainController {
                     changeCollectionName={(id, name) => this.changeCollectionName(id, name)}
                     changeCollectionSpaces={(id, spaces) => this.changeCollectionSpaces(id, spaces)}
                     changeDialogTarget={value => this.changeDialogTarget(value)}
+                    changeDropboxSyncCodeChallenge={code => this.changeDropboxSyncCodeChallenge(code)}
                     changeItemWidth={itemWidth => this.changeItemWidth(itemWidth)}
                     changeMode={() => this.changeMode()}
                     changeSearchQuery={query => this.changeSearchQuery(query)}
@@ -258,6 +272,7 @@ export class MainController {
                     deleteSpace={spaceId => this.deleteSpace(spaceId)}
                     editCollectionItem={(collectionId, itemId) => this.editCollectionItem(collectionId, itemId)}
                     editItemProperty={(collectionId, itemId, property, value) => this.editItemProperty(collectionId, itemId, property, value)}
+                    finishDropboxAuth={() => this.finishDropboxAuth()}
                     itemDidClick={item => this.itemDidClick(item)}
                     menuDidSelect={element => this.menuDidSelect(element)}
                     openDialog={(type, target) => this.openDialog(type, target)}

@@ -1,11 +1,12 @@
-import { Box, Button, IconButton, TextField } from "@mui/material";
-import IconCheck from "@mui/icons-material/CheckCircle";
+import { Box, Button, IconButton, TextField, Tooltip } from "@mui/material";
+import IconSend from "@mui/icons-material/Send";
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { getDropboxSyncCodeVerifier } from "../../model/selectors";
+import { getDropboxSyncCodeChallenge, getDropboxSyncCodeVerifier } from "../../model/selectors";
 
 export const DropboxSync = props => {
+    const codeChallenge = useSelector(getDropboxSyncCodeChallenge) || '';
     const codeVerifier = useSelector(getDropboxSyncCodeVerifier);
 
     const renderDropboxSync = () => {
@@ -18,12 +19,18 @@ export const DropboxSync = props => {
                         fullWidth
                         label="OAuth code"
                         size="small"
-                        placeholder="Example: 4/0AY0e-g5..."
-                        onChange={event => undefined} />
-                    <IconButton onClick={() => undefined} sx={{ ml: 1 }} loading={true}>
-                        <IconCheck />
-                    </IconButton>
-                </Box>
+                        placeholder="Example: 8PNzOhLcg8..."
+                        value={codeChallenge}
+                        onChange={event => props.changeDropboxSyncCodeChallenge(event.target.value)} />
+                    <Tooltip title="Send OAuth code to finish connecting to Dropbox">
+                        <IconButton
+                            onClick={() => props.finishDropboxAuth()}
+                            sx={{ ml: 1 }}
+                            loading={codeChallenge.length === 0}>
+                            <IconSend />
+                        </IconButton>
+                    </Tooltip>
+                </Box >
             );
         }
 

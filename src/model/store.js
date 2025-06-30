@@ -28,6 +28,7 @@ export function createInitState() {
         dropboxSync: {
             accessToken: null, // Dropbox access token
             busy: false, // Is Dropbox syncing
+            codeChallenge: null, // Code challenge for Dropbox OAuth
             codeVerifier: null, // Code verifier for Dropbox OAuth
             error: null, // Error message if any
         },
