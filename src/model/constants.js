@@ -7,6 +7,14 @@
 export const DEFAULT_SPACE = 'defaultSpaceAll';
 
 /**
+ * Dropbox client ID for authentication.
+ * This ID is used to identify the application when making requests to the Dropbox API.
+ * @type {string}
+ * @constant
+ */
+export const DROPBOX_CLIENT_ID = 'vbd905z3ioa15pi';
+
+/**
  * Soft limit for the number of characters in an item title.
  * This is used to ensure that titles are not too long for display purposes.
  * @type {number}

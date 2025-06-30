@@ -1,8 +1,8 @@
-import { Box, Button, Drawer, FormControl, FormHelperText, FormLabel, Icon, IconButton, InputLabel, LinearProgress, Link, MenuItem, Select, Stack, Switch, TextField, Typography } from "@mui/material";
-import IconCheck from "@mui/icons-material/CheckCircle";
+import { Box, Drawer, FormControl, FormHelperText, FormLabel, InputLabel, LinearProgress, Link, MenuItem, Select, Stack, Switch, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 
+import { DropboxSync } from "./dropbox-sync";
 import { getVersion } from "../../util/get-version";
 import { getSettingsItemWidth, getSettingsMode, getSettingsPanelOpen, getSettingsPanelStorageQuota } from "../../model/selectors";
 
@@ -23,28 +23,6 @@ export const Settings = (props) => {
 
     const toggleTheme = event => {
         props.changeTheme(event.target.checked === true ? 'dark' : 'light');
-    };
-
-    const renderDropboxSync = () => {
-        let result = null;
-
-        if (true) {
-            return (
-                <Box sx={{ display: 'flex', alignItems: 'center', my: 1 }}>
-                    <TextField
-                        fullWidth
-                        label="OAuth code"
-                        size="small"
-                        placeholder="Example: 4/0AY0e-g5..."
-                        onChange={event => undefined} />
-                        <IconButton onClick={() => undefined} sx={{ ml: 1 }} loading={true}>
-                            <IconCheck />
-                        </IconButton>
-                </Box>
-            );
-        }
-
-        return result;
     };
 
     return (
@@ -88,13 +66,7 @@ export const Settings = (props) => {
                     <Typography variant="h6" sx={{ my: 2 }}>Integrations</Typography>
                     <FormControl component="fieldset" variant="standard">
                         <FormLabel>Data sync</FormLabel>
-                        <Button
-                            variant="contained"
-                            onClick={() => undefined}
-                            sx={{ mt: 1, mb: 1 }}>
-                            Connect to Dropbox
-                        </Button>
-                        {renderDropboxSync()}
+                        <DropboxSync {...props} />
                         <FormHelperText>Syncrhonize data to Dropbox <br />via Bookmarked Dropbox Application.<br />It will create "Bookmarked" folder for all data.</FormHelperText>
                     </FormControl>
 

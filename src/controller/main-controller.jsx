@@ -7,6 +7,7 @@ import { addCollection, changeCollectionName, deleteCollection, shiftColleciton 
 import * as Constants from '../model/constants';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
 import * as DialogTypes from '../model/dialog-types';
+import { DropboxController } from './dropbox-controller';
 import { getStorageUsageRatio } from '../util/get-storage-usage-ratio';
 import { changeItemDescription, changeItemOrder, changeItemParent, changeItemTitle, changeItemUrl, deleteItem, deleteItemsByCollectionId } from '../model/items-slice';
 import * as ItemProperties from '../model/item-properties';
@@ -29,9 +30,11 @@ export class MainController {
         this.storageService = new StorageService();
         this.store = createNewStore(createInitState(), this.storageService, this.listenerMiddleware);
         this.searchController = new SearchController(this.store, this.listenerMiddleware);
-        this.storageService.initWithStore(this.store);
+        this.dropboxController = new DropboxController();
 
+        this.storageService.initWithStore(this.store);
         this.searchController.init();
+        this.dropboxController.initWithStore(this.store);
     }
 
     init() {
@@ -45,6 +48,12 @@ export class MainController {
         }).catch(error => {
             console.error('Error getting storage usage ratio:', error);
         });
+    }
+
+    authDropbox() {
+        console.log('Authenticating with Dropbox...');
+
+        this.dropboxController.auth();
     }
 
     changeCollectionName(collectionId, name) {
@@ -229,6 +238,7 @@ export class MainController {
         root.render(
             <Provider store={this.store}>
                 <RootLayout
+                    authDropbox={() => this.authDropbox()}
                     changeCollectionName={(id, name) => this.changeCollectionName(id, name)}
                     changeCollectionSpaces={(id, spaces) => this.changeCollectionSpaces(id, spaces)}
                     changeDialogTarget={value => this.changeDialogTarget(value)}

@@ -13,8 +13,12 @@ export const dropboxSyncSlice = createSlice({
     reducers: {
         setCodeVerifier: (state, action) => {
             state.codeVerifier = action.payload;
+        },
+
+        setDropboxError: (state, action) => {
+            state.error = action.payload;
         }
     }
 });
 
-export const { setCodeVerifier } = dropboxSyncSlice.actions;
+export const { setCodeVerifier, setDropboxError } = dropboxSyncSlice.actions;
