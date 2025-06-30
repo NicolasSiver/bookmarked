@@ -11,6 +11,18 @@ export const dropboxSyncSlice = createSlice({
     name: 'dropboxSync',
     initialState,
     reducers: {
+        hydrateDropboxSync(state, action) {
+            // Only update properties that exist in the current state
+            Object.keys(action.payload).forEach(key => {
+                if (state.hasOwnProperty(key) === true) {
+                    // Ignore busy state and error state during hydration
+                    if (key !== 'busy' || key !== 'error') {
+                        state[key] = action.payload[key];
+                    }
+                }
+            });
+        },
+
         setCodeVerifier: (state, action) => {
             state.codeVerifier = action.payload;
         },
@@ -21,4 +33,4 @@ export const dropboxSyncSlice = createSlice({
     }
 });
 
-export const { setCodeVerifier, setDropboxError } = dropboxSyncSlice.actions;
+export const { hydrateDropboxSync, setCodeVerifier, setDropboxError } = dropboxSyncSlice.actions;

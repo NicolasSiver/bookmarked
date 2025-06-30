@@ -4,7 +4,7 @@ import * as Constants from "../model/constants";
 import { createBucketKeys } from "../util/create-bucket-keys";
 import { createStorageBuckets } from "../util/create-storage-buckets";
 import { ExtensionStorage } from "./extension-storage";
-import { dropboxSyncSlice } from "../model/dropbox-sync-slice"; 
+import { hydrateDropboxSync, dropboxSyncSlice } from "../model/dropbox-sync-slice";
 import { hydrateItems, itemsSlice } from "../model/items-slice";
 import { hydrateSettings, settingsSlice } from "../model/settings-slice";
 import { hydrateSpaces, spacesSlice } from "../model/spaces-slice";
@@ -113,7 +113,7 @@ export class StorageService {
     }
 
     restore() {
-        return this.restoreLocalState().then(({ collections, items, settings, spaces }) => {
+        return this.restoreLocalState().then(({ collections, dropboxSync, items, settings, spaces }) => {
             console.log('Restoring persisted state...');
 
             if (Array.isArray(collections) === true && collections.length > 0) {
@@ -135,33 +135,41 @@ export class StorageService {
                 console.log('Hydrating spaces:', spaces);
                 this.store.dispatch(hydrateSpaces(spaces));
             }
+
+            if (typeof dropboxSync === 'object' && dropboxSync !== null) {
+                console.log('Hydrating Dropbox sync state:', dropboxSync);
+                this.store.dispatch(hydrateDropboxSync(dropboxSync));
+            }
         });
     }
 
     restoreLocalState() {
-        let collections, items, result, settings, spaces;
+        let collections, dropboxSync, items, result, settings, spaces;
 
         if (this.isChromeEnvironment === true) {
             result = Promise.all([
                 this.storage.getValue([collectionsSlice.name]),
                 this.storage.getValue(createBucketKeys(itemsSlice.name, Constants.STORAGE_BUCKETS_MAX)),
                 this.storage.getValue([settingsSlice.name]),
-                this.storage.getValue([spacesSlice.name])
-            ]).then(([collectionsData, itemsData, settingsData, spacesData]) => {
+                this.storage.getValue([spacesSlice.name]),
+                this.storage.getValue([dropboxSyncSlice.name])
+            ]).then(([collectionsData, itemsData, settingsData, spacesData, dropboxSyncData]) => {
                 collections = collectionsData[collectionsSlice.name];
                 items = composeDataFromBuckets(itemsData);
                 settings = settingsData[settingsSlice.name];
                 spaces = spacesData[spacesSlice.name];
+                dropboxSync = dropboxSyncData[dropboxSyncSlice.name];
 
-                return { collections, items, settings, spaces };
+                return { collections, dropboxSync, items, settings, spaces };
             });
         } else {
             collections = JSON.parse(this.storage.getItem(collectionsSlice.name) || '[]');
+            dropboxSync = JSON.parse(this.storage.getItem(dropboxSyncSlice.name));
             items = JSON.parse(this.storage.getItem(itemsSlice.name) || '{}');
             settings = JSON.parse(this.storage.getItem(settingsSlice.name));
             spaces = JSON.parse(this.storage.getItem(spacesSlice.name));
 
-            result = Promise.resolve({ collections, items, settings, spaces });
+            result = Promise.resolve({ collections, dropboxSync, items, settings, spaces });
         }
 
         return result;
