@@ -1,8 +1,8 @@
 import { DropboxAuth } from "dropbox";
 
 import * as Constants from "../model/constants";
-import { resetAuthorizationCodeFlow, setAccessToken, setCodeVerifier, setDropboxError } from "../model/dropbox-sync-slice";
-import { getDropboxSyncCodeChallenge, getDropboxSyncCodeVerifier } from "../model/selectors";
+import { resetAuthorizationCodeFlow, setCodeVerifier, setDropboxError, setRefreshToken } from "../model/dropbox-sync-slice";
+import { getDropboxSyncCodeChallenge, getDropboxSyncCodeVerifier, getDropboxSyncRefreshToken } from "../model/selectors";
 
 export class DropboxController {
     constructor() {
@@ -42,6 +42,14 @@ export class DropboxController {
         this.store = store;
     }
 
+    isConnected() {
+        const state = this.store.getState();
+        const refreshToken = getDropboxSyncRefreshToken(state);
+
+        // Check if Dropbox is connected by verifying the presence of a refresh token
+        return refreshToken !== null && refreshToken.length > 0;
+    }
+
     verifyCodeChallenge() {
         const state = this.store.getState();
         const codeChallenge = getDropboxSyncCodeChallenge(state);
@@ -55,11 +63,9 @@ export class DropboxController {
         this.dbxAuth.setCodeVerifier(codeVerifier);
         this.dbxAuth.getAccessTokenFromCode('', codeChallenge)
             .then(response => {
-                console.log('Dropbox access token received:', response.result.access_token);
-                // TODO: Referesh Token
-                console.log(response);
+                console.log('Dropbox refresh token received:', response.result.refresh_token);
 
-                this.store.dispatch(setAccessToken(response.result.access_token));
+                this.store.dispatch(setRefreshToken(response.result.refresh_token));
                 this.store.dispatch(resetAuthorizationCodeFlow());
             })
             .catch(error => {

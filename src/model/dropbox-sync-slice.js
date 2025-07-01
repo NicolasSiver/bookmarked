@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 let initialState = {
-    accessToken: null, // Dropbox access token
     busy: false, // Is Dropbox syncing
     codeChallenge: null, // Code challenge for Dropbox OAuth
     codeVerifier: null, // Code verifier for Dropbox OAuth
     error: null, // Error message if any
+    refreshToken: null, // Dropbox refresh token
 };
 
 export const dropboxSyncSlice = createSlice({
@@ -29,10 +29,6 @@ export const dropboxSyncSlice = createSlice({
             state.codeVerifier = null;
         },
 
-        setAccessToken: (state, action) => {
-            state.accessToken = action.payload;
-        },
-
         setCodeChallenge: (state, action) => {
             state.codeChallenge = action.payload;
         },
@@ -43,8 +39,12 @@ export const dropboxSyncSlice = createSlice({
 
         setDropboxError: (state, action) => {
             state.error = action.payload;
-        }
+        },
+
+        setRefreshToken: (state, action) => {
+            state.refreshToken = action.payload;
+        },
     }
 });
 
-export const { hydrateDropboxSync, resetAuthorizationCodeFlow, setAccessToken, setCodeChallenge, setCodeVerifier, setDropboxError } = dropboxSyncSlice.actions;
+export const { hydrateDropboxSync, resetAuthorizationCodeFlow, setCodeChallenge, setCodeVerifier, setDropboxError, setRefreshToken } = dropboxSyncSlice.actions;
