@@ -3,11 +3,41 @@ import IconSend from "@mui/icons-material/Send";
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { getDropboxSyncCodeChallenge, getDropboxSyncCodeVerifier } from "../../model/selectors";
+import { getDropboxSyncCodeChallenge, getDropboxSyncCodeVerifier, getDropboxSyncRefreshToken } from "../../model/selectors";
 
 export const DropboxSync = props => {
     const codeChallenge = useSelector(getDropboxSyncCodeChallenge) || '';
     const codeVerifier = useSelector(getDropboxSyncCodeVerifier);
+    const refreshToken = useSelector(getDropboxSyncRefreshToken);
+
+    const renderButton = () => {
+        let result = null;
+
+        if (refreshToken !== null) {
+            result = (
+                <Button
+                    fullWidth
+                    variant="outlined"
+                    color="error"
+                    onClick={() => props.revokeDropboxSync()}
+                    sx={{ mt: 1, mb: 1 }}>
+                    Disconnect Dropbox
+                </Button>
+            );
+        } else {
+            result = (
+                <Button
+                    fullWidth
+                    variant="contained"
+                    onClick={() => props.authDropbox()}
+                    sx={{ mt: 1, mb: 1 }}>
+                    Connect to Dropbox
+                </Button>
+            );
+        }
+
+        return result;
+    };
 
     const renderDropboxSync = () => {
         let result = null;
@@ -39,13 +69,7 @@ export const DropboxSync = props => {
 
     return (
         <div className="dropbox-sync">
-            <Button
-                fullWidth
-                variant="contained"
-                onClick={() => props.authDropbox()}
-                sx={{ mt: 1, mb: 1 }}>
-                Connect to Dropbox
-            </Button>
+            {renderButton()}
             {renderDropboxSync()}
         </div>
     );
