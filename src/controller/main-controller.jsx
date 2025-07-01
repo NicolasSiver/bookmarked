@@ -277,11 +277,18 @@ export class MainController {
                     menuDidSelect={element => this.menuDidSelect(element)}
                     openDialog={(type, target) => this.openDialog(type, target)}
                     openSettings={() => this.openSettings()}
+                    revokeDropbox={() => this.revokeDropbox()}
                     shiftCollection={(from, to) => this.shiftCollection(from, to)}
                     shiftSpace={(from, to) => this.shiftSpace(from, to)}
                     toggleSettings={() => this.toggleSettings()} />
             </Provider>
         );
+    }
+
+    revokeDropbox() {
+        console.log('Revoking Dropbox connection...');
+
+        this.dropboxController.revoke();
     }
 
     shiftCollection(fromIndex, toIndex) {

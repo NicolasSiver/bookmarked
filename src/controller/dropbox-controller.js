@@ -1,7 +1,7 @@
 import { DropboxAuth } from "dropbox";
 
 import * as Constants from "../model/constants";
-import { resetAuthorizationCodeFlow, setCodeVerifier, setDropboxError, setRefreshToken } from "../model/dropbox-sync-slice";
+import { resetAuthorizationCodeFlow, resetDropboxSync, setCodeVerifier, setDropboxError, setRefreshToken } from "../model/dropbox-sync-slice";
 import { getDropboxSyncCodeChallenge, getDropboxSyncCodeVerifier, getDropboxSyncRefreshToken } from "../model/selectors";
 
 export class DropboxController {
@@ -48,6 +48,11 @@ export class DropboxController {
 
         // Check if Dropbox is connected by verifying the presence of a refresh token
         return refreshToken !== null && refreshToken.length > 0;
+    }
+
+    revoke(){
+        this.dbxAuth = null;
+        this.store.dispatch(resetDropboxSync());
     }
 
     verifyCodeChallenge() {

@@ -19,7 +19,7 @@ export const DropboxSync = props => {
                     fullWidth
                     variant="outlined"
                     color="error"
-                    onClick={() => props.revokeDropboxSync()}
+                    onClick={() => props.revokeDropbox()}
                     sx={{ mt: 1, mb: 1 }}>
                     Disconnect Dropbox
                 </Button>

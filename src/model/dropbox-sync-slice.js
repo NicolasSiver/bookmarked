@@ -29,6 +29,10 @@ export const dropboxSyncSlice = createSlice({
             state.codeVerifier = null;
         },
 
+        resetDropboxSync: (state) => {
+            return initialState;
+        },
+
         setCodeChallenge: (state, action) => {
             state.codeChallenge = action.payload;
         },
@@ -47,4 +51,4 @@ export const dropboxSyncSlice = createSlice({
     }
 });
 
-export const { hydrateDropboxSync, resetAuthorizationCodeFlow, setCodeChallenge, setCodeVerifier, setDropboxError, setRefreshToken } = dropboxSyncSlice.actions;
+export const { hydrateDropboxSync, resetAuthorizationCodeFlow, resetDropboxSync, setCodeChallenge, setCodeVerifier, setDropboxError, setRefreshToken } = dropboxSyncSlice.actions;
