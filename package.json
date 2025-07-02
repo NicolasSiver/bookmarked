@@ -39,6 +39,7 @@
     "@paralleldrive/cuid2": "^2.2.2",
     "@reduxjs/toolkit": "^2.8.2",
     "dropbox": "^10.34.0",
+    "lodash": "^4.17.21",
     "minisearch": "^7.1.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
