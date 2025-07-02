@@ -53,4 +53,4 @@ export const collectionsSlice = createSlice({
     }
 });
 
-export const { addCollection, changeCollectionName, deleteCollection, hydrateCollections, shiftColleciton } = collectionsSlice.actions;
+export const { addCollection, changeCollectionName, deleteCollection, hydrateCollections, shiftCollection } = collectionsSlice.actions;

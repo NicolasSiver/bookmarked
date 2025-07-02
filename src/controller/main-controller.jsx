@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { createListenerMiddleware } from '@reduxjs/toolkit';
 
-import { addCollection, changeCollectionName, deleteCollection, shiftColleciton } from '../model/collections-slice';
+import { addCollection, changeCollectionName, deleteCollection, shiftCollection } from '../model/collections-slice';
 import * as Constants from '../model/constants';
 import { changeDialogTarget, closeDialog, openDialog } from '../model/dialog-slice';
 import * as DialogTypes from '../model/dialog-types';
@@ -36,6 +36,7 @@ export class MainController {
         this.storageService.initWithStore(this.store);
         this.searchController.init();
         this.dropboxController.initWithStore(this.store);
+        this.dropboxController.addListeners(this.listenerMiddleware);
     }
 
     init() {
@@ -294,7 +295,7 @@ export class MainController {
     shiftCollection(fromIndex, toIndex) {
         console.log(`Shifting collection from ${fromIndex} to ${toIndex}`);
 
-        this.store.dispatch(shiftColleciton({ fromIndex, toIndex }));
+        this.store.dispatch(shiftCollection({ fromIndex, toIndex }));
     }
 
     shiftSpace(fromIndex, toIndex) {
