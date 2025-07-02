@@ -44,7 +44,7 @@ export const collectionsSlice = createSlice({
             }
         },
 
-        shiftColleciton(state, action) {
+        shiftCollection(state, action) {
             const { fromIndex, toIndex } = action.payload;
             const collection = state.splice(fromIndex, 1)[0];
 
