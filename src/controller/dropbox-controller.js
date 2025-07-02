@@ -3,6 +3,7 @@ import { DropboxAuth } from "dropbox";
 import * as Constants from "../model/constants";
 import { resetAuthorizationCodeFlow, resetDropboxSync, setCodeVerifier, setDropboxError, setRefreshToken } from "../model/dropbox-sync-slice";
 import { getDropboxSyncCodeChallenge, getDropboxSyncCodeVerifier, getDropboxSyncRefreshToken } from "../model/selectors";
+import { StorageDocument } from "../util/storage-document";
 
 export class DropboxController {
     constructor() {
@@ -50,7 +51,7 @@ export class DropboxController {
         return refreshToken !== null && refreshToken.length > 0;
     }
 
-    revoke(){
+    revoke() {
         this.dbxAuth = null;
         this.store.dispatch(resetDropboxSync());
     }
